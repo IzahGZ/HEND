@@ -259,7 +259,7 @@
             <li><a href="/"><i class="fa fa-fw fa-angle-double-right"></i> Request Of Purchase</a></li>
             <li><a href="/"><i class="fa fa-fw fa-angle-right"></i> Purchase Order</a></li>
             <li><a href="/"><i class="fa fa-fw fa-angle-right"></i> Order Details</a></li>
-            
+
           </ul>
         </li>
         <li class="treeview">
@@ -268,6 +268,7 @@
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
+            
           </a>
           <ul class="treeview-menu">
             <li><a href="/"><i class="fa fa-fw fa-angle-right"></i> Good Receiving</a></li>
