@@ -17,7 +17,7 @@ class CreateProcess extends Migration
             $table->bigIncrements('id');
             $table->char('code');
             $table->char('name');
-            $table->int('station');
+            $table->integer('station');
             $table->decimal('duration', 8, 2);
             $table->timestamps();
             $table->softDeletes();
