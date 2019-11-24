@@ -34,8 +34,9 @@ class ProjectController extends Controller
 
        public function create(){
         $products = Product::all();
-        $rawMaterials = RawMaterial::all();
+        $rawMaterials = RawMaterial::with('uoms')->get();
         $process = Process::all();
+
         return view('Project.create', compact('products', 'rawMaterials', 'process'));
     }
 
