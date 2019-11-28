@@ -24,7 +24,10 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
   <style>
     .p-r-md {
-      padding-right: 2rem;
+      padding-right: 2em;
+    }
+    .m-t-2 {
+      margin-top: 2em;
     }
   </style>
 </head>
