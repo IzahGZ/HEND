@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Process;
-use Illuminate\Http\Request;
+use App\Http\Requests\ProcessRequest;
+use Exception;
+use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\DB;
 
 class ProcessController extends Controller
 {
@@ -16,7 +19,7 @@ class ProcessController extends Controller
     {
         $processes = Process::orderBy('name')->get();
 
-        return view('process.index', compact('processes'));
+        return view('process.index.index', compact('processes'));
     }
 
     /**
@@ -35,9 +38,23 @@ class ProcessController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ProcessRequest $request)
     {
-        //
+        $inputs = $request->except('_token');
+        try {
+            DB::transaction(function() use ($inputs) {
+                $process = new Process($inputs);
+                $process->save();
+            });
+        } catch(QueryException $ex) {
+            return $this->redirectBack();
+        } catch(Exception $ex) {
+            return $this->redirectBack();
+        }
+
+        return redirect()->route('process.index')->with([
+            'success' => 'Process successfully created'
+        ]);
     }
 
     /**
@@ -69,7 +86,7 @@ class ProcessController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ProcessRequest $request, $id)
     {
         //
     }
@@ -82,6 +99,6 @@ class ProcessController extends Controller
      */
     public function destroy(Process $process)
     {
-        //
+        return response()->json($process->delete());
     }
 }
