@@ -11,10 +11,5 @@ class Process extends Model
     protected $dates = ['deleted_at'];
     public $table = 'process';
 
-    public $fillable = [
-        'code',
-        'name',
-        'station',
-        'duration'
-    ];
+    protected $guarded = [];
 }
