@@ -111,3 +111,11 @@ Route::get('uom/{id}/confirm-delete', array('as' => 'uom.confirm-delete', 'uses'
 Route::get('uom/create', 'UomController@create')->name('Uom.create');
 Route::post('uomStore', ['as'=> 'uom.store', 'uses' => 'UomController@store']);
 
+Route::group([
+    'prefix' => 'process',
+    'as' => 'process.'
+], function() {
+    Route::get('process/process_data', 'ProcessController@process_data')->name('data');
+});
+Route::resource('process', 'ProcessController');
+
