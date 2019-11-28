@@ -10,4 +10,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+    protected function redirectBack($message="Something went wrong please try again, if the issue still persists, please contact management") {
+        return redirect()->back()->withErrors($message);
+    }
 }
