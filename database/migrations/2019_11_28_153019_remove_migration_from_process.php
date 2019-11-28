@@ -14,7 +14,7 @@ class RemoveMigrationFromProcess extends Migration
     public function up()
     {
         Schema::table('process', function (Blueprint $table) {
-            $table->removeColumn('duration');
+            $table->dropColumn('duration');
         });
     }
 
