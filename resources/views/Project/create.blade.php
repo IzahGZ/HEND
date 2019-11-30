@@ -8,7 +8,7 @@
       </h1>
       <ol class="breadcrumb">
           <li><a href="{!! URL::to('index') !!}"><i class="fa fa-dashboard"></i> Home</a></li>
-          <li><a href="{!! URL::to('project') !!}">Project</a></li>
+          <li><a href="{!! URL::to('project') !!}">Project List</a></li>
           <li class="active">Add Project</li>
       </ol>
     </section>

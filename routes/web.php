@@ -75,7 +75,7 @@ Route::post('productsStore', ['as'=> 'products.store', 'uses' => 'ProductControl
 //BILL OF MATERIALS=================================================================================================================================
 //PROJECTS      
 Route::get('project', ['as'=> 'project.index', 'uses' => 'ProjectController@index']);
-Route::get('project/{id}/view}', array('as' => 'project.view', 'uses' => 'ProjectController@view'));
+Route::get('project/{project}/view}', array('as' => 'project.view', 'uses' => 'ProjectController@view'));
 Route::get('project/{project}/edit', ['as'=> 'project.edit', 'uses' => 'ProjectController@edit']);
 Route::put('project/{project}', ['as'=> 'project.update', 'uses' => 'ProjectController@update']);
 Route::patch('project/{project}', ['as'=> 'project.update', 'uses' => 'ProjectController@update']);

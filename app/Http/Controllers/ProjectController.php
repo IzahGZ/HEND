@@ -67,10 +67,8 @@ class ProjectController extends Controller
                 }
             });
         } catch(Exception $ex) {
-            dd($ex->getMessage());
             return $this->redirectBack();
         } catch(QueryException $ex) {
-            dd($ex->getMessage());
             return $this->redirectBack();
         }
 
@@ -79,11 +77,9 @@ class ProjectController extends Controller
             ->with('success', 'Project successfully created');
     }
 
-    public function view($id)
+    public function view(Project $Project)
     {
-        $project = Project::with('products')->findOrFail($id);
-        $products =Product::all();
-        return view('project.view', compact('products'));
+        return view('project.view', compact('Project'));
     }
 
     public function edit(Project $Project){
