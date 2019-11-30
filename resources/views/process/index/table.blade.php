@@ -16,7 +16,7 @@
             <td>{{$process->code}}</td>
             <td>{{$process->name}}</td>
             <td>{{$process->station}}</td>
-            <td class="text-center">
+            <td>
               <a href="{{ route('process.edit', $process->id ) }}">
                 <i class="fa fa-edit" data-name="info" data-size="18" data-loop="true" title="view process"></i>
               </a> &nbsp;
