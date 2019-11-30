@@ -8,8 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Project extends Model
 {
     use SoftDeletes;
-    protected $attributes = ['total_bom' => 0];
-    protected $dates = ['deleted_at'];
+    protected $dates = ['deleted_at', 'created_at', 'updated_at'];
 
     public $fillable = [
         'name',
@@ -25,7 +24,24 @@ class Project extends Model
 
     public function products(){
 
-        return $this->belongsTo('App\Project','product_id','id');
+        return $this->belongsTo(Product::class,'product_id');
 
+    }
+
+    public function materials() {
+        return $this->belongsToMany(RawMaterial::class, 'project_material', 'project_id', 'raw_material_id')
+            ->withPivot([
+                'quantity'
+            ])
+            ->withTimestamps();
+    }
+
+    public function processes() {
+        return $this->belongsToMany(Process::class, 'project_process', 'project_id', 'process_id')
+            ->withPivot([
+                'duration',
+                'raw_material_id',
+            ])
+            ->withTimestamps();
     }
 }
