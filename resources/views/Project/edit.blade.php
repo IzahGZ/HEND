@@ -21,7 +21,7 @@
           <!-- SELECT2 EXAMPLE -->
           @include('Project.message')
           <div class="box box-danger">
-          {!! Form::model($project, ['route' => ['project.update', $project->id ], 'method' => 'patch']) !!}
+          {!! Form::model($Project, ['route' => ['project.update', $Project->id ], 'method' => 'patch']) !!}
             <div class="box-header with-border">
               {{-- <h3 class="box-title">Add New project</h3> --}}
             </div>

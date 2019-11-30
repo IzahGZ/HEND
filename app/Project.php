@@ -33,6 +33,7 @@ class Project extends Model
             ->withPivot([
                 'quantity'
             ])
+            ->using(ProjectMaterial::class)
             ->withTimestamps();
     }
 
@@ -42,6 +43,7 @@ class Project extends Model
                 'duration',
                 'raw_material_id',
             ])
+            ->using(ProjectProcess::class)
             ->withTimestamps();
     }
 }

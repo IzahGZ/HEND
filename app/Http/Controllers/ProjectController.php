@@ -86,26 +86,47 @@ class ProjectController extends Controller
         return view('project.view', compact('products'));
     }
 
-    public function edit($id){
-        // $rawMaterial = RawMaterial::with('suppliers', 'uoms')->findOrFail($id);
-        // $uoms = Uom::all();
-        // $suppliers = Supplier::all();
-        // return view('rawMaterial.edit', compact('rawMaterial','uoms', 'suppliers'));
+    public function edit(Project $Project){
+        $products = Product::all();
+        $rawMaterials = RawMaterial::with('uoms')->get();
+        $process = Process::all();
+
+        return view('project.edit', compact('rawMaterials','process', 'products', 'Project'));
     }
 
-    public function update(Request $request, $id){
-        // $rawMaterial = RawMaterial::find($id);
-        // $rawMaterial->name = $request->input('name');
-        // $rawMaterial->code = $request->input('code');
-        // $rawMaterial->supplier = $request->input('supplier');
-        // $rawMaterial->lead_time = $request->input('lead_time');
-        // $rawMaterial->uom = $request->input('uom');
-        // $rawMaterial->price = $request->input('price');
-        // $rawMaterial->shelf_life = $request->input('shelf_life');
-        // $rawMaterial->safety_stock = $request->input('safety_stock');
-        // $rawMaterial->holding_cost = $request->input('holding_cost');
-        // $rawMaterial->save();
+    public function update(ProjectRequest $request, Project $Project){
+        try {
+            DB::transaction(function() use ($request, $Project) {
+                $Project->materials()->detach();
+                $Project->processes()->detach();
 
-        // return redirect(route('rawMaterial.index'))->with('success', 'RawMaterial updated');
+                $Project->code = $request->code;
+                $Project->product_id = $request->product_id;
+                $Project->save();
+
+                foreach ($request->material as $material) {
+                    $Project->materials()->attach($material['id'], [
+                        'quantity' => $material['quantity'],
+                    ]);
+                }
+
+                foreach ($request->process as $process) {
+                    $Project->processes()->attach($process['process'], [
+                        'raw_material_id' => $process['materialId'],
+                        'duration' => $process['duration'],
+                    ]);
+                }
+            });
+        } catch(Exception $ex) {
+            dd($ex->getMessage());
+            return $this->redirectBack();
+        } catch(QueryException $ex) {
+            dd($ex->getMessage());
+            return $this->redirectBack();
+        }
+
+        return redirect()
+            ->route('project.index')
+            ->with('success', 'Project successfully updated');
     }
 }

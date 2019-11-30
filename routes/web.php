@@ -76,9 +76,9 @@ Route::post('productsStore', ['as'=> 'products.store', 'uses' => 'ProductControl
 //PROJECTS      
 Route::get('project', ['as'=> 'project.index', 'uses' => 'ProjectController@index']);
 Route::get('project/{id}/view}', array('as' => 'project.view', 'uses' => 'ProjectController@view'));
-Route::get('project/{id}/edit', ['as'=> 'project.edit', 'uses' => 'ProjectController@edit']);
-Route::put('project/{id}', ['as'=> 'project.update', 'uses' => 'ProjectController@update']);
-Route::patch('project/{id}', ['as'=> 'project.update', 'uses' => 'ProjectController@update']);
+Route::get('project/{project}/edit', ['as'=> 'project.edit', 'uses' => 'ProjectController@edit']);
+Route::put('project/{project}', ['as'=> 'project.update', 'uses' => 'ProjectController@update']);
+Route::patch('project/{project}', ['as'=> 'project.update', 'uses' => 'ProjectController@update']);
 Route::get('project/{id}/delete', array('as' => 'project.delete', 'uses' => 'ProjectController@getDelete'));
 Route::get('project/{id}/confirm-delete', array('as' => 'project.confirm-delete', 'uses' => 'ProjectController@getModalDelete'));
 Route::get('project/create', 'ProjectController@create')->name('Project.create');
