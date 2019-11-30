@@ -63,10 +63,10 @@
     })
   
     $('#delete_confirm').on('show.bs.modal', function (event) {
-                        var button = $(event.relatedTarget)
-                         var $recipient = button.data('id');
-                        var modal = $(this);
-                        modal.find('.modal-footer a').prop("href",$recipient);
-                    })
+      var button = $(event.relatedTarget)
+        var $recipient = button.data('id');
+      var modal = $(this);
+      modal.find('.modal-footer a').prop("href",$recipient);
+    })
   </script>
   @endpush

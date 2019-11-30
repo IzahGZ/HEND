@@ -1,36 +1,30 @@
-<!-- /.box-header -->
 <div class="box-body">
   <div class="row">
     <div class="col-md-6">
-        <div class="form-horizontal">
-            <div class="box-body">
-              <div class="form-group">
-                  {!! Form::label('code', 'Project Code:') !!}
-                  {!! Form::text('code', null, ['class' => 'form-control']) !!}
-              </div>
+      <div class="form-horizontal">
+          <div class="box-body">
+            <div class="form-group">
+              {!! Form::label('code', 'Project Code:') !!}
+              {!! Form::text('code', null, ['class' => 'form-control', 'required' => true]) !!}
             </div>
-        </div>
+          </div>
+      </div>
     </div>
-    
-    <!-- /.col -->
-    <!-- right column -->
     <div class="col-md-6">
-        <div class="box-body">
-            <div class="form-horizontal">
-                  {!! Form::label('product_id', 'Project Name:') !!}
-                    <select name="product_id" id="product_id" class="form-control product_id" required>
-                        <option value="">Please select project name</option>
-                          @foreach($products as $product)
-                            <option value="{{ $product->id }}">{{$product->name}}</option>
-                          @endforeach
-                    </select>
-                </div>
-            </div>
+      <div class="box-body">
+        <div class="form-horizontal">
+          {!! Form::label('product_id', 'Project Name:') !!}
+            <select name="product_id" id="product_id" class="form-control product_id" required>
+              <option value="">Please select project name</option>
+              @foreach($products as $product)
+                <option value="{{ $product->id }}">{{$product->name}}</option>
+              @endforeach
+            </select>
         </div>
+      </div>
     </div>
-        <!--/.col (right) -->
+  </div>
 </div>
-        <!-- /.row -->
 <div class="box box-danger">
   <div class="box-header with-border">
     <h3 class="box-title">BOM Information</h3>
@@ -43,11 +37,15 @@
             <div class="box-body">
               <div class="form-group">
               {!! Form::label('supplier', 'Raw Material:') !!}
-              <select name="material[0].name" id="product_id" class="form-control product_id" required>
-                  <option value="">Please select raw material</option>
-                  @foreach($rawMaterials as $rawMaterial)
-                    <option value="{{ $rawMaterial->id }}">{{$rawMaterial->name}}</option>
-                  @endforeach
+              <select
+                id="product_id"
+                class="form-control product_id"
+                onchange="rawMaterialChanged(this)"
+              >
+                <option value="">Please select raw material</option>
+                @foreach($rawMaterials as $rawMaterial)
+                  <option value="{{ $rawMaterial->id }}">{{$rawMaterial->name}}</option>
+                @endforeach
               </select>
               </div>
             </div>
@@ -58,7 +56,7 @@
                 <div class="form-horizontal">
                   <div class="form-group">
                     {!! Form::label('quantity', 'Quantity:') !!}
-                    {!! Form::text('material[0].quantity', null, [
+                    {!! Form::text(null, null, [
                       'class' => 'form-control',
                       'id' => 'quantity'
                       ]) !!}
@@ -73,7 +71,7 @@
                     <label>action</label>
                     <div>
                       <button id="addRowButton" type="button" onclick="addRow(this)" class="btn btn-circle btn-primary">
-                        <i class="fa fa-plus"></i>
+                        <i class="fa fa-plus"></i> Add
                       </button>
                     </div>
                   </div>
@@ -83,24 +81,17 @@
       </div>
     </div>
     <div class="box-body no-padding">
-        <table class="table table-striped">
+        <table class="table table-striped" id="rawMaterialTable">
           <tr>
             <th style="width: 10px">#</th>
-            <th>Task</th>
-            <th>Progress</th>
-            <th style="width: 40px">Label</th>
-          </tr>
-          <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <th>Raw Material</th>
+            <th>Quantity</th>
+            <th style="width: 40px">Action</th>
           </tr>
         </table>
       </div>
   </div>
 </div>
-      <!-- /.box header -->
 <div class="box box-danger">
   <div class="box-header with-border">
     <h3 class="box-title">Manufacturing Process Information</h3>
@@ -112,10 +103,28 @@
           <div class="box-body">
             <div class="form-group">
             {!! Form::label('supplier', 'Raw Material:') !!}
-            <select name="product_id" id="product_id" class="form-control product_id" required>
+            <select
+              id="product_id"
+              class="form-control product_id"
+            >
+              <option value="">Please select raw material</option>
+              @foreach($rawMaterials as $material)
+                <option value="{{ $material->id }}">{{$material->name}}</option>
+              @endforeach
+            </select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-horizontal">
+          <div class="box-body">
+            <div class="form-group">
+            {!! Form::label('supplier', 'Process:') !!}
+            <select id="process" class="form-control">
                 <option value="">Please select process</option>
                 @foreach($process as $process)
-                <option value="{{ $process->id }}">{{$process->name}}</option>
+                  <option value="{{ $process->id }}">{{$process->name}}</option>
                 @endforeach
             </select>
             </div>
@@ -123,29 +132,38 @@
         </div>
       </div>
       <div class="col-md-6">
-          <div class="box-body">
-              <div class="form-horizontal">
-                <div class="form-group">
-                  {!! Form::label('duration', 'Duration (in hours):') !!}
-                  {!! Form::text('duration', null, ['class' => 'form-control']) !!}
-                </div>
-            </div>
+        <div class="box-body">
+            <div class="form-horizontal">
+              <div class="form-group">
+                {!! Form::label('duration', 'Duration (in minutes):') !!}
+                {!! Form::text('', null, ['class' => 'form-control', 'id' => 'duration']) !!}
+              </div>
           </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="box-body">
+            <div class="form-horizontal">
+              <div class="form-group">
+                {!! Form::label('action', 'Action') !!}
+                <div>
+                  <button onclick="addProcess(this)" type="button" class="btn btn-primary">
+                    <i class="fa fa-plus"></i> Add
+                  </button>
+                </div>
+              </div>
+          </div>
+        </div>
       </div>
     </div>
     <div class="box-body no-padding">
-        <table class="table table-striped">
+        <table class="table table-striped" id="processTable">
           <tr>
             <th style="width: 10px">#</th>
-            <th>Task</th>
-            <th>Progress</th>
-            <th style="width: 40px">Label</th>
-          </tr>
-          <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <th>Raw Material</th>
+            <th>Process</th>
+            <th>Duration</th>
+            <th style="width: 40px">Action</th>
           </tr>
         </table>
       </div>
@@ -154,35 +172,86 @@
 
 @push('script')
   <script>
-    const rawMaterials = @JSON($rawMaterials);
-    console.log(rawMaterials)
+    let rawMaterials = @JSON($rawMaterials);
+    console.log(rawMaterials);
 
-    $(document).change('.product_id', function(e) {
-      console.log(e.target.value)
-    })
+    const rawMaterialChanged = el => {
+      const rawMaterialId = el.value
+      const filteredRawMaterials = rawMaterials
+        .filter(m => m.id == rawMaterialId)
 
+      if (!filteredRawMaterials.length)
+        return;
+
+      $('input#quantity')
+        .attr('placeholder', `in ${filteredRawMaterials[0].uoms.code}`)
+    }
+    
+    const rawMaterialTable = $('#rawMaterialTable tbody')
+    const processTable = $('#processTable tbody')
     const parentMaterial = $('#parentMaterial')
+
+    // add to the table
     const addRow = el => {
       const container = $(el).parents('.row')
-      const duplicated = container[0].cloneNode(true)
-      const addRowButton = $(duplicated).find('#addRowButton')
-      const childNumber = parentMaterial.children().length
-      // copy then change attribute to avoid duplication
-      addRowButton.attr('onclick', 'removeRow(this)')
-      addRowButton.removeClass('btn-primary')
-      addRowButton.addClass('btn-danger')
-      addRowButton.empty()
-      addRowButton.append('<i class="fa fa-minus"></i>')
-      const quantityEl = $(duplicated).find('#quantity')
-      quantityEl.attr('name', `material[${childNumber}].quantity`)
+      const childNumber = rawMaterialTable.children().length
+      const productEl = $(container).find('#product_id')
+      const quantityEl = $(container).find('#quantity')
+
+      if (!productEl.val() || !quantityEl.val())
+        return;
+      const selectedProductText = productEl.find(`option[value=${productEl.val()}]`).text()
+      
+      rawMaterialTable.append(`
+        <tr>
+          <input type="hidden" name="material[${childNumber-1}][id]" value="${productEl.val()}" />
+          <input type="hidden" name="material[${childNumber-1}][quantity]" value="${quantityEl.val()}" />
+          <td>${childNumber}</td>
+          <td>${selectedProductText}</td>
+          <td>${quantityEl.val()}</td>
+          <td>
+            <button type="button" onclick="removeRow(this)"class="btn btn-danger">
+              <i class="fa fa-minus"></i>
+            </button
+          </td>
+        </tr>
+      `)
+      productEl.val('')
+      quantityEl.attr('placeholder', null)
       quantityEl.val('')
-      const productEl = $(duplicated).find('#product_id')
-      productEl.attr('name', `material[${childNumber}].name`)
-      parentMaterial.append($(duplicated))
     }
 
     // remove row
-    const removeRow = el => $(el).parents('.row').remove()
+    const removeRow = el => $(el).parents('tr').remove()
+
+    const addProcess = el => {
+      const parent = $(el).parents('.row')
+      const rawMaterial = parent.find('#product_id')
+      const process = parent.find('#process')
+      const duration = parent.find('#duration')
+      const childNumber = processTable.children().length
+      if (!rawMaterial.val() || !process.val() || !duration.val())
+        return;
+      processTable.append(`
+        <tr>
+          <input type="hidden" name="process[${childNumber-1}][materialId]" value="${rawMaterial.val()}" />
+          <input type="hidden" name="process[${childNumber-1}][process]" value="${process.val()}" />
+          <input type="hidden" name="process[${childNumber-1}][duration]" value="${duration.val()}" />
+          <td>${childNumber}</td>
+          <td>${rawMaterial.val()}</td>
+          <td>${process.val()}</td>
+          <td>${duration.val()}</td>
+          <td>
+            <button type="button" onclick="removeRow(this)"class="btn btn-danger">
+              <i class="fa fa-minus"></i>
+            </button
+          </td>
+        </tr>
+      `)
+      rawMaterial.val('')
+      process.val('')
+      duration.val('')
+    }
   </script>
 @endpush
   
