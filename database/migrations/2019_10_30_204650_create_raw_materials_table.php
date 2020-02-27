@@ -17,11 +17,8 @@ class CreateRawMaterialsTable extends Migration
             $table->bigIncrements('id');
             $table->char('name', 100);
             $table->char('code', 100)->unique();
-            $table->integer('supplier');
             $table->decimal('current_stock', 8, 2)->default(0);
-            $table->integer('lead_time');
             $table->integer('uom');
-            $table->decimal('price', 8, 2);
             $table->integer('shelf_life');
             $table->decimal('safety_stock', 8, 2);
             $table->decimal('holding_cost', 3, 2);

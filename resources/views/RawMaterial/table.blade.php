@@ -6,8 +6,6 @@
       <th>Current Stock</th>
       <th>Safety Stock</th>
       <th>Unit</th>
-      <th>Supplier</th>
-      <th>Price (RM)</th>
       <th>Status</th>
       <th>Action</th>
     </tr>
@@ -25,8 +23,6 @@
           @endif
           <td>{{$rawMaterial->safety_stock}}</td>
           <td>{{$rawMaterial->uoms->name}}</td>
-          <td>{{$rawMaterial->suppliers->name}}</td>
-          <td>{{$rawMaterial->price}}</td>
           <td>
             @if($rawMaterial->current_stock > $rawMaterial->safety_stock)
               <span class="label label-success">In Stock</span></td>
@@ -43,17 +39,6 @@
             </a>
         </tr>
         @endforeach
-    <tfoot>
-      <th>#</th>
-      <th>Name</th>
-      <th>Current Stock</th>
-      <th>Safety Stock</th>
-      <th>Unit</th>
-      <th>Supplier</th>
-      <th>Price (RM)</th>
-      <th>Status</th>
-      <th>Action</th>
-    </tfoot>
   </table>
 
   <!-- The modal -->

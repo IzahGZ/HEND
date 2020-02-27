@@ -15,9 +15,11 @@ class CreateBoms extends Migration
     {
         Schema::create('boms', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('product_id');
-            $table->integer('raw_material_id');
-            $table->decimal('quantity', 8, 2);
+            $table->integer('bom_number');
+            $table->integer('project_id');
+            $table->integer('order_id');
+            $table->integer('quantity');
+            $table->integer('status');
             $table->timestamps();
             $table->softDeletes();
         });

@@ -75,44 +75,45 @@
               </div>
                     <!-- /.row -->
                   </div>
-            <div class="box box-danger">
-              <div class="box-header with-border">
-                <h3 class="box-title">Supplier Information</h3>
-              </div>
-              <div class="box-body">
-                <div class="row">
-                  <div class="col-md-6">
-                    <div class="form-horizontal">
-                      <div class="box-body">
-                        <div class="form-group">
-                        {!! Form::label('supplier', 'Supplier Name:') !!}
-                          <select name="supplier" id="supplier" class="form-control supplier" required disabled="disabled">
-                              <option value="">Please select supplier</option>
-                                @foreach($suppliers as $supplier)
-                                <option value="{{ $supplier->id }}"{{ $rawMaterial->supplier == $supplier->id ? 'selected' : '' }}>{{$supplier->name}}</option>
-                                @endforeach
-                          </select>
-                        </div>
-                        <div class="form-group">
-                          {!! Form::label('lead_time', 'Lead Time:') !!}
-                          {!! Form::text('lead_time', $rawMaterial->lead_time, ['class' => 'form-control','readonly']) !!}
-                        </div>
-                      </div>
+                  <div class="box box-danger">
+                    <div class="box-header with-border">
+                      <h3 class="box-title">Supplier Information</h3>
                     </div>
-                  </div>
-                  <div class="col-md-6">
-                      <div class="box-body">
-                          <div class="form-horizontal">
-                            <div class="form-group">
-                              {!! Form::label('price', 'Price (RM):') !!}
-                              {!! Form::text('price', $rawMaterial->price, ['class' => 'form-control', 'readonly']) !!}
+                    <div class="box-body">
+                      <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-horizontal">
+                                <div class="box-body">
+                                    <div class="box-body no-padding">
+                                        <table class="table table-striped supplier_table" id="supplier_table">
+                                        <tr>
+                                            <th style="width: 10px">#</th>
+                                            <th>Supplier</th>
+                                            <th>UOM</th>
+                                            <th>Price Per Unit</th>
+                                            <th>Lead Time</th>
+                                            <th>MOQ</th>
+                                        </tr>
+                                        @foreach($rawMaterial->suppliers as $supplier_information)
+                                        <tr>
+                                        <td>{{$loop->iteration}}</td>
+                                          <td>{{$supplier_information->supplier->name}}</td>
+                                          <td>{{$supplier_information->uom->code}}</td>
+                                          <td>{{$supplier_information->price_per_unit}}</td>
+                                          <td>{{$supplier_information->lead_time}}</td>
+                                          <td>{{$supplier_information->moq->name}} | &nbsp;&nbsp; 
+                                            <b><small>Minimum Quantity: {{$supplier_information->moq->min_quantity}} 
+                                              Maximum Quantity: {{$supplier_information->moq->max_quantity}}&nbsp;&nbsp;</small> </b> </td>
+                                        </tr>
+                                        @endforeach
+                                        </table>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                      </div>
+                    </div>
+                    </div>
                   </div>
-                </div>
-              </div>
-            </div>
         <!-- /.box header -->
             <div class="box-footer text-center">
                     {{-- {!! Form::submit('Submit', ['class' => 'btn btn-danger']) !!} --}}

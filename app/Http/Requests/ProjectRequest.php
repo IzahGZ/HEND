@@ -30,7 +30,6 @@ class ProjectRequest extends FormRequest
             'material.*.id' => 'required|exists:raw_materials,id',
             'material.*.quantity' => 'required|numeric',
             'process' => 'required',
-            'process.*.materialId' => 'required|exists:raw_materials,id',
             'process.*.process' => 'required|exists:process,id',
             'process.*.duration' => 'required',
         ];

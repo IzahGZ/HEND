@@ -21,27 +21,19 @@ class CustomerController extends Controller
 
       }
 
-       public function getDelete($id = null)
-       {
-           $delete = Customer::destroy($id);
-           return redirect(route('customer.index'))->with('success', Lang::get('message.success.delete'));
+    public function getDelete($id = null)
+    {
+        $delete = Customer::destroy($id);
+        return redirect(route('customer.index'))->with('success', Lang::get('message.success.delete'));
 
-       }
+    }
 
-       public function create(){
-        return view('Customer.create');
+    public function create(){
+    return view('Customer.create');
     }
 
     public function store(Request $request)
     {
-        //To validate form
-        // $this->validate($request,[
-        //     'name' => 'required',
-        //     'email' => 'required',
-        //     'phone No.' => 'required',
-        //     'address' => 'required'
-        // ]);
-
         $customer = new Customer;
         $customer->name = $request->input('name');
         $customer->email = $request->input('email');
@@ -55,13 +47,6 @@ class CustomerController extends Controller
     public function view($id)
     {
         $customer = Customer::find($id);
-
-        // if (empty($customer)) {
-        //     Flash::error('Customer not found');
-
-        //     return redirect(route('customer.index'));
-        // }
-
         return view('customer.view', compact('customer'));
     }
 

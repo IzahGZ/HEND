@@ -13,9 +13,6 @@ class RawMaterial extends Model
 
     public $fillable = [
         'name',
-        'supplier',
-        'lead_time',
-        'price',
         'shelf_life',
         'uom',
         'code',
@@ -35,9 +32,8 @@ class RawMaterial extends Model
 
     }
 
-    public function suppliers(){
-
-        return $this->belongsTo('App\Supplier','supplier','id');
-
-    }
+    public function suppliers()
+    {
+        return $this->hasMany(RawMaterialSupplier::class,'raw_material_id');
+    } 
 }

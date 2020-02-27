@@ -19,9 +19,10 @@
         <td>{{$cust->phone}}</td>
         <td>{{$cust->email}}</td>
         <td><span class="label label-default" style="background-color:{{$cust->systemstatus->colour}}; color:white;">{{$cust->systemstatus->name}}</span></td>
-        <td><a href="{{ route('customer.edit', $cust->id ) }}">
+        <td>
+          <a href="{{ route('customer.edit', $cust->id ) }}">
             <i class="fa fa-edit" data-name="info" data-size="18" data-loop="true" title="view customer"></i>
-        </a> &nbsp;
+          </a> &nbsp;
           <a href="{{ route('customer.confirm-delete', $cust->id ) }}" data-toggle="modal" data-target="#delete_confirm" data-id="{{ route('customer.delete', $cust->id ) }}">
           <i class="fa fa-trash" title="delete customer data-name="remove-alt" data-size="18" data-loop="true""></i></a> &nbsp;
           <a href="{{ route('customer.view', $cust->id ) }}">

@@ -15,7 +15,6 @@ class CreateProjectProcessTable extends Migration
     {
         Schema::create('project_process', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('raw_material_id');
             $table->unsignedBigInteger('project_id');
             $table->unsignedBigInteger('process_id');
             $table->string('duration');

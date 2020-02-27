@@ -102,24 +102,6 @@
         <div class="form-horizontal">
           <div class="box-body">
             <div class="form-group">
-            {!! Form::label('supplier', 'Raw Material:') !!}
-            <select
-              id="product_id"
-              class="form-control product_id"
-            >
-              <option value="">Please select raw material</option>
-              @foreach($rawMaterials as $material)
-                <option value="{{ $material->id }}">{{$material->name}}</option>
-              @endforeach
-            </select>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-6">
-        <div class="form-horizontal">
-          <div class="box-body">
-            <div class="form-group">
             {!! Form::label('supplier', 'Process:') !!}
             <select id="process" class="form-control">
                 <option value="">Please select process</option>
@@ -131,7 +113,7 @@
           </div>
         </div>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-5">
         <div class="box-body">
             <div class="form-horizontal">
               <div class="form-group">
@@ -141,7 +123,7 @@
           </div>
         </div>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-1">
         <div class="box-body">
             <div class="form-horizontal">
               <div class="form-group">
@@ -160,7 +142,6 @@
         <table class="table table-striped" id="processTable">
           <tr>
             <th style="width: 10px">#</th>
-            <th>Raw Material</th>
             <th>Process</th>
             <th>Duration</th>
             <th style="width: 40px">Action</th>
@@ -171,88 +152,85 @@
 </div>
 
 @push('script')
-  <script>
-    let rawMaterials = @JSON($rawMaterials);
-    console.log(rawMaterials);
+<script>
+  let rawMaterials = @JSON($rawMaterials);
+  console.log(rawMaterials);
 
-    const rawMaterialChanged = el => {
-      const rawMaterialId = el.value
-      const filteredRawMaterials = rawMaterials
-        .filter(m => m.id == rawMaterialId)
+  const rawMaterialChanged = el => {
+    const rawMaterialId = el.value
+    const filteredRawMaterials = rawMaterials
+      .filter(m => m.id == rawMaterialId)
 
-      if (!filteredRawMaterials.length)
-        return;
+    if (!filteredRawMaterials.length)
+      return;
 
-      $('input#quantity')
-        .attr('placeholder', `in ${filteredRawMaterials[0].uoms.code}`)
-    }
-    
-    const rawMaterialTable = $('#rawMaterialTable tbody')
-    const processTable = $('#processTable tbody')
-    const parentMaterial = $('#parentMaterial')
-
-    // add to the table
-    const addRow = el => {
-      const container = $(el).parents('.row')
-      const childNumber = rawMaterialTable.children().length
-      const productEl = $(container).find('#product_id')
-      const quantityEl = $(container).find('#quantity')
-
-      if (!productEl.val() || !quantityEl.val())
-        return;
-      const selectedProductText = productEl.find(`option[value=${productEl.val()}]`).text()
-      
-      rawMaterialTable.append(`
-        <tr>
-          <input type="hidden" name="material[${childNumber-1}][id]" value="${productEl.val()}" />
-          <input type="hidden" name="material[${childNumber-1}][quantity]" value="${quantityEl.val()}" />
-          <td>${childNumber}</td>
-          <td>${selectedProductText}</td>
-          <td>${quantityEl.val()}</td>
-          <td>
-            <button type="button" onclick="removeRow(this)"class="btn btn-danger">
-              <i class="fa fa-minus"></i>
-            </button
-          </td>
-        </tr>
-      `)
-      productEl.val('')
-      quantityEl.attr('placeholder', null)
-      quantityEl.val('')
-    }
-
-    // remove row
-    const removeRow = el => $(el).parents('tr').remove()
-
-    const addProcess = el => {
-      const parent = $(el).parents('.row')
-      const rawMaterial = parent.find('#product_id')
-      const process = parent.find('#process')
-      const duration = parent.find('#duration')
-      const childNumber = processTable.children().length
-      if (!rawMaterial.val() || !process.val() || !duration.val())
-        return;
-      processTable.append(`
-        <tr>
-          <input type="hidden" name="process[${childNumber-1}][materialId]" value="${rawMaterial.val()}" />
-          <input type="hidden" name="process[${childNumber-1}][process]" value="${process.val()}" />
-          <input type="hidden" name="process[${childNumber-1}][duration]" value="${duration.val()}" />
-          <td>${childNumber}</td>
-          <td>${rawMaterial.val()}</td>
-          <td>${process.val()}</td>
-          <td>${duration.val()}</td>
-          <td>
-            <button type="button" onclick="removeRow(this)"class="btn btn-danger">
-              <i class="fa fa-minus"></i>
-            </button
-          </td>
-        </tr>
-      `)
-      rawMaterial.val('')
-      process.val('')
-      duration.val('')
-    }
-  </script>
-@endpush
+    $('input#quantity')
+      .attr('placeholder', `in ${filteredRawMaterials[0].uoms.code}`)
+  }
   
-      
+  const rawMaterialTable = $('#rawMaterialTable tbody')
+  const processTable = $('#processTable tbody')
+  const parentMaterial = $('#parentMaterial')
+
+  // add to the table
+  const addRow = el => {
+    const container = $(el).parents('.row')
+    const childNumber = rawMaterialTable.children().length
+    const productEl = $(container).find('#product_id')
+    const quantityEl = $(container).find('#quantity')
+
+    if (!productEl.val() || !quantityEl.val())
+      return;
+    const selectedProductText = productEl.find(`option[value=${productEl.val()}]`).text()
+    
+    rawMaterialTable.append(`
+      <tr>
+        <input type="hidden" name="material[${childNumber-1}][id]" value="${productEl.val()}" />
+        <input type="hidden" name="material[${childNumber-1}][quantity]" value="${quantityEl.val()}" />
+        <td>${childNumber}</td>
+        <td>${selectedProductText}</td>
+        <td>${quantityEl.val()}</td>
+        <td>
+          <button type="button" onclick="removeRow(this)"class="btn btn-danger">
+            <i class="fa fa-minus"></i>
+          </button
+        </td>
+      </tr>
+    `)
+    productEl.val('')
+    quantityEl.attr('placeholder', null)
+    quantityEl.val('')
+  }
+
+  // remove row
+  const removeRow = el => $(el).parents('tr').remove()
+
+  const addProcess = el => {
+    const parent = $(el).parents('.row')
+    const process = parent.find('#process')
+    console.log(process)
+    const duration = parent.find('#duration')
+    const childNumber = processTable.children().length
+    if (!process.val() || !duration.val())
+      return;
+    const selectedProcessText = process.find(`option[value=${process.val()}]`).text()
+    processTable.append(`
+      <tr>
+        <input type="hidden" name="process[${childNumber-1}][process]" value="${process.val()}" />
+        <input type="hidden" name="process[${childNumber-1}][duration]" value="${duration.val()}" />
+        <td>${childNumber}</td>
+        <td>${selectedProcessText}</td>
+        <td>${duration.val()}</td>
+        <td>
+          <button type="button" onclick="removeRow(this)"class="btn btn-danger">
+            <i class="fa fa-minus"></i>
+          </button
+        </td>
+      </tr>
+    `)
+    // rawMaterial.val('')
+    process.val('')
+    duration.val('')
+  }
+</script>
+@endpush

@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Moq;
 use App\Uom;
-use App\RawMaterial;
 use App\Supplier;
+use App\RawMaterial;
+use App\RawMaterialSupplier;
+use App\RequestOfPurchase;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Lang;
 
@@ -24,33 +27,45 @@ class RawMaterialController extends Controller
 
       }
 
-       public function getDelete($id = null)
-       {
-           $delete = RawMaterial::destroy($id);
-           return redirect(route('rawMaterial.index'))->with('success', Lang::get('message.success.delete'));
+    public function getDelete($id = null)
+    {
+        $delete = RawMaterial::destroy($id);
+        return redirect(route('rawMaterial.index'))->with('success', Lang::get('message.success.delete'));
 
-       }
+    }
 
-       public function create(){
+    public function create(){
 
         $uoms = Uom::all();
         $suppliers = Supplier::all();
-        return view('RawMaterial.create',compact('uoms', 'suppliers'));
+        $moqs = Moq::all();
+
+        return view('RawMaterial.create',compact('uoms', 'suppliers', 'moqs'));
     }
 
     public function store(Request $request)
     {
+        // dd($request->moq_id[0]);
         $rawMaterial = new RawMaterial;
         $rawMaterial->name = $request->input('name');
         $rawMaterial->code = $request->input('code');
-        $rawMaterial->supplier = $request->input('supplier');
-        $rawMaterial->lead_time = $request->input('lead_time');
         $rawMaterial->uom = $request->input('uom');
-        $rawMaterial->price = $request->input('price');
         $rawMaterial->shelf_life = $request->input('shelf_life');
         $rawMaterial->safety_stock = $request->input('safety_stock');
         $rawMaterial->holding_cost = $request->input('holding_cost');
         $rawMaterial->save();
+
+        for ($i=0; $i < count($request->supplier_id); $i++) {
+            
+            RawMaterialSupplier::create([
+                'raw_material_id' => $rawMaterial->id,
+                'supplier_id' => $request->supplier_id[$i],
+                'uom_id' => $request->uom_id[$i],
+                'moq_id' => $request->moq_id[$i],
+                'price_per_unit' => $request->price_per_unit[$i],
+                'lead_time' => $request->lead_time[$i]
+            ]);
+        } 
 
         return redirect(route('rawMaterial.index'));
     }
@@ -60,28 +75,39 @@ class RawMaterialController extends Controller
         $rawMaterial = RawMaterial::with('suppliers', 'uoms')->findOrFail($id);
         $uoms = Uom::all();
         $suppliers = Supplier::all();
-        return view('rawMaterial.view', compact('rawMaterial','uoms', 'suppliers'));
+        $moqs = Moq::all();
+        return view('rawMaterial.view', compact('rawMaterial','uoms', 'suppliers', 'moqs'));
     }
 
     public function edit($id){
         $rawMaterial = RawMaterial::with('suppliers', 'uoms')->findOrFail($id);
         $uoms = Uom::all();
         $suppliers = Supplier::all();
-        return view('rawMaterial.edit', compact('rawMaterial','uoms', 'suppliers'));
+        $moqs = Moq::all();
+        return view('rawMaterial.edit', compact('rawMaterial','uoms', 'suppliers', 'moqs'));
     }
 
     public function update(Request $request, $id){
         $rawMaterial = RawMaterial::find($id);
         $rawMaterial->name = $request->input('name');
         $rawMaterial->code = $request->input('code');
-        $rawMaterial->supplier = $request->input('supplier');
-        $rawMaterial->lead_time = $request->input('lead_time');
         $rawMaterial->uom = $request->input('uom');
-        $rawMaterial->price = $request->input('price');
         $rawMaterial->shelf_life = $request->input('shelf_life');
         $rawMaterial->safety_stock = $request->input('safety_stock');
         $rawMaterial->holding_cost = $request->input('holding_cost');
         $rawMaterial->save();
+
+        for ($i=0; $i < count($request->supplier_id); $i++) {
+            
+            RawMaterialSupplier::create([
+                'raw_material_id' => $rawMaterial->id,
+                'supplier_id' => $request->supplier_id[$i],
+                'uom_id' => $request->uom_id[$i],
+                'moq_id' => $request->moq_id[$i],
+                'price_per_unit' => $request->price_per_unit[$i],
+                'lead_time' => $request->lead_time[$i]
+            ]);
+        } 
 
         return redirect(route('rawMaterial.index'))->with('success', 'RawMaterial updated');
     }

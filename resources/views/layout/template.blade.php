@@ -18,6 +18,7 @@
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="{{asset('dist/css/skins/_all-skins.min.css')}}">
+  
   @stack('styles')
  
   <!-- Google Font -->
@@ -41,7 +42,7 @@
     <!-- Logo -->
     <a href="index2.html" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><img src="{{('img/hend.png')}}"></span>
+      <span class="logo-mini"><img src="{{asset('img/hend.png')}}"></span>
       <!-- logo for regular state and mobile devices -->
       <span class="logo-lg"><b>HEN</b>-D</span>
     </a>
@@ -71,7 +72,7 @@
                   <li><!-- start message -->
                     <a href="#">
                       <div class="pull-left">
-                        <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                        <img src="{{asset('dist/img/user2-160x160.jpg')}}" class="img-circle" alt="User Image">
                       </div>
                       <h4>
                         Support Team
@@ -142,13 +143,13 @@
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+              <img src="{{asset('dist/img/user2-160x160.jpg')}}" class="user-image" alt="User Image">
               <span class="hidden-xs">Alexander Pierce</span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-                <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                <img src="{{asset('dist/img/user2-160x160.jpg')}}" class="img-circle" alt="User Image">
  
                 <p>
                   Alexander Pierce - Web Developer

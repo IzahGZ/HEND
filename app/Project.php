@@ -41,7 +41,6 @@ class Project extends Model
         return $this->belongsToMany(Process::class, 'project_process', 'project_id', 'process_id')
             ->withPivot([
                 'duration',
-                'raw_material_id',
             ])
             ->using(ProjectProcess::class)
             ->withTimestamps();

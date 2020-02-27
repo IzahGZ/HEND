@@ -11,6 +11,13 @@
         </a>
       </li>
       <li>
+        <a href="{!! URL::to('order') !!}">
+          <i class="fa fa-fw fa-cart-plus"></i> 
+          <span>Orders</span>
+          <span class="pull-right-container"></span>
+        </a>
+      </li>
+      <li>
         <a href="{!! URL::to('customer') !!}">
           <i class="fa fa-fw fa-group"></i> 
           <span>Customers</span>
@@ -26,19 +33,6 @@
       </li>
       <li class="treeview">
         <a href="/">
-          <i class="fa fa-fw fa-file-text"></i> <span>Customer Orders</span>
-          <span class="pull-right-container">
-            <i class="fa fa-angle-left pull-right"></i>
-          </span>
-        </a>
-        <ul class="treeview-menu">
-          <li><a href="/"><i class="fa fa-fw fa-angle-right"></i>Order list</a></li>
-          <li><a href="/"><i class="fa fa-fw fa-angle-right"></i> Quotation</a></li>
-          <li><a href="/"><i class="fa fa-fw fa-angle-right"></i> Create Quotation</a></li>
-        </ul>
-      </li>
-      <li class="treeview">
-        <a href="/">
           <i class="fa fa-fw fa-server"></i> <span>Inventory</span>
           <span class="pull-right-container">
             <i class="fa fa-angle-left pull-right"></i>
@@ -51,30 +45,13 @@
       </li>
       <li class="treeview">
         <a href="/">
-          <i class="fa fa-fw fa-object-group"></i> <span>Process</span>
-          <span class="pull-right-container">
-            <i class="fa fa-angle-left pull-right"></i>
-          </span>
-        </a>
-        <ul class="treeview-menu">
-          <li><a href="{{ route('process.index') }}"><i class="fa fa-fw fa-angle-right"></i> Process List</a></li>
-          <li>
-            <a href="{{ route('process.create') }}">
-              <i class="fa fa-fw fa-angle-right"></i> Create New Process
-            </a>
-          </li>
-        </ul>
-      </li>
-      <li class="treeview">
-        <a href="/">
           <i class="fa fa-fw fa-object-group"></i> <span>Bill of Materials</span>
           <span class="pull-right-container">
             <i class="fa fa-angle-left pull-right"></i>
           </span>
         </a>
         <ul class="treeview-menu">
-          <li><a href="/"><i class="fa fa-fw fa-angle-right"></i> BOM List</a></li>
-          <li><a href="/"><i class="fa fa-fw fa-angle-right"></i> Create New BOM</a></li>
+          <li><a href="{!! URL::to('bom') !!}"><i class="fa fa-fw fa-angle-right"></i> BOM List</a></li>
           <li><a href="{!! URL::to('project') !!}"><i class="fa fa-fw fa-angle-right"></i> Project</a></li>
         </ul>
       </li>
@@ -86,10 +63,8 @@
           </span>
         </a>
         <ul class="treeview-menu">
-          <li><a href="/"><i class="fa fa-fw fa-angle-double-right"></i> Request Of Purchase</a></li>
-          <li><a href="/"><i class="fa fa-fw fa-angle-right"></i> Purchase Order</a></li>
-          <li><a href="/"><i class="fa fa-fw fa-angle-right"></i> Order Details</a></li>
-
+          <li><a href="{!! URL::to('requestOfPurchase') !!}"><i class="fa fa-fw fa-angle-double-right"></i> Request Of Purchase</a></li>
+          <li><a href="{!! URL::to('purchaseOrder') !!}"><i class="fa fa-fw fa-angle-right"></i> Purchase Order</a></li>
         </ul>
       </li>
       <li class="treeview">
@@ -101,9 +76,9 @@
           
         </a>
         <ul class="treeview-menu">
-          <li><a href="/"><i class="fa fa-fw fa-angle-right"></i> Good Receiving</a></li>
-          <li><a href="/"><i class="fa fa-fw fa-angle-right"></i> Inventory Stocks</a></li>
-          <li><a href="/"><i class="fa fa-fw fa-angle-right"></i> Transaction History</a></li>
+          <li><a href="{!! URL::to('goodReceiveNote') !!}"><i class="fa fa-fw fa-angle-right"></i> Good Receive Note</a></li>
+          {{-- <li><a href="/"><i class="fa fa-fw fa-angle-right"></i> Inventory Stocks</a></li> --}}
+          <li><a href="{!! URL::to('inventoryStockTransaction') !!}"><i class="fa fa-fw fa-angle-right"></i> Transaction History</a></li>
         </ul>
       </li>
       <li class="treeview">
@@ -123,23 +98,23 @@
           <li><a href="{!! URL::to('systemStatus') !!}">
               <i class="fa fa-fw fa-info-circle"></i>
               <span>System Statuses</span>
-            </a>
+              </a>
           </li>
           <li><a href="{!! URL::to('uom') !!}">
             <i class="fa fa-fw fa-balance-scale"></i>
             <span>Unit of Measurement</span>
-          </a>
-        </li>
-        {{-- <li><a href="/">
-          <i class="fa fa-dashboard"></i>
-          <span>System Statuses</span>
-        </a>
-      </li> --}}
-      {{-- <li><a href="/">
-        <i class="fa fa-dashboard"></i>
-        <span>System Statuses</span>
-      </a>
-    </li> --}}
+            </a>
+          </li>
+          <li><a href="{!! URL::to('moq') !!}">
+            <i class="fa fa-fw fa-truck"></i>
+            <span>Minimum Order Quantity</span>
+            </a>
+          </li>
+          <li><a href="{{ route('process.index') }}">
+              <i class="fa fa-fw fa-object-group"></i>
+              <span>Process</span>
+              </a>
+          </li>
         </ul>
   </section>
   <!-- /.sidebar -->

@@ -24,6 +24,18 @@ Route::get('/index', function () {
     return view('index.dashboard');
 });
 
+//ORDER=======================================================================================================================================
+Route::get('order', ['as'=> 'order.index', 'uses' => 'OrderController@index']);
+// Route::get('customer/{id}/view}', array('as' => 'customer.view', 'uses' => 'CustomerController@view'));
+// Route::get('customer/{id}/edit', ['as'=> 'customer.edit', 'uses' => 'CustomerController@edit']);
+// Route::put('customer/{id}', ['as'=> 'customer.update', 'uses' => 'CustomerController@update']);
+// Route::patch('customer/{id}', ['as'=> 'customer.update', 'uses' => 'CustomerController@update']);
+// Route::get('customer/{id}/delete', array('as' => 'customer.delete', 'uses' => 'CustomerController@getDelete'));
+// Route::get('customer/{id}/confirm-delete', array('as' => 'customer.confirm-delete', 'uses' => 'CustomerController@getModalDelete'));
+Route::get('order/create', 'OrderController@create')->name('order.create');
+Route::post('ordersStore', ['as'=> 'orders.store', 'uses' => 'OrderController@store']);
+Route::get('order/download/{id}', 'OrderController@downloadPDF')->name('order.download');
+
 //CUSTOMER=======================================================================================================================================
 Route::get('customer', ['as'=> 'customer.index', 'uses' => 'CustomerController@index']);
 Route::get('customer/{id}/view}', array('as' => 'customer.view', 'uses' => 'CustomerController@view'));
@@ -46,7 +58,6 @@ Route::get('supplier/{id}/delete', array('as' => 'supplier.delete', 'uses' => 'S
 Route::get('supplier/{id}/confirm-delete', array('as' => 'supplier.confirm-delete', 'uses' => 'SupplierController@getModalDelete'));
 Route::get('supplier/create', 'SupplierController@create')->name('supplier.create');
 Route::post('suppliersStore', ['as'=> 'suppliers.store', 'uses' => 'SupplierController@store']);
-
 
 //INVENTORY=======================================================================================================================================
 //RAW MATERIAL
@@ -84,6 +95,61 @@ Route::get('project/{id}/confirm-delete', array('as' => 'project.confirm-delete'
 Route::get('project/create', 'ProjectController@create')->name('Project.create');
 Route::post('projectsStore', ['as'=> 'projects.store', 'uses' => 'ProjectController@store']);
 
+//BOM     
+Route::get('bom', ['as'=> 'bom.index', 'uses' => 'BomController@index']);
+Route::get('bom/{bom}/view}', array('as' => 'bom.view', 'uses' => 'BomController@view'));
+// Route::get('project/{project}/edit', ['as'=> 'project.edit', 'uses' => 'ProjectController@edit']);
+// Route::put('project/{project}', ['as'=> 'project.update', 'uses' => 'ProjectController@update']);
+// Route::patch('project/{project}', ['as'=> 'project.update', 'uses' => 'ProjectController@update']);
+// Route::get('project/{id}/delete', array('as' => 'project.delete', 'uses' => 'ProjectController@getDelete'));
+// Route::get('project/{id}/confirm-delete', array('as' => 'project.confirm-delete', 'uses' => 'ProjectController@getModalDelete'));
+// Route::get('project/create', 'ProjectController@create')->name('Project.create');
+// Route::post('projectsStore', ['as'=> 'projects.store', 'uses' => 'ProjectController@store']);
+
+
+//PURCHASES=================================================================================================================================
+//REQUEST OF PURCHASES      
+Route::get('requestOfPurchase', ['as'=> 'requestOfPurchase.index', 'uses' => 'RequestOfPurchaseController@index']);
+// Route::get('project/{project}/view}', array('as' => 'project.view', 'uses' => 'ProjectController@view'));
+Route::get('requestOfPurchase/{id}/edit', ['as'=> 'requestOfPurchase.edit', 'uses' => 'RequestOfPurchaseController@edit']);
+Route::put('requestOfPurchase/{id}', ['as'=> 'requestOfPurchase.update', 'uses' => 'RequestOfPurchaseController@update']);
+Route::patch('requestOfPurchase/{id}', ['as'=> 'requestOfPurchase.update', 'uses' => 'RequestOfPurchaseController@update']);
+// Route::get('project/{id}/delete', array('as' => 'project.delete', 'uses' => 'ProjectController@getDelete'));
+// Route::get('project/{id}/confirm-delete', array('as' => 'project.confirm-delete', 'uses' => 'ProjectController@getModalDelete'));
+Route::get('requestOfPurchase/create', 'RequestOfPurchaseController@create')->name('requestOfPurchase.create');
+Route::post('requestOfPurchaseStore', ['as'=> 'requestOfPurchase.store', 'uses' => 'RequestOfPurchaseController@store']);
+Route::get('requestOfPurchaseStore/download/{id}', 'RequestOfPurchaseController@downloadPDF')->name('requestOfPurchaseStore.download');
+
+//PURCHASE ORDERS      
+Route::get('purchaseOrder', ['as'=> 'purchaseOrder.index', 'uses' => 'PurchaseOrderController@index']);
+// Route::get('project/{project}/view}', array('as' => 'project.view', 'uses' => 'ProjectController@view'));
+// Route::get('purchaseOrder/{id}/edit', ['as'=> 'purchaseOrder.edit', 'uses' => 'ProjectController@edit']);
+// Route::put('requestOfPurchase/{requestOfPurchase}', ['as'=> 'requestOfPurchase.update', 'uses' => 'RequestOfPurchaseController@update']);
+// Route::patch('requestOfPurchase/{id}', ['as'=> 'purchaseOrder.update', 'uses' => 'RequestOfPurchaseController@update']);
+// Route::get('project/{id}/delete', array('as' => 'project.delete', 'uses' => 'ProjectController@getDelete'));
+// Route::get('project/{id}/confirm-delete', array('as' => 'project.confirm-delete', 'uses' => 'ProjectController@getModalDelete'));
+Route::get('purchaseOrder/create', 'PurchaseOrderController@create')->name('purchaseOrder.create');
+Route::post('purchaseOrder', ['as'=> 'purchaseOrder.store', 'uses' => 'PurchaseOrderController@store']);
+Route::get('purchaseOrder/download/{id}', 'PurchaseOrderController@downloadPDF')->name('purchaseOrder.download');
+
+
+//STOCKS=================================================================================================================================
+//GOOD RECEIVE NOTE     
+Route::get('goodReceiveNote', ['as'=> 'goodReceiveNote.index', 'uses' => 'GoodReceiveNoteController@index']);
+// Route::get('project/{project}/view}', array('as' => 'project.view', 'uses' => 'ProjectController@view'));
+// Route::get('requestOfPurchase/{id}/edit', ['as'=> 'requestOfPurchase.edit', 'uses' => 'RequestOfPurchaseController@edit']);
+// Route::put('requestOfPurchase/{id}', ['as'=> 'requestOfPurchase.update', 'uses' => 'RequestOfPurchaseController@update']);
+// Route::patch('requestOfPurchase/{id}', ['as'=> 'requestOfPurchase.update', 'uses' => 'RequestOfPurchaseController@update']);
+// Route::get('project/{id}/delete', array('as' => 'project.delete', 'uses' => 'ProjectController@getDelete'));
+// Route::get('project/{id}/confirm-delete', array('as' => 'project.confirm-delete', 'uses' => 'ProjectController@getModalDelete'));
+Route::get('goodReceiveNote/create', 'GoodReceiveNoteController@create')->name('goodReceiveNote.create');
+Route::post('goodReceiveNoteStore', ['as'=> 'goodReceiveNote.store', 'uses' => 'GoodReceiveNoteController@store']);
+Route::get('goodReceiveNoteStore/download/{id}', 'GoodReceiveNoteController@downloadPDF')->name('goodReceiveNoteStore.download');
+
+//TRANSACTION HISTORY     
+Route::get('inventoryStockTransaction', ['as'=> 'inventoryStockTransaction.index', 'uses' => 'InventoryStockTransactionController@index']);
+
+
 //===============================================================================================================================================
 //SETTING
 //===============================================================================================================================================
@@ -118,4 +184,15 @@ Route::group([
     Route::get('process/process_data', 'ProcessController@process_data')->name('data');
 });
 Route::resource('process', 'ProcessController');
+
+//MINIMUM ORDER QUANTITY (MOQ)============================================================================================================================
+Route::get('moq', ['as'=> 'moq.index', 'uses' => 'MoqController@index']);
+Route::get('moq/{id}/view}', array('as' => 'moq.view', 'uses' => 'MoqController@view'));
+Route::get('moq/{id}/edit', ['as'=> 'moq.edit', 'uses' => 'MoqController@edit']);
+Route::put('moq/{id}', ['as'=> 'moq.update', 'uses' => 'MoqController@update']);
+Route::patch('moq/{id}', ['as'=> 'moq.update', 'uses' => 'MoqController@update']);
+Route::get('moq/{id}/delete', array('as' => 'moq.delete', 'uses' => 'MoqController@getDelete'));
+Route::get('moq/{id}/confirm-delete', array('as' => 'moq.confirm-delete', 'uses' => 'MoqController@getModalDelete'));
+Route::get('moq/create', 'MoqController@create')->name('moq.create');
+Route::post('moqStore', ['as'=> 'moq.store', 'uses' => 'MoqController@store']);
 
