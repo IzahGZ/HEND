@@ -81,7 +81,7 @@ supplierTable.append(`
     <td>
       <button type="button" onclick="removeRow(this)"class="btn btn-danger">
         <i class="fa fa-minus"></i>
-      </button
+      </button>
     </td>
   </tr>
 `)

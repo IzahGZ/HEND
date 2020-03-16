@@ -40,7 +40,7 @@
         </div>
     </div>
 
-    <div class="row">
+    {{-- <div class="row">
         <div class="col-md-6">
             <div class="form-horizontal">
                 <div class="box-body">
@@ -52,9 +52,9 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
         
-        <div class="col-md-6">
+        {{-- <div class="col-md-6">
             <div class="box-body">
                 <div class="form-horizontal">
                     <!-- textarea -->
@@ -66,14 +66,13 @@
                                     <i class="fa fa-calendar"></i>
                                   </div>
                                   {!! Form::text('delivery_date', null, ['class' => 'form-control pull-right', 'id' => 'datepicker']) !!}
-                                  {{-- <input type="text" class="form-control pull-right" id="datepicker"> --}}
                                 </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-      </div>
+      </div> --}}
 
       {{-- <div class="row">
       <div class="col-md-6">

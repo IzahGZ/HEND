@@ -32,8 +32,8 @@
           <td><a href="{{ route('rawMaterial.edit', $rawMaterial->id ) }}">
               <i class="fa fa-edit" data-name="info" data-size="18" data-loop="true" title="view rawMaterial"></i>
           </a> &nbsp;
-            <a href="{{ route('rawMaterial.confirm-delete', $rawMaterial->id ) }}" data-toggle="modal" data-target="#delete_confirm" data-id="{{ route('rawMaterial.delete', $rawMaterial->id ) }}">
-            <i class="fa fa-trash" title="delete rawMaterial data-name="remove-alt" data-size="18" data-loop="true""></i></a> &nbsp;
+            {{-- <a href="{{ route('rawMaterial.confirm-delete', $rawMaterial->id ) }}" data-toggle="modal" data-target="#delete_confirm" data-id="{{ route('rawMaterial.delete', $rawMaterial->id ) }}">
+            <i class="fa fa-trash" title="delete rawMaterial data-name="remove-alt" data-size="18" data-loop="true""></i></a> &nbsp; --}}
             <a href="{{ route('rawMaterial.view', $rawMaterial->id ) }}">
                 <i class="fa fa-info" data-name="info" data-size="18" data-loop="true" title="view rawMaterial"></i>
             </a>

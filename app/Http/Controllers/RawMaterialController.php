@@ -7,7 +7,6 @@ use App\Uom;
 use App\Supplier;
 use App\RawMaterial;
 use App\RawMaterialSupplier;
-use App\RequestOfPurchase;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Lang;
 
@@ -45,7 +44,6 @@ class RawMaterialController extends Controller
 
     public function store(Request $request)
     {
-        // dd($request->moq_id[0]);
         $rawMaterial = new RawMaterial;
         $rawMaterial->name = $request->input('name');
         $rawMaterial->code = $request->input('code');
@@ -97,17 +95,19 @@ class RawMaterialController extends Controller
         $rawMaterial->holding_cost = $request->input('holding_cost');
         $rawMaterial->save();
 
-        for ($i=0; $i < count($request->supplier_id); $i++) {
-            
-            RawMaterialSupplier::create([
-                'raw_material_id' => $rawMaterial->id,
-                'supplier_id' => $request->supplier_id[$i],
-                'uom_id' => $request->uom_id[$i],
-                'moq_id' => $request->moq_id[$i],
-                'price_per_unit' => $request->price_per_unit[$i],
-                'lead_time' => $request->lead_time[$i]
-            ]);
-        } 
+        if(count($request->supplier_id) > 0){
+            for($i=0; $i < count($request->supplier_id); $i++) {
+                RawMaterialSupplier::create([
+                    'raw_material_id' => $rawMaterial->id,
+                    'supplier_id' => $request->supplier_id[$i],
+                    'uom_id' => $request->uom_id[$i],
+                    'moq_id' => $request->moq_id[$i],
+                    'price_per_unit' => $request->price_per_unit[$i],
+                    'lead_time' => $request->lead_time[$i]
+                ]);
+            } 
+        }
+        
 
         return redirect(route('rawMaterial.index'))->with('success', 'RawMaterial updated');
     }

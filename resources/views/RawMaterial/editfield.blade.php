@@ -162,14 +162,26 @@
                                   <th>MOQ</th>
                                   <th>Action</th>
                               </tr>
-                              @foreach($rawMaterial-> as $supplier_information)
+                              @foreach($rawMaterial->suppliers as $supplier_information)
                               <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                {{-- <input type="hidden" name="supplier_id[]" value="{{$supplier_information->id}}" />
+                                <input type="hidden" name="uom_id[]" value="{{$supplier_information->uom_id}}" />
+                                <input type="hidden" name="price_per_unit[]" value="{{$supplier_information->price_per_unit}}" />
+                                <input type="hidden" name="lead_time[]" value="{{$supplier_information->lead_time}}" />
+                                <input type="hidden" name="moq_id[]" value="{{$supplier_information->moq_id}}" /> --}}
+                                <td>{{$loop->iteration}}</td>
+                                <td>{{$supplier_information->supplier->name}}</td>
+                                <td>{{$supplier_information->uom->code}}</td>
+                                <td>{{$supplier_information->price_per_unit}}</td>
+                                <td>{{$supplier_information->lead_time}}</td>
+                                <td>{{$supplier_information->moq->name}} | &nbsp;&nbsp; 
+                                  <b><small>Minimum Quantity: {{$supplier_information->moq->min_quantity}} 
+                                    Maximum Quantity: {{$supplier_information->moq->max_quantity}}&nbsp;&nbsp;</small> </b> </td>
+                                <td>
+                                  <button type="button" onclick="removeRow(this)"class="btn btn-danger">
+                                    <i class="fa fa-minus"></i>
+                                  </button>
+                                </td>
                               </tr>
                               @endforeach
                               </table>

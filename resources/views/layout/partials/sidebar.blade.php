@@ -89,8 +89,8 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="/"><i class="fa fa-fw fa-angle-right"></i> Master Production Schedule</a></li>
-            <li><a href="/"><i class="fa fa-fw fa-angle-right"></i> MRP</a></li>
+            <li><a href="{!! URL::to('mrp') !!}"><i class="fa fa-fw fa-angle-right"></i> Master Production Schedule</a></li>
+            {{-- <li><a href="/"><i class="fa fa-fw fa-angle-right"></i> MRP</a></li> --}}
           </ul>
         </li>
       <li class="header">Settings</li>

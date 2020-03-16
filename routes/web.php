@@ -26,12 +26,6 @@ Route::get('/index', function () {
 
 //ORDER=======================================================================================================================================
 Route::get('order', ['as'=> 'order.index', 'uses' => 'OrderController@index']);
-// Route::get('customer/{id}/view}', array('as' => 'customer.view', 'uses' => 'CustomerController@view'));
-// Route::get('customer/{id}/edit', ['as'=> 'customer.edit', 'uses' => 'CustomerController@edit']);
-// Route::put('customer/{id}', ['as'=> 'customer.update', 'uses' => 'CustomerController@update']);
-// Route::patch('customer/{id}', ['as'=> 'customer.update', 'uses' => 'CustomerController@update']);
-// Route::get('customer/{id}/delete', array('as' => 'customer.delete', 'uses' => 'CustomerController@getDelete'));
-// Route::get('customer/{id}/confirm-delete', array('as' => 'customer.confirm-delete', 'uses' => 'CustomerController@getModalDelete'));
 Route::get('order/create', 'OrderController@create')->name('order.create');
 Route::post('ordersStore', ['as'=> 'orders.store', 'uses' => 'OrderController@store']);
 Route::get('order/download/{id}', 'OrderController@downloadPDF')->name('order.download');
@@ -66,8 +60,8 @@ Route::get('rawMaterial/{id}/view}', array('as' => 'rawMaterial.view', 'uses' =>
 Route::get('rawMaterial/{id}/edit', ['as'=> 'rawMaterial.edit', 'uses' => 'RawMaterialController@edit']);
 Route::put('rawMaterial/{id}', ['as'=> 'rawMaterial.update', 'uses' => 'RawMaterialController@update']);
 Route::patch('rawMaterial/{id}', ['as'=> 'rawMaterial.update', 'uses' => 'RawMaterialController@update']);
-Route::get('rawMaterial/{id}/delete', array('as' => 'rawMaterial.delete', 'uses' => 'RawMaterialController@getDelete'));
-Route::get('rawMaterial/{id}/confirm-delete', array('as' => 'rawMaterial.confirm-delete', 'uses' => 'RawMaterialController@getModalDelete'));
+// Route::get('rawMaterial/{id}/delete', array('as' => 'rawMaterial.delete', 'uses' => 'RawMaterialController@getDelete'));
+// Route::get('rawMaterial/{id}/confirm-delete', array('as' => 'rawMaterial.confirm-delete', 'uses' => 'RawMaterialController@getModalDelete'));
 Route::get('rawMaterial/create', 'RawMaterialController@create')->name('RawMaterial.create');
 Route::post('rawMaterialsStore', ['as'=> 'rawMaterials.store', 'uses' => 'RawMaterialController@store']);
 
@@ -136,18 +130,25 @@ Route::get('purchaseOrder/download/{id}', 'PurchaseOrderController@downloadPDF')
 //STOCKS=================================================================================================================================
 //GOOD RECEIVE NOTE     
 Route::get('goodReceiveNote', ['as'=> 'goodReceiveNote.index', 'uses' => 'GoodReceiveNoteController@index']);
-// Route::get('project/{project}/view}', array('as' => 'project.view', 'uses' => 'ProjectController@view'));
-// Route::get('requestOfPurchase/{id}/edit', ['as'=> 'requestOfPurchase.edit', 'uses' => 'RequestOfPurchaseController@edit']);
-// Route::put('requestOfPurchase/{id}', ['as'=> 'requestOfPurchase.update', 'uses' => 'RequestOfPurchaseController@update']);
-// Route::patch('requestOfPurchase/{id}', ['as'=> 'requestOfPurchase.update', 'uses' => 'RequestOfPurchaseController@update']);
-// Route::get('project/{id}/delete', array('as' => 'project.delete', 'uses' => 'ProjectController@getDelete'));
-// Route::get('project/{id}/confirm-delete', array('as' => 'project.confirm-delete', 'uses' => 'ProjectController@getModalDelete'));
 Route::get('goodReceiveNote/create', 'GoodReceiveNoteController@create')->name('goodReceiveNote.create');
 Route::post('goodReceiveNoteStore', ['as'=> 'goodReceiveNote.store', 'uses' => 'GoodReceiveNoteController@store']);
 Route::get('goodReceiveNoteStore/download/{id}', 'GoodReceiveNoteController@downloadPDF')->name('goodReceiveNoteStore.download');
 
 //TRANSACTION HISTORY     
 Route::get('inventoryStockTransaction', ['as'=> 'inventoryStockTransaction.index', 'uses' => 'InventoryStockTransactionController@index']);
+
+
+//MRP      
+Route::get('mrp', ['as'=> 'mrp.index', 'uses' => 'MrpController@index']);
+// Route::get('project/{project}/view}', array('as' => 'project.view', 'uses' => 'ProjectController@view'));
+// Route::get('purchaseOrder/{id}/edit', ['as'=> 'purchaseOrder.edit', 'uses' => 'ProjectController@edit']);
+// Route::put('requestOfPurchase/{requestOfPurchase}', ['as'=> 'requestOfPurchase.update', 'uses' => 'RequestOfPurchaseController@update']);
+// Route::patch('requestOfPurchase/{id}', ['as'=> 'purchaseOrder.update', 'uses' => 'RequestOfPurchaseController@update']);
+// Route::get('project/{id}/delete', array('as' => 'project.delete', 'uses' => 'ProjectController@getDelete'));
+// Route::get('project/{id}/confirm-delete', array('as' => 'project.confirm-delete', 'uses' => 'ProjectController@getModalDelete'));
+// Route::get('purchaseOrder/create', 'PurchaseOrderController@create')->name('purchaseOrder.create');
+// Route::post('purchaseOrder', ['as'=> 'purchaseOrder.store', 'uses' => 'PurchaseOrderController@store']);
+// Route::get('purchaseOrder/download/{id}', 'PurchaseOrderController@downloadPDF')->name('purchaseOrder.download');
 
 
 //===============================================================================================================================================

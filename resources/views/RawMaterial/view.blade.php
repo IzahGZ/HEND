@@ -97,13 +97,13 @@
                                         @foreach($rawMaterial->suppliers as $supplier_information)
                                         <tr>
                                         <td>{{$loop->iteration}}</td>
-                                          <td>{{$supplier_information->supplier->name}}</td>
-                                          <td>{{$supplier_information->uom->code}}</td>
-                                          <td>{{$supplier_information->price_per_unit}}</td>
-                                          <td>{{$supplier_information->lead_time}}</td>
-                                          <td>{{$supplier_information->moq->name}} | &nbsp;&nbsp; 
-                                            <b><small>Minimum Quantity: {{$supplier_information->moq->min_quantity}} 
-                                              Maximum Quantity: {{$supplier_information->moq->max_quantity}}&nbsp;&nbsp;</small> </b> </td>
+                                        <td>{{$supplier_information->supplier->name}}</td>
+                                        <td>{{$supplier_information->uom->code}}</td>
+                                        <td>{{$supplier_information->price_per_unit}}</td>
+                                        <td>{{$supplier_information->lead_time}}</td>
+                                        <td>{{$supplier_information->moq->name}} | &nbsp;&nbsp; 
+                                          <b><small>Minimum Quantity: {{$supplier_information->moq->min_quantity}} 
+                                            Maximum Quantity: {{$supplier_information->moq->max_quantity}}&nbsp;&nbsp;</small> </b> </td>
                                         </tr>
                                         @endforeach
                                         </table>
