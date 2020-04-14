@@ -17,7 +17,7 @@ class CreateProjectMaterialTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('raw_material_id');
             $table->unsignedBigInteger('project_id');
-            $table->unsignedInteger('quantity');
+            $table->decimal('quantity',8,4);
             $table->timestamps();
         });
     }

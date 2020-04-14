@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateRawMaterialSupplier extends Migration
+class CreateProductionCapacitiesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,10 @@ class CreateRawMaterialSupplier extends Migration
      */
     public function up()
     {
-        Schema::create('raw_material_supplier', function (Blueprint $table) {
+        Schema::create('production_capacities', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('raw_material_id');
-            $table->integer('supplier_id');
-            $table->integer('uom_id');
-            $table->integer('moq_id');
-            $table->decimal('price_per_unit', 8, 2);
-            $table->decimal('lead_time', 8, 2);
+            $table->integer('min_production');
+            $table->integer('max_production');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -33,6 +29,6 @@ class CreateRawMaterialSupplier extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('raw_material_supplier');
+        Schema::dropIfExists('production_capacities');
     }
 }

@@ -19,8 +19,6 @@ class CreateGoodReceiveNoteItems extends Migration
             $table->integer('po_item_id');
             $table->integer('order_quantity');
             $table->integer('receive_quantity');
-            $table->char('receiving_area');
-            $table->char('receive_by');
             $table->timestamps();
             $table->softDeletes();
         });

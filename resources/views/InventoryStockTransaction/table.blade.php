@@ -3,32 +3,50 @@
     <tr>
       <th>#</th>
       <th>Transaction</th>
+      <th>Category</th>
+      <th>Item Name | Code</th>
       <th>GRN Number</th>
-      <th>BOM Number</th>
+      <th>Work Order Number</th>
       <th>Quantity</th>
       <th>Transaction By</th>
       <th>Transaction Made On</th>
-      <th>Action</th>
     </tr>
     </thead>
     <tbody>
       @foreach($inventoryStockTransactions as $inventoryStockTransaction)
       <tr>
         <td>{{$loop->iteration}}</td>
-        <td>{{$inventoryStockTransaction->transaction_type->name}}</td>
-        <td>{{$inventoryStockTransaction->grn->grn_number}}</td>
-        <td>-</td>
+        <td>{{$inventoryStockTransaction->transaction_type->name}}
+        </td>
+        <td>{{$inventoryStockTransaction->inventory_category->name}}</td>
+        <td>@if( !empty($inventoryStockTransaction->grn->grn_number)) 
+          {{$inventoryStockTransaction->po_item->raw_material->name}} @endif
+          @if( !empty($inventoryStockTransaction->wo->work_order_no)) 
+            @if($inventoryStockTransaction->category_id == 1)
+              {{$inventoryStockTransaction->raw_material_wo->name}} 
+            @endif
+            @if($inventoryStockTransaction->category_id == 2)
+              {{$inventoryStockTransaction->product->name}} 
+            @endif
+          @endif
+        </td>
+        <td>@if( !empty($inventoryStockTransaction->grn->grn_number)) 
+          <a href="{{ route('goodReceiveNoteStore.download', $inventoryStockTransaction->grn->id ) }}" target="_blank">
+            GRN{{$inventoryStockTransaction->grn->grn_number}}
+          </a> @endif
+          @if( empty($inventoryStockTransaction->grn->grn_number)) 
+          - @endif
+        </td>
+        <td>@if( !empty($inventoryStockTransaction->wo->work_order_no))
+          <a href="{{ route('workOrder.download', $inventoryStockTransaction->wo->id ) }}" target="_blank">
+            WO{{$inventoryStockTransaction->wo->work_order_no}}
+          </a>@endif
+          @if( empty($inventoryStockTransaction->wo->work_order_no))                                                                                                                                                                                                                                                                                                                                                                                                                            
+          - @endif
+        </td>
         <td>{{$inventoryStockTransaction->quantity}}</td>
         <td>{{$inventoryStockTransaction->transaction_by}}</td>
         <td>{{$inventoryStockTransaction->created_at}}</td>
-        <td> 
-          {{-- <a href="{{ route('order.download', $orders->id ) }}" target="_blank">
-            <i class="fa fa-info" data-name="info" data-size="18" data-loop="true" title="view customer"></i>
-          </a> --}}
-          {{-- <a href="{{ route('purchaseOrder.download', $purchaseOrder->id ) }}" target="_blank">
-            <i class="fa fa-info" data-name="info" data-size="18" data-loop="true" title="view Purchase Request"></i>
-          </a> --}}
-        </td>
       </tr>
       @endforeach
   </table>

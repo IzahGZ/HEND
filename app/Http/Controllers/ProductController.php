@@ -55,6 +55,7 @@ class ProductController extends Controller
         $product->shelf_life = $request->input('shelf_life');
         $product->safety_stock = $request->input('safety_stock');
         $product->holding_cost = $request->input('holding_cost');
+        $product->category_id = 2;
         $product->save();
 
         return redirect(route('product.index'));

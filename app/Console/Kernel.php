@@ -2,6 +2,8 @@
 
 namespace App\Console;
 
+use App\Jobs\scheduleMRPDate;
+use App\Jobs\ScheduleTest;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -24,6 +26,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
+        $schedule->job(new scheduleMRPDate)->everyMinute();
+        // $schedule->job(new scheduleMRPDate)->everyMinute();
         // $schedule->command('inspire')
         //          ->hourly();
     }

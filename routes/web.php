@@ -1,5 +1,5 @@
 <?php
-
+use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -60,8 +60,6 @@ Route::get('rawMaterial/{id}/view}', array('as' => 'rawMaterial.view', 'uses' =>
 Route::get('rawMaterial/{id}/edit', ['as'=> 'rawMaterial.edit', 'uses' => 'RawMaterialController@edit']);
 Route::put('rawMaterial/{id}', ['as'=> 'rawMaterial.update', 'uses' => 'RawMaterialController@update']);
 Route::patch('rawMaterial/{id}', ['as'=> 'rawMaterial.update', 'uses' => 'RawMaterialController@update']);
-// Route::get('rawMaterial/{id}/delete', array('as' => 'rawMaterial.delete', 'uses' => 'RawMaterialController@getDelete'));
-// Route::get('rawMaterial/{id}/confirm-delete', array('as' => 'rawMaterial.confirm-delete', 'uses' => 'RawMaterialController@getModalDelete'));
 Route::get('rawMaterial/create', 'RawMaterialController@create')->name('RawMaterial.create');
 Route::post('rawMaterialsStore', ['as'=> 'rawMaterials.store', 'uses' => 'RawMaterialController@store']);
 
@@ -92,36 +90,20 @@ Route::post('projectsStore', ['as'=> 'projects.store', 'uses' => 'ProjectControl
 //BOM     
 Route::get('bom', ['as'=> 'bom.index', 'uses' => 'BomController@index']);
 Route::get('bom/{bom}/view}', array('as' => 'bom.view', 'uses' => 'BomController@view'));
-// Route::get('project/{project}/edit', ['as'=> 'project.edit', 'uses' => 'ProjectController@edit']);
-// Route::put('project/{project}', ['as'=> 'project.update', 'uses' => 'ProjectController@update']);
-// Route::patch('project/{project}', ['as'=> 'project.update', 'uses' => 'ProjectController@update']);
-// Route::get('project/{id}/delete', array('as' => 'project.delete', 'uses' => 'ProjectController@getDelete'));
-// Route::get('project/{id}/confirm-delete', array('as' => 'project.confirm-delete', 'uses' => 'ProjectController@getModalDelete'));
-// Route::get('project/create', 'ProjectController@create')->name('Project.create');
-// Route::post('projectsStore', ['as'=> 'projects.store', 'uses' => 'ProjectController@store']);
 
 
 //PURCHASES=================================================================================================================================
 //REQUEST OF PURCHASES      
 Route::get('requestOfPurchase', ['as'=> 'requestOfPurchase.index', 'uses' => 'RequestOfPurchaseController@index']);
-// Route::get('project/{project}/view}', array('as' => 'project.view', 'uses' => 'ProjectController@view'));
 Route::get('requestOfPurchase/{id}/edit', ['as'=> 'requestOfPurchase.edit', 'uses' => 'RequestOfPurchaseController@edit']);
 Route::put('requestOfPurchase/{id}', ['as'=> 'requestOfPurchase.update', 'uses' => 'RequestOfPurchaseController@update']);
 Route::patch('requestOfPurchase/{id}', ['as'=> 'requestOfPurchase.update', 'uses' => 'RequestOfPurchaseController@update']);
-// Route::get('project/{id}/delete', array('as' => 'project.delete', 'uses' => 'ProjectController@getDelete'));
-// Route::get('project/{id}/confirm-delete', array('as' => 'project.confirm-delete', 'uses' => 'ProjectController@getModalDelete'));
 Route::get('requestOfPurchase/create', 'RequestOfPurchaseController@create')->name('requestOfPurchase.create');
 Route::post('requestOfPurchaseStore', ['as'=> 'requestOfPurchase.store', 'uses' => 'RequestOfPurchaseController@store']);
 Route::get('requestOfPurchaseStore/download/{id}', 'RequestOfPurchaseController@downloadPDF')->name('requestOfPurchaseStore.download');
 
 //PURCHASE ORDERS      
 Route::get('purchaseOrder', ['as'=> 'purchaseOrder.index', 'uses' => 'PurchaseOrderController@index']);
-// Route::get('project/{project}/view}', array('as' => 'project.view', 'uses' => 'ProjectController@view'));
-// Route::get('purchaseOrder/{id}/edit', ['as'=> 'purchaseOrder.edit', 'uses' => 'ProjectController@edit']);
-// Route::put('requestOfPurchase/{requestOfPurchase}', ['as'=> 'requestOfPurchase.update', 'uses' => 'RequestOfPurchaseController@update']);
-// Route::patch('requestOfPurchase/{id}', ['as'=> 'purchaseOrder.update', 'uses' => 'RequestOfPurchaseController@update']);
-// Route::get('project/{id}/delete', array('as' => 'project.delete', 'uses' => 'ProjectController@getDelete'));
-// Route::get('project/{id}/confirm-delete', array('as' => 'project.confirm-delete', 'uses' => 'ProjectController@getModalDelete'));
 Route::get('purchaseOrder/create', 'PurchaseOrderController@create')->name('purchaseOrder.create');
 Route::post('purchaseOrder', ['as'=> 'purchaseOrder.store', 'uses' => 'PurchaseOrderController@store']);
 Route::get('purchaseOrder/download/{id}', 'PurchaseOrderController@downloadPDF')->name('purchaseOrder.download');
@@ -138,17 +120,25 @@ Route::get('goodReceiveNoteStore/download/{id}', 'GoodReceiveNoteController@down
 Route::get('inventoryStockTransaction', ['as'=> 'inventoryStockTransaction.index', 'uses' => 'InventoryStockTransactionController@index']);
 
 
-//MRP      
+//MRP=====================================================================================================================================    
 Route::get('mrp', ['as'=> 'mrp.index', 'uses' => 'MrpController@index']);
-// Route::get('project/{project}/view}', array('as' => 'project.view', 'uses' => 'ProjectController@view'));
-// Route::get('purchaseOrder/{id}/edit', ['as'=> 'purchaseOrder.edit', 'uses' => 'ProjectController@edit']);
-// Route::put('requestOfPurchase/{requestOfPurchase}', ['as'=> 'requestOfPurchase.update', 'uses' => 'RequestOfPurchaseController@update']);
-// Route::patch('requestOfPurchase/{id}', ['as'=> 'purchaseOrder.update', 'uses' => 'RequestOfPurchaseController@update']);
-// Route::get('project/{id}/delete', array('as' => 'project.delete', 'uses' => 'ProjectController@getDelete'));
-// Route::get('project/{id}/confirm-delete', array('as' => 'project.confirm-delete', 'uses' => 'ProjectController@getModalDelete'));
-// Route::get('purchaseOrder/create', 'PurchaseOrderController@create')->name('purchaseOrder.create');
-// Route::post('purchaseOrder', ['as'=> 'purchaseOrder.store', 'uses' => 'PurchaseOrderController@store']);
-// Route::get('purchaseOrder/download/{id}', 'PurchaseOrderController@downloadPDF')->name('purchaseOrder.download');
+
+
+//PRODUCTION=============================================================================================================================  
+//WORK ORDERS    
+Route::get('workOrder', ['as'=> 'workOrder.index', 'uses' => 'WorkOrderController@index']);
+Route::get('workOrder/create', 'WorkOrderController@create')->name('workOrder.create');
+Route::post('workOrder', ['as'=> 'workOrder.store', 'uses' => 'WorkOrderController@store']);
+Route::get('workOrder/download/{id}', 'WorkOrderController@downloadPDF')->name('workOrder.download');
+Route::get('workOrder/downloadProcessTravellerPDF/{id}', 'WorkOrderController@downloadProcessTravellerPDF')->name('workOrder.downloadProcessTravellerPDF');
+Route::get('workOrder/{id}/wo', array('as' => 'workOrder.wo', 'uses' => 'WorkOrderController@getWO'));
+Route::get('workOrder/{id}/confirm-wo', array('as' => 'workOrder.confirm-wo', 'uses' => 'WorkOrderController@getModalWO'));
+//RUN PRODUCTION
+Route::get('workOrder/{id}/production', array('as' => 'workOrder.production', 'uses' => 'WorkOrderController@getProduction'));
+Route::get('workOrder/{id}/confirm-production', array('as' => 'workOrder.confirm-production', 'uses' => 'WorkOrderController@getModalProduction'));
+//FINISH GOOD PRODUCTION
+Route::get('finishGoodProduction', ['as'=> 'finishGoodProduction.create', 'uses' => 'WorkOrderController@finishGoodProductionCreate']);
+Route::post('finishGoodProductionStore', ['as'=> 'finishGoodProduction.store', 'uses' => 'WorkOrderController@finishGoodProductionStore']);
 
 
 //===============================================================================================================================================
@@ -196,4 +186,15 @@ Route::get('moq/{id}/delete', array('as' => 'moq.delete', 'uses' => 'MoqControll
 Route::get('moq/{id}/confirm-delete', array('as' => 'moq.confirm-delete', 'uses' => 'MoqController@getModalDelete'));
 Route::get('moq/create', 'MoqController@create')->name('moq.create');
 Route::post('moqStore', ['as'=> 'moq.store', 'uses' => 'MoqController@store']);
+
+// Route::get('tf', function() {
+//     $all = mrp::all();
+//     $all->each(function($a) {
+//         $date = $a->date;
+//         $newDate = Carbon::parse($date);
+        
+//         $a->update(['date' => $newDate]);
+//     });
+//     return 'done';
+// });
 

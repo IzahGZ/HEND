@@ -74,9 +74,10 @@ if (!product.val() || !quantity.val())
 const selectedProductText = product.find(`option[value=${product.val()}]`).text()
 var total =  parseInt(quantity.val()*filteredProduct[0].price);
 productTable.append(`
-  <tr>
+  <tr class="row_table">
     <input type="hidden" name="product_id[]" value="${product.val()}" />
     <input type="hidden" name="quantity[]" value="${quantity.val()}" />
+    <input type="hidden" id="Total" value="${total}" value="${total}"/>
     <td>${childNumber}</td>
     <td>${selectedProductText}</td>
     <td >${quantity.val()}</td>
@@ -108,7 +109,24 @@ function calculateSum() {
 }
 
 // remove row
-const removeRow = el => $(el).parents('tr').remove()
-
+// const removeRow = el => $(el).parents('tr').remove()
+function removeRow(el){
+  const container = $(el).parents('.row_table')
+  const container2 = $(el).parents('.row')
+  const total = $(container).find('#Total')
+  const sub_total = $(container2).find('#sub_total')
+  const grand_total = $(container2).find('#grand_total')
+  const delivery_fee = $(container2).find('#delivery_fee')
+  var update_subtotal = sub_total.val()-total.val();
+  if(update_subtotal ==0)
+    var update_grand_total = grand_total.val()-total.val()-delivery_fee.val();
+  else
+    var update_grand_total = grand_total.val()-total.val();
+  console.log("subtotal: " + sub_total.val())
+  console.log("total: " + total.val())
+  $('#sub_total').val(update_subtotal);
+  $('#grand_total').val(update_grand_total);
+  $(el).parents('tr').remove();
+}
 </script>
 @endpush

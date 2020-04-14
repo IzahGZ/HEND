@@ -164,11 +164,11 @@
                               </tr>
                               @foreach($rawMaterial->suppliers as $supplier_information)
                               <tr>
-                                {{-- <input type="hidden" name="supplier_id[]" value="{{$supplier_information->id}}" />
+                                <input type="hidden" name="supplier_id[]" value="{{$supplier_information->id}}" />
                                 <input type="hidden" name="uom_id[]" value="{{$supplier_information->uom_id}}" />
                                 <input type="hidden" name="price_per_unit[]" value="{{$supplier_information->price_per_unit}}" />
                                 <input type="hidden" name="lead_time[]" value="{{$supplier_information->lead_time}}" />
-                                <input type="hidden" name="moq_id[]" value="{{$supplier_information->moq_id}}" /> --}}
+                                <input type="hidden" name="moq_id[]" value="{{$supplier_information->moq_id}}" />
                                 <td>{{$loop->iteration}}</td>
                                 <td>{{$supplier_information->supplier->name}}</td>
                                 <td>{{$supplier_information->uom->code}}</td>

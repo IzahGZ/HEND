@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateBoms extends Migration
+class CreateInventoryCategories extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,10 @@ class CreateBoms extends Migration
      */
     public function up()
     {
-        Schema::create('boms', function (Blueprint $table) {
+        Schema::create('inventory_categories', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('bom_number');
-            $table->integer('project_id');
-            $table->integer('order_id');
-            $table->integer('quantity');
-            $table->integer('status');
+            $table->char('name');
+            $table->char('description');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -32,6 +29,6 @@ class CreateBoms extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('boms');
+        Schema::dropIfExists('inventory_categories');
     }
 }

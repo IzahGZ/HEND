@@ -22,9 +22,6 @@
       <td>{{$goodReceiveNote->supplier_do_date}}</td>
       {{-- <td></td> --}}
         <td> 
-          {{-- <a href="{{ route('order.download', $orders->id ) }}" target="_blank">
-            <i class="fa fa-info" data-name="info" data-size="18" data-loop="true" title="view customer"></i>
-          </a> --}}
           <a href="{{ route('goodReceiveNoteStore.download', $goodReceiveNote->id ) }}" target="_blank">
             <i class="fa fa-info" data-name="info" data-size="18" data-loop="true" title="view Purchase Request"></i>
           </a>

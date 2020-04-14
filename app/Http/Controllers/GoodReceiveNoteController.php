@@ -23,8 +23,8 @@ class GoodReceiveNoteController extends Controller
     public function create(){
 
         $suppliers = Supplier::all();
-        $purchaseOrders = PurchaseOrder::all();
-        $purchaseOrderItems = PurchaseOrderItem::with('raw_material')->with('raw_material_supplier')->get();
+        $purchaseOrders = PurchaseOrder::where('status', 2)->orWhere('status', 4)->get();
+        $purchaseOrderItems = PurchaseOrderItem::with('raw_material')->with('raw_material_supplier')->where('status', 2)->orWhere('status', 4)->get();
         $uoms = Uom::all();
 
         //generate automate running number
@@ -34,9 +34,8 @@ class GoodReceiveNoteController extends Controller
         $first_day_this_month = date('Y-m-01');
         $date_today = date('Y-m-d');
 
-        $get_number_of_grn = GoodReceiveNote::whereBetween('created_at',[$first_day_this_month, $date_today])->paginate(10000);
+        $get_number_of_grn = GoodReceiveNote::whereBetween('supplier_do_date',[$first_day_this_month, $date_today])->paginate(10000);
         $total_grn = $get_number_of_grn->total() + 1;
-
         $grnID = str_pad($total_grn, 4, '0', STR_PAD_LEFT);
 
         $unique_number = $twodigit1st.$twodigit2nd.$grnID;
@@ -72,7 +71,9 @@ class GoodReceiveNoteController extends Controller
             InventoryStockTransaction::create([
                 'transaction_id' => 1,
                 'grn_id' => $grn->id,
-                'bom_id' => 0,
+                'category_id' => 1,
+                'item_id' => $request->po_item_id[$i],
+                'wo_id' => 0,
                 'transaction_by' => $grn->receive_by,
                 'quantity' => $request->receive_quantity[$i]
             ]);

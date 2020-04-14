@@ -5,12 +5,12 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
           <h1>
-            Raw Material
+            BOM
             <small>Details</small>
           </h1>
           <ol class="breadcrumb">
             <li><a href="{!! URL::to('index') !!}"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li><a href="{!! URL::to('project') !!}">Project List</a></li>
+            <li><a href="{!! URL::to('project') !!}">BOM List</a></li>
             <li class="active">Edit details</li>
           </ol>
         </section>

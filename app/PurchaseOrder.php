@@ -27,4 +27,5 @@ class PurchaseOrder extends Model
     public function system_status(){
         return $this->belongsTo(SystemStatus::class, 'status', 'id');
     }
+
 }

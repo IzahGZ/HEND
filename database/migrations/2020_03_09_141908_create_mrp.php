@@ -16,7 +16,15 @@ class CreateMrp extends Migration
         Schema::create('mrp', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->char('date');
+            $table->integer('product_id');
+            $table->integer('quantity');
+            $table->integer('on_hand');
+            $table->integer('net_requirement');
+            $table->integer('order_release');
+            $table->integer('order_receipt');
+            $table->integer('wo_status');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

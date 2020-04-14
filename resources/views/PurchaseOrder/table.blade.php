@@ -35,7 +35,7 @@
                 <td>{{$item->raw_material->code}}</td>
                 <td>{{$item->quantity}}</td>
                 <td>{{$item->delivery_date}}</td>
-                <td>-</td>
+                <td>{{$item->grn_item}}</td>
                 <td><span class="label label-default" style="background-color:{{$item->system_status->colour}}; color:white;">{{$item->system_status->name}}</span></td>
               </tr>
               @endforeach

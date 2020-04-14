@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateProcess extends Migration
+class ChangeDateMrpToDateType extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,9 @@ class CreateProcess extends Migration
      */
     public function up()
     {
-        Schema::create('process', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->char('code');
-            $table->char('name');
-            $table->integer('station');
-            $table->timestamps();
-            $table->softDeletes();
+        
+        Schema::table('mrp', function (Blueprint $table) {
+            $table->date('date')->change()->charset(null);
         });
     }
 
@@ -30,6 +26,8 @@ class CreateProcess extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('process');
+        Schema::table('mrp', function (Blueprint $table) {
+            $table->char('date', 225)->change();
+        });
     }
 }

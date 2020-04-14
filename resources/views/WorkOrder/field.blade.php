@@ -88,6 +88,24 @@
                             </tr>
                             </table>
                             <table class="table table_footer" id="grandTotal">
+                                {{-- <tr>
+                                    <td style="border: none;" width="25px"></td>
+                                    <td style="border: none" width="1150px"></td>
+                                    <td style="border: none" class="text-right">SubTotal (RM)</td>
+                                    <td style="border: none" width="200px" class="text-left">
+                                        <input type="text" name='sub_total' placeholder='0.00' class="form-control" id="sub_total" readonly/>
+                                    </td>
+                                    <td style="border: none" width="100px"></td>
+                                </tr>
+                                <tr>
+                                    <td style="border: none;" width="25px"></td>
+                                    <td style="border: none" width="1150px"></td>
+                                    <td style="border: none" class="text-right">Delivery Fee (RM)</td>
+                                    <td style="border: none" width="200px" class="text-left">
+                                        <input type="text" name='delivery_fee' placeholder='0.00' class="form-control" id="delivery_fee" readonly/>
+                                    </td>
+                                    <td style="border: none" width="100px"></td>
+                                </tr> --}}
                                 <tr>
                                     <td style="border: none;" width="25px"></td>
                                     <td style="border: none" width="1150px"></td>

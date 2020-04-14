@@ -17,9 +17,11 @@ class CreateInventoryStockTransaction extends Migration
             $table->bigIncrements('id');
             $table->integer('transaction_id');
             $table->integer('grn_id');
-            $table->integer('bom_id');
+            $table->integer('wo_id');
             $table->char('transaction_by');
             $table->integer('quantity');
+            $table->integer('category_id');
+            $table->integer('item_id');
             $table->timestamps();
             $table->softDeletes();
         });

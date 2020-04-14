@@ -51,6 +51,7 @@ class RawMaterialController extends Controller
         $rawMaterial->shelf_life = $request->input('shelf_life');
         $rawMaterial->safety_stock = $request->input('safety_stock');
         $rawMaterial->holding_cost = $request->input('holding_cost');
+        $rawMaterial->category_id = 1;
         $rawMaterial->save();
 
         for ($i=0; $i < count($request->supplier_id); $i++) {
@@ -95,19 +96,18 @@ class RawMaterialController extends Controller
         $rawMaterial->holding_cost = $request->input('holding_cost');
         $rawMaterial->save();
 
-        if(count($request->supplier_id) > 0){
-            for($i=0; $i < count($request->supplier_id); $i++) {
-                RawMaterialSupplier::create([
-                    'raw_material_id' => $rawMaterial->id,
-                    'supplier_id' => $request->supplier_id[$i],
-                    'uom_id' => $request->uom_id[$i],
-                    'moq_id' => $request->moq_id[$i],
-                    'price_per_unit' => $request->price_per_unit[$i],
-                    'lead_time' => $request->lead_time[$i]
+        $rawMaterial->suppliers()->delete();
+        if($request->supplier_id){
+            foreach($request->supplier_id as $key => $supplier_id) {
+                $rawMaterial->suppliers()->create([
+                    'supplier_id' => $supplier_id,
+                    'uom_id' => $request->uom_id[$key],
+                    'moq_id' => $request->moq_id[$key],
+                    'price_per_unit' => $request->price_per_unit[$key],
+                    'lead_time' => $request->lead_time[$key]
                 ]);
             } 
-        }
-        
+        }        
 
         return redirect(route('rawMaterial.index'))->with('success', 'RawMaterial updated');
     }

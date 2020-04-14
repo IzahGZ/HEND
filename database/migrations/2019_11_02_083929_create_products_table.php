@@ -24,6 +24,7 @@ class CreateProductsTable extends Migration
             $table->integer('shelf_life');
             $table->decimal('safety_stock', 8, 2);
             $table->decimal('holding_cost', 3, 2);
+            $table->integer('category_id');
             $table->integer('status');
             $table->timestamps();
             $table->softDeletes();

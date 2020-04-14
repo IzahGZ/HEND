@@ -75,6 +75,7 @@ $('#supplier_id').on('keyup change',function() {
 });
 
 // remove row
+// const removeRow = el => $(el).parents('tr').remove()
 function removeRow(el){
   const container = $(el).parents('.row_table')
   const container2 = $(el).parents('.row')

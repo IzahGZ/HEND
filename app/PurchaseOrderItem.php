@@ -30,4 +30,8 @@ class PurchaseOrderItem extends Model
     public function system_status(){
         return $this->belongsTo(SystemStatus::class, 'status', 'id');
     }
+
+    public function grn_item(){
+        return $this->belongsTo('App\GoodReceiveNoteItem', 'po_item_id');
+    }
 }

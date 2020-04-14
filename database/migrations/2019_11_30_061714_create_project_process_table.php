@@ -19,6 +19,7 @@ class CreateProjectProcessTable extends Migration
             $table->unsignedBigInteger('process_id');
             $table->string('duration');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -33,30 +33,6 @@
       </li>
       <li class="treeview">
         <a href="/">
-          <i class="fa fa-fw fa-server"></i> <span>Inventory</span>
-          <span class="pull-right-container">
-            <i class="fa fa-angle-left pull-right"></i>
-          </span>
-        </a>
-        <ul class="treeview-menu">
-          <li><a href="{!! URL::to('rawMaterial') !!}"><i class="fa fa-fw fa-angle-right"></i> Raw Materials</a></li>
-          <li><a href="{!! URL::to('product') !!}"><i class="fa fa-fw fa-angle-right"></i> Products</a></li>
-        </ul>
-      </li>
-      <li class="treeview">
-        <a href="/">
-          <i class="fa fa-fw fa-object-group"></i> <span>Bill of Materials</span>
-          <span class="pull-right-container">
-            <i class="fa fa-angle-left pull-right"></i>
-          </span>
-        </a>
-        <ul class="treeview-menu">
-          <li><a href="{!! URL::to('bom') !!}"><i class="fa fa-fw fa-angle-right"></i> BOM List</a></li>
-          <li><a href="{!! URL::to('project') !!}"><i class="fa fa-fw fa-angle-right"></i> Project</a></li>
-        </ul>
-      </li>
-      <li class="treeview">
-        <a href="/">
           <i class="fa fa-fw fa-shopping-cart"></i> <span>Purchases</span>
           <span class="pull-right-container">
             <i class="fa fa-angle-left pull-right"></i>
@@ -73,26 +49,53 @@
           <span class="pull-right-container">
             <i class="fa fa-angle-left pull-right"></i>
           </span>
-          
         </a>
         <ul class="treeview-menu">
+          <li class="treeview">
+            <a href="/">
+              <i class="fa fa-fw fa-angle-right"></i> <span>Inventory</span>
+            </a>
+            <ul class="treeview-menu">
+              <li><a href="{!! URL::to('rawMaterial') !!}"><i class="fa fa-fw fa-angle-right"></i> Raw Materials</a></li>
+              <li><a href="{!! URL::to('product') !!}"><i class="fa fa-fw fa-angle-right"></i> Products</a></li>
+            </ul>
+          </li>
           <li><a href="{!! URL::to('goodReceiveNote') !!}"><i class="fa fa-fw fa-angle-right"></i> Good Receive Note</a></li>
           {{-- <li><a href="/"><i class="fa fa-fw fa-angle-right"></i> Inventory Stocks</a></li> --}}
           <li><a href="{!! URL::to('inventoryStockTransaction') !!}"><i class="fa fa-fw fa-angle-right"></i> Transaction History</a></li>
         </ul>
       </li>
       <li class="treeview">
-          <a href="#">
-            <i class="fa fa-fw fa-calculator"></i> <span>MRP</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="{!! URL::to('mrp') !!}"><i class="fa fa-fw fa-angle-right"></i> Master Production Schedule</a></li>
-            {{-- <li><a href="/"><i class="fa fa-fw fa-angle-right"></i> MRP</a></li> --}}
-          </ul>
-        </li>
+        <a href="#">
+          <i class="fa fa-fw fa-calculator"></i> <span>MRP</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li class="treeview">
+            <a href="/"><i class="fa fa-fw fa-angle-right"></i><span>Bill of Materials</span>
+            </a>
+            <ul class="treeview-menu">
+              <li><a href="{!! URL::to('project') !!}"><i class="fa fa-fw fa-angle-right"></i> BOM List</a></li>
+              <li><a href="{!! URL::to('project/create') !!}"><i class="fa fa-fw fa-angle-right"></i> Create BOM</a></li>
+            </ul>
+          </li>
+          <li><a href="{!! URL::to('mrp') !!}"><i class="fa fa-fw fa-angle-right"></i> Master Production Schedule</a></li>
+        </ul>
+      </li>
+      <li class="treeview">
+        <a href="#">
+          <i class="fa fa-fw fa-tasks"></i> <span>Production</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li><a href="{!! URL::to('workOrder') !!}"><i class="fa fa-fw fa-angle-right"></i> Work Orders</a></li>
+          <li><a href="{!! URL::to('finishGoodProduction') !!}"><i class="fa fa-fw fa-angle-right"></i> Finish Good Production</a></li>
+        </ul>
+      </li>
       <li class="header">Settings</li>
         <ul class="sidebar-menu" data-widget="tree">
           <li><a href="{!! URL::to('systemStatus') !!}">

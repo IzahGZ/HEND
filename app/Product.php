@@ -19,7 +19,8 @@ class Product extends Model
         'uom',
         'code',
         'safety_stock',
-        'holding_cost'
+        'holding_cost',
+        'category_id'
     ];
 
     public function systemstatus(){
