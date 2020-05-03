@@ -88,13 +88,6 @@
                     <td>{{$days->quantity}}</td>
                     @endforeach
                   </tr>
-                  {{-- <tr>
-                    <td>Schedule Receipt</td>
-                    <td></td>
-                    @foreach($dates as $days)
-                    <td>0</td>
-                    @endforeach
-                  </tr> --}}
                   <tr>
                     <td>Projected On Hand</td> 
                     <?php 
@@ -150,134 +143,76 @@
                 <h3 class="box-title">Raw Material Order Planning</h3>
               </div>
 
+              @foreach($project->materials as $item)
+              <div class="box-header with-border">
+                <h3 class="box-title">{{$item->name}}</h3>
+              </div>
               <table id="example1" class="table table-bordered table-striped">
                 <tr>
                   <td></td>
                   <td>Beginning Inventory</td>
-                  <td>1</td>
-                  <td>2</td>
-                  <td>3</td>
-                  <td>4</td>
-                  <td>5</td>
-                  <td>6</td>
-                  <td>7</td>
-                  <td>8</td>
-                  <td>9</td>
-                  <td>10</td>
-                  <td>11</td>
-                  <td>12</td>
-                  <td>13</td>
-                  <td>14</td>
+                  @foreach($date_raw_materials as $raw_material)
+                    @if($item->id == $raw_material->raw_material_id)
+                      <td>{{ date("d M", strtotime($raw_material->date))}}</td>
+                    @endif
+                  @endforeach
                 </tr>
                 <tr>
                   <td>Gross Requirement</td>
                   <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
+                  @foreach($date_raw_materials as $raw_material)
+                    @if($item->id == $raw_material->raw_material_id)
+                      <td>{{$raw_material->quantity}}</td>
+                      @endif
+                  @endforeach
                 </tr>
                 <tr>
                   <td>Schedule Receipt</td>
                   <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
+                  @foreach($date_raw_materials as $raw_material)
+                    @if($item->id == $raw_material->raw_material_id)
+                      <td>{{$raw_material->schedule_receipt}}</td>
+                      @endif
+                  @endforeach
                 </tr>
                 <tr>
                   <td>Projected On Hand</td>
                   <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
+                  @foreach($date_raw_materials as $raw_material)
+                    @if($item->id == $raw_material->raw_material_id)
+                      <td>{{$raw_material->on_hand}}</td>
+                      @endif
+                  @endforeach
                 </tr>
                 <tr>
                   <td>Net Requirement</td>
                   <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
+                  @foreach($date_raw_materials as $raw_material)
+                    @if($item->id == $raw_material->raw_material_id)
+                      <td>{{$raw_material->net_requirement}}</td>
+                      @endif
+                  @endforeach
                 </tr>
                 <tr>
                   <td>Planned Order Receipt</td>
                   <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
+                  @foreach($date_raw_materials as $raw_material)
+                    @if($item->id == $raw_material->raw_material_id)
+                      <td>{{$raw_material->order_receipt}}</td>
+                      @endif
+                  @endforeach
                 </tr>
                 <tr>
                   <td>Planned Order Released</td>
                   <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
+                  @foreach($date_raw_materials as $raw_material)
+                    @if($item->id == $raw_material->raw_material_id)
+                      <td>{{$raw_material->order_release}}</td>
+                      @endif
+                  @endforeach
                 </tr>
               </table>
+            @endforeach
           </div>
           
           </div>

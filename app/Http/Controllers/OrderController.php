@@ -8,6 +8,7 @@ use App\Order;
 use App\Product;
 use App\Project;
 use App\Customer;
+use App\MrpRawMaterial;
 use App\OrderItem;
 use App\ProductionCapacity;
 use App\RawMaterialSupplier;
@@ -60,7 +61,7 @@ class OrderController extends Controller
             }
         }
 
-        $current_date = date('d-m-Y');
+        $current_date = today();
         $accumulate_lead_time = $highest_lead_time + 2;
         $delivery_date = today()->addDays($accumulate_lead_time);
         $Order = new Order;
@@ -116,23 +117,26 @@ class OrderController extends Controller
                 $delivery_date = $delivery_date->addDays(1);
             }
 
-            $count_project = count(Project::all());
-            for ($i = 0; $i < $count_project; $i++) {
+
+
+            $Projects = Project::all();
+            // dd($Projects);
+            foreach ($Projects as $project) {
                 //CALCULATE MRP lvl 0/////////////////////////////////////////////////////////////////////////////////////////////////////
                 //call the first 30 days
-                $date = mrp::where('product_id', (int) $request->product_id[$i])
+                $date = mrp::where('product_id', $project->product_id)
                     ->whereBetween(
                         'date',
                         [
                             today(),
-                            today()->addDays(14)
+                            today()->addDays(30)
                         ]
                     )
                     ->orderBy('date', 'ASC')
                     ->get(); // formula purposes
-
+                
                 //Initialize the beginning inventory of MRP table
-                $product = Product::find($request->product_id[$i])->first();
+                $product = Product::find($project->product_id)->first();
                 $beginning_inventory = $product->current_stock;
                 $first_id = $date->first();
                 $first_id->on_hand = $beginning_inventory;
@@ -145,6 +149,15 @@ class OrderController extends Controller
                 $min_production = $production_capacity[0]->min_production;
                 
                 foreach ($date as $index => $each_date) {
+
+                    foreach($project->materials as $raw_material){
+                        $mrp_raw_material = MrpRawMaterial::where('date', $each_date->date)
+                                                        ->where('product_id', $each_date->product_id)
+                                                        ->where('raw_material_id', $raw_material->pivot->raw_material_id)
+                                                        ->first();
+                        $mrp_raw_material->quantity = $each_date->quantity * $raw_material->pivot->quantity;
+                        $mrp_raw_material->save();
+                    }
                     //Calculate On Hand////////////////////////////////////////////////////
                     if ($index > 0) {
                         $initial = $initial - $date[$index - 1]->quantity;

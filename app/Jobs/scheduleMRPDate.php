@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use App\mrp;
+use App\MrpRawMaterial;
 use App\Project;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
@@ -33,41 +34,52 @@ class scheduleMRPDate implements ShouldQueue
     {
         $checkMRP = mrp::all();
         $projects = Project::all();
-
-        $first_day = date('d-m-Y');
-        $currentDate = strtotime($first_day);
-        if(count($checkMRP) == 0){
+        $checkMrpRawMaterial = MrpRawMaterial::all();
+        $first_day = today();
+        if(count($checkMRP) == 0 && count($checkMrpRawMaterial) == 0){
             foreach($projects as $project){
-                for($i=1; $i<=14; $i++){
-                    $formatted = date("d-m-Y", $currentDate);
+                // dd($project->materials);
+                foreach($project->materials as $item){
+                    for($i=1; $i<=31; $i++){
+                        $mrp_raw_material = new MrpRawMaterial;
+                        $mrp_raw_material->date = $first_day;
+                        $mrp_raw_material->product_id = $project->product_id;
+                        $mrp_raw_material->raw_material_id = $item->id;
+                        $mrp_raw_material->save();
+                        //Add one day onto the timestamp / counter
+                        $first_day = $first_day->addDays(1);
+                    }
+                    $first_day = today();
+                }
+                $first_day = today();
+                for($i=1; $i<=31; $i++){
                     $mrp = new mrp;
-                    $mrp->date = $formatted;
+                    $mrp->date = $first_day;
                     $mrp->product_id = $project->product_id;
                     $mrp->save();
-    
-                    //Add one day onto the timestamp / counter.
-                    $currentDate = strtotime("+1 day", $currentDate);
+                    //Add one day onto the timestamp / counter
+                    $first_day = $first_day->addDays(1);
                 }
-                $first_day = date('d-m-Y');
-                $currentDate = strtotime($first_day);
+                $first_day = today();
             } 
         }
         else{
             foreach($projects as $project){
-                $formatted = date("d-m-Y", $currentDate);
-                $currentDate = strtotime("+13 day", $currentDate);
-                $latest = date('d-m-Y', $currentDate);
-
+                $latest = today()->addDays(29);
                 $each_date = mrp::where('date', $latest)->where('product_id', $project->product_id)->get();
                 if(count($each_date) == 0){
+                    foreach($project->materials as $item){
+                        $mrp_raw_material = new MrpRawMaterial;
+                        $mrp_raw_material->date = $latest;
+                        $mrp_raw_material->product_id = $project->product_id;
+                        $mrp_raw_material->raw_material_id = $item->id;
+                        $mrp_raw_material->save();
+                    }
                     $mrp = new mrp;
                     $mrp->date = $latest;
                     $mrp->product_id = $project->product_id;
                     $mrp->save();
                 }
-                
-                $first_day = date('d-m-Y');
-                $currentDate = strtotime($first_day); 
             }
         }
     }
