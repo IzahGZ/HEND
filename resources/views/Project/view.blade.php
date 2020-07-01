@@ -18,7 +18,11 @@
           <h3 class="box-title">BOM Information</h3>
         </div>
         @include('Project.view_field')
+        <div class="box-footer text-center">
+          <a href="{{ route('project.index') }}" class="btn btn-default">Back</a>
+      </div>
       </div>
     </section>
+
   </div>
 @endpush

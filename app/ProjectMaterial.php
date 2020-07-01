@@ -13,4 +13,7 @@ class ProjectMaterial extends Pivot
         return $this->belongsTo('App\RawMaterial','raw_material_id','id');
 
     }
+    public function lot_sizing(){
+        return $this->belongsTo(LotSizing::class, 'lot_sizing_id');
+    }
 }

@@ -6,15 +6,15 @@
               <div class="box-body">
                 <div class="form-group">
                     {!! Form::label('name', 'Item name:') !!}
-                    {!! Form::text('name', null, ['class' => 'form-control']) !!}
+                    {!! Form::text('name', $rawMaterial->name, ['class' => 'form-control']) !!}
                 </div>
                 <div class="form-group">
                   {!! Form::label('shelf_life', 'Shelf Life:') !!}
-                  {!! Form::text('shelf_life', null, ['class' => 'form-control']) !!}
+                  {!! Form::text('shelf_life', $rawMaterial->shelf_life, ['class' => 'form-control']) !!}
                 </div>
                 <div class="form-group">
-                  {!! Form::label('holding_cost', 'Holding Cost:') !!}
-                  {!! Form::text('holding_cost', null, ['class' => 'form-control']) !!}
+                  {!! Form::label('inventory_cost', 'Inventory Cost (RM):') !!}
+                  {!! Form::text('inventory_cost', $rawMaterial->inventory_cost, ['class' => 'form-control']) !!}
                 </div>
               </div>
           </div>
@@ -27,24 +27,25 @@
               <div class="form-horizontal">
                   <div class="form-group">
                     {!! Form::label('code', 'Item Code:') !!}
-                    {!! Form::text('code', null, ['class' => 'form-control']) !!}
+                    {!! Form::text('code', $rawMaterial->code, ['class' => 'form-control']) !!}
                   </div>
                   <div class="form-group">
                     {!! Form::label('uom', 'Unit of Measurement:') !!}
                       <select name="uom" id="uom" class="form-control uom" required>
                           <option value="">Please select UOM</option>
                             @foreach($uoms as $uom)
-                            <option value="{{ $uom->id }}"{{ $rawMaterial->uom == $uom->id ? 'selected' : '' }}>{{$uom->name}}</option>
+                            <option value="{{ $rawMaterial->uom }}"{{ $rawMaterial->uom == $uom->id ? 'selected' : '' }}>{{$uom->name}}</option>
                             @endforeach
                       </select>
                   </div>
                   <div class="form-group">
-                    {!! Form::label('safety_stock', 'Safety Stock:') !!}
-                    {!! Form::text('safety_stock', null, ['class' => 'form-control']) !!}
+                    {!! Form::label('set_up_cost', 'Set Up Cost (RM):') !!}
+                    {!! Form::text('set_up_cost', $rawMaterial->set_up_cost, ['class' => 'form-control']) !!}
                   </div>
               </div>
           </div>
       </div>
+      {{-- {{dd($rawMaterial)}} --}}
           <!--/.col (right) -->
     </div>
           <!-- /.row -->
@@ -158,25 +159,25 @@
                                   <th>Supplier</th>
                                   <th>UOM</th>
                                   <th>Price Per Unit</th>
-                                  <th>Lead Time</th>
+                                  <th>Lead Time (Days)</th>
                                   <th>MOQ</th>
                                   <th>Action</th>
                               </tr>
-                              @foreach($rawMaterial->suppliers as $supplier_information)
+                              @foreach($rawMaterial->raw_material_suppliers as $supplier_information)
                               <tr>
-                                <input type="hidden" name="supplier_id[]" value="{{$supplier_information->id}}" />
-                                <input type="hidden" name="uom_id[]" value="{{$supplier_information->uom_id}}" />
-                                <input type="hidden" name="price_per_unit[]" value="{{$supplier_information->price_per_unit}}" />
-                                <input type="hidden" name="lead_time[]" value="{{$supplier_information->lead_time}}" />
-                                <input type="hidden" name="moq_id[]" value="{{$supplier_information->moq_id}}" />
+                                <input type="hidden" name="supplier[{{ $loop->index }}][supplier_id]" value="{{$supplier_information->id}}" />
+                                <input type="hidden" name="supplier[{{ $loop->index }}][uom_id]" value="{{$supplier_information->pivot->uom->id}}" />
+                                <input type="hidden" name="supplier[{{ $loop->index }}][price_per_unit]" value="{{$supplier_information->pivot->price_per_unit}}" />
+                                <input type="hidden" name="supplier[{{ $loop->index }}][lead_time]" value="{{$supplier_information->pivot->lead_time}}" />
+                                <input type="hidden" name="supplier[{{ $loop->index }}][moq_id]" value="{{$supplier_information->pivot->moq->id}}" />
                                 <td>{{$loop->iteration}}</td>
-                                <td>{{$supplier_information->supplier->name}}</td>
-                                <td>{{$supplier_information->uom->code}}</td>
-                                <td>{{$supplier_information->price_per_unit}}</td>
-                                <td>{{$supplier_information->lead_time}}</td>
-                                <td>{{$supplier_information->moq->name}} | &nbsp;&nbsp; 
-                                  <b><small>Minimum Quantity: {{$supplier_information->moq->min_quantity}} 
-                                    Maximum Quantity: {{$supplier_information->moq->max_quantity}}&nbsp;&nbsp;</small> </b> </td>
+                                <td>{{$supplier_information->name}}</td>
+                                <td>{{$supplier_information->pivot->uom->code}}</td>
+                                <td>{{$supplier_information->pivot->price_per_unit}}</td>
+                                <td>{{$supplier_information->pivot->lead_time}}</td>
+                                <td>{{$supplier_information->pivot->moq->name}} | &nbsp;&nbsp; 
+                                  <b><small>Minimum Quantity: {{$supplier_information->pivot->moq->min_quantity}} 
+                                    Maximum Quantity: {{$supplier_information->pivot->moq->max_quantity}}&nbsp;&nbsp;</small> </b> </td>
                                 <td>
                                   <button type="button" onclick="removeRow(this)"class="btn btn-danger">
                                     <i class="fa fa-minus"></i>

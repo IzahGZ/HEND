@@ -54,17 +54,12 @@
           <table class="table table-striped" id="processTable">
             <tr>
               <th style="width: 10px">#</th>
-              <th>Raw Material</th>
               <th>Process</th>
               <th>Duration</th>
             </tr>
             @foreach ($Project->processes as $item)
               <tr>
                 <td style="width: 10px">{{ $loop->iteration }}</td>
-                <input type="hidden" name="process[{{ $loop->index }}][materialId]" value="{{ $item->pivot->material->id }}" />
-                <input type="hidden" name="process[{{ $loop->index }}][process]" value="{{ $item->id }}" />
-                <input type="hidden" name="process[{{ $loop->index }}][duration]" value="{{ $item->pivot->duration }}" />
-                <td>{{ $item->pivot->material->name }} | {{ $item->pivot->material->code }}</td>
                 <td>{{ $item->name }} | {{ $item->code }}</td>
                 <td>{{ $item->pivot->duration }}</td>
               </tr>

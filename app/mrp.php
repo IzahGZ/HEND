@@ -28,4 +28,10 @@ class mrp extends Model
 
         return $this->belongsTo(SystemStatus::class, 'wo_status', 'id');
     }
+
+    public function projects()
+    {
+
+        return $this->belongsTo(Project::class, 'product_id', 'id');
+    }
 }

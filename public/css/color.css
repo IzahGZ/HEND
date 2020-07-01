@@ -1,0 +1,143 @@
+a {
+    color: #cc0000;
+}
+h1 a:hover, h2 a:hover, h3 a:hover, h4 a:hover, h5 a:hover, h6 a:hover, p a:hover {
+    color: #cc0000;
+}
+.breadcrumb>.active a:hover {
+    color: #cc0000;
+}
+.blue-background {
+    background-color: #cc0000;
+}
+p.year {
+    background-color: #cc0000;
+}
+ul.tags li a:hover {
+    color: #cc0000;
+}
+.main-nav .pt-nav ul li a:hover {
+    color: #cc0000;
+}
+.button {
+    background: #cc0000;
+}
+.top-bar {
+    background-color: #cc0000;
+}
+.languages .pt-nav ul li ul li a {
+    background-color: #cc0000;
+}
+.carousel {
+    background-color: #cc0000;
+}
+.carousel-indicators.shop li.active {
+    background: #cc0000;
+}
+.heading .border-inner {
+    background-color: #cc0000;
+}
+.event-icon {
+    color: #cc0000;
+}
+.event-title h3 a:hover {
+    color: #cc0000;
+}
+.event-counter ul li:first-child {
+    -webkit-box-shadow: inset 0px 5px 0px 0px #cc0000;
+    -moz-box-shadow: inset 0px 5px 0px 0px #cc0000;
+    box-shadow: inset 0px 5px 0px 0px #cc0000;
+}
+.upcoming-event.single .event-counter ul li:first-child {
+    -webkit-box-shadow: inset 0px 0px 0px 0px #cc0000;
+    -moz-box-shadow: inset 0px 0px 0px 0px #cc0000;
+    box-shadow: inset 0px 0px 0px 0px #cc0000;
+}
+.upcoming-event.single .event-icon {
+    color: #cc0000;
+}
+.promo-box i {
+    background: #cc0000;
+}
+.promo-box hr {
+    background-color: #cc0000;
+    border-top: 1px solid #cc0000;
+}
+.urgent-box .meta a:hover, .latest-box .meta a:hover {
+    color: #cc0000;
+}
+.slider.slider-horizontal .slider-selection {
+    background: #cc0000;
+}
+.slider-selection {
+    background: #cc0000;
+}
+.slider-handle {
+    background: #cc0000;
+}
+.slider-content.cause .slider-handle {
+    background: #cc0000;
+}
+.button-normal.blue {
+    background: #cc0000;
+}
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open>.dropdown-toggle.btn-primary {
+    background-color: #cc0000;
+    border-color: #cc0000;
+}
+.tooltip.top .tooltip-arrow {
+    border-top: 5px solid #cc0000
+}
+.tooltip.left .tooltip-arrow {
+    border-left: 5px solid #cc0000
+}
+.tooltip.bottom .tooltip-arrow {
+    border-bottom: 5px solid #cc0000
+}
+.tooltip.right .tooltip-arrow {
+    border-right: 5px solid #cc0000
+}
+.tooltip-inner {
+    background-color: #cc0000;
+}
+.input-group-addon a:hover {
+    color: #cc0000;
+}
+.form-control:focus {
+    border-color: #cc0000;
+}
+.content .form-control:focus {
+    border-color: #cc0000;
+}
+.widget ul li a:hover {
+    color: #cc0000;
+}
+.widget-donate h4 a {
+    background: #cc0000;
+}
+.dropdown-menu>li>a:hover, .dropdown-menu>li>a:focus {
+    color: #cc0000;
+}
+.sale {
+    background-color: #cc0000;
+}
+footer.dark-background a:hover {
+    color: #cc0000;
+}
+.has-event {
+    background-color: #cc0000;
+}
+.progress-bar {
+    background-color: #cc0000;
+}
+@media screen and (max-width: 768px) {
+    .main-nav .pt-nav-trigger button {
+        background-color: #cc0000;
+    }
+    .languages .pt-nav ul li ul li a {
+        background-color: #cc0000;
+    }
+    .event-title h3 a:hover {
+        color: #cc0000;
+    }
+}

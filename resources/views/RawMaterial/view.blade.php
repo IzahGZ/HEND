@@ -39,8 +39,8 @@
                             {!! Form::text('shelf_life', $rawMaterial->shelf_life, ['class' => 'form-control','readonly']) !!}
                           </div>
                           <div class="form-group">
-                            {!! Form::label('holding_cost', 'Holding Cost:') !!}
-                            {!! Form::text('holding_cost', $rawMaterial->holding_cost, ['class' => 'form-control','readonly']) !!}
+                            {!! Form::label('inventory_cost', 'Inventory Cost (RM):') !!}
+                            {!! Form::text('inventory_cost', $rawMaterial->inventory_cost, ['class' => 'form-control','readonly']) !!}
                           </div>
                         </div>
                     </div>
@@ -65,8 +65,8 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                              {!! Form::label('safety_stock', 'Safety Stock:') !!}
-                              {!! Form::text('safety_stock', $rawMaterial->safety_stock, ['class' => 'form-control','readonly']) !!}
+                              {!! Form::label('set_up_cost', 'Set Up Cost (RM):') !!}
+                              {!! Form::text('set_up_cost', $rawMaterial->set_up_cost, ['class' => 'form-control','readonly']) !!}
                             </div>
                         </div>
                     </div>

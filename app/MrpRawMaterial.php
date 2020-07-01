@@ -14,6 +14,7 @@ class MrpRawMaterial extends Model
                             'order_release' => 0,
                             'order_receipt' => 0,
                             'order_release_status' => 0,
+                            'pr_id' => 0,
                             'order_receipt_status' => 0];
 
     public $fillable = [
@@ -21,4 +22,24 @@ class MrpRawMaterial extends Model
         'raw_material_id',
         'product_id'
     ];
+
+    public function orderRelease_status()
+    {
+        return $this->belongsTo(SystemStatus::class, 'order_release_status', 'id');
+    }
+
+    public function orderReceipt_status()
+    {
+        return $this->belongsTo(SystemStatus::class, 'order_receipt_status', 'id');
+    }
+
+    public function rawMaterials()
+    {
+        return $this->belongsTo(RawMaterial::class, 'raw_material_id', 'id');
+    }
+
+    public function purchaseRequests()
+    {
+        return $this->belongsTo(RequestOfPurchase::class, 'pr_id', 'id');
+    }
 }

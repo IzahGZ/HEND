@@ -19,8 +19,8 @@ class CreateRequestOfPurchase extends Migration
             $table->integer('item_id');
             $table->integer('raw_material_supplier_id');
             $table->decimal('quantity', 8, 2);
-            $table->char('request_date');
-            $table->char('estimated_date');
+            $table->date('request_date');
+            $table->date('estimated_date');
             $table->char('request_by');
             $table->integer('status');
             $table->timestamps();

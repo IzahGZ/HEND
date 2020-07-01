@@ -29,9 +29,9 @@
             @include('Product.editfield')
 
             <div class="box-footer text-center">
-                {{Form::hidden('_method','PUT')}}
-                    {!! Form::submit('Save', ['class' => 'btn btn-danger']) !!}
-                    <a href="{{ route('product.index') }}" class="btn btn-default">Back</a>
+              {{Form::hidden('_method','PUT')}}
+              {!! Form::submit('Save', ['class' => 'btn btn-danger']) !!}
+              <a href="{{ route('product.index') }}" class="btn btn-default">Back</a>
             </div>
         </div>
             <!-- /.box-body -->

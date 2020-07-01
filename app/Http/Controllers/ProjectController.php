@@ -48,6 +48,7 @@ class ProjectController extends Controller
             foreach ($request->material as $material) {
                 $project->materials()->attach($material['id'], [
                     'quantity' => $material['quantity'],
+                    'lot_sizing_id' => 0
                 ]);
             }
             foreach ($request->process as $process) {
@@ -64,10 +65,12 @@ class ProjectController extends Controller
             ->route('project.index')
             ->with('success', 'Project successfully created');
     }
+    
     public function view(Project $Project)
     {
         return view('project.view', compact('Project'));
     }
+    
     public function edit(Project $Project){
         $products = Product::all();
         $rawMaterials = RawMaterial::with('uoms')->get();
@@ -85,6 +88,7 @@ class ProjectController extends Controller
                 foreach ($request->material as $material) {
                     $Project->materials()->attach($material['id'], [
                         'quantity' => $material['quantity'],
+                        'lot_sizing_id' => 0
                     ]);
                 }
                 foreach ($request->process as $process) {

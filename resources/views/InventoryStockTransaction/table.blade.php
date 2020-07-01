@@ -15,11 +15,12 @@
     <tbody>
       @foreach($inventoryStockTransactions as $inventoryStockTransaction)
       <tr>
-        <td>{{$loop->iteration}}</td>
-        <td>{{$inventoryStockTransaction->transaction_type->name}}
+        @if($inventoryStockTransaction->transaction_type->id == 1 )
+        <td style="background-color:#bcffd7; color: black;">{{$loop->iteration}}</td>
+        <td style="background-color:#bcffd7; color: black;">{{$inventoryStockTransaction->transaction_type->name}}
         </td>
-        <td>{{$inventoryStockTransaction->inventory_category->name}}</td>
-        <td>@if( !empty($inventoryStockTransaction->grn->grn_number)) 
+        <td style="background-color:#bcffd7; color: black;">{{$inventoryStockTransaction->inventory_category->name}}</td>
+        <td style="background-color:#bcffd7; color: black;">@if( !empty($inventoryStockTransaction->grn->grn_number)) 
           {{$inventoryStockTransaction->po_item->raw_material->name}} @endif
           @if( !empty($inventoryStockTransaction->wo->work_order_no)) 
             @if($inventoryStockTransaction->category_id == 1)
@@ -30,23 +31,57 @@
             @endif
           @endif
         </td>
-        <td>@if( !empty($inventoryStockTransaction->grn->grn_number)) 
+        <td style="background-color:#bcffd7; color: black;">@if( !empty($inventoryStockTransaction->grn->grn_number)) 
           <a href="{{ route('goodReceiveNoteStore.download', $inventoryStockTransaction->grn->id ) }}" target="_blank">
             GRN{{$inventoryStockTransaction->grn->grn_number}}
           </a> @endif
           @if( empty($inventoryStockTransaction->grn->grn_number)) 
           - @endif
         </td>
-        <td>@if( !empty($inventoryStockTransaction->wo->work_order_no))
+        <td style="background-color:#bcffd7; color: black;">@if( !empty($inventoryStockTransaction->wo->work_order_no))
           <a href="{{ route('workOrder.download', $inventoryStockTransaction->wo->id ) }}" target="_blank">
             WO{{$inventoryStockTransaction->wo->work_order_no}}
           </a>@endif
           @if( empty($inventoryStockTransaction->wo->work_order_no))                                                                                                                                                                                                                                                                                                                                                                                                                            
           - @endif
         </td>
-        <td>{{$inventoryStockTransaction->quantity}}</td>
-        <td>{{$inventoryStockTransaction->transaction_by}}</td>
-        <td>{{$inventoryStockTransaction->created_at}}</td>
+        <td style="background-color:#bcffd7; color: black;">{{$inventoryStockTransaction->quantity}}</td>
+        <td style="background-color:#bcffd7; color: black;">{{$inventoryStockTransaction->transaction_by}}</td>
+        <td style="background-color:#bcffd7; color: black;">{{$inventoryStockTransaction->created_at->format('d-m-Y')}}</td>
+        @else 
+        <td style="background-color:#f2caca; color: black;">{{$loop->iteration}}</td>
+        <td style="background-color:#f2caca; color: black;">{{$inventoryStockTransaction->transaction_type->name}}
+        </td>
+        <td style="background-color:#f2caca; color: black;">{{$inventoryStockTransaction->inventory_category->name}}</td>
+        <td style="background-color:#f2caca; color: black;">@if( !empty($inventoryStockTransaction->grn->grn_number)) 
+          {{$inventoryStockTransaction->po_item->raw_material->name}} @endif
+          @if( !empty($inventoryStockTransaction->wo->work_order_no)) 
+            @if($inventoryStockTransaction->category_id == 1)
+              {{$inventoryStockTransaction->raw_material_wo->name}} 
+            @endif
+            @if($inventoryStockTransaction->category_id == 2)
+              {{$inventoryStockTransaction->product->name}} 
+            @endif
+          @endif
+        </td>
+        <td style="background-color:#f2caca; color: black;">@if( !empty($inventoryStockTransaction->grn->grn_number)) 
+          <a href="{{ route('goodReceiveNoteStore.download', $inventoryStockTransaction->grn->id ) }}" target="_blank">
+            GRN{{$inventoryStockTransaction->grn->grn_number}}
+          </a> @endif
+          @if( empty($inventoryStockTransaction->grn->grn_number)) 
+          - @endif
+        </td>
+        <td style="background-color:#f2caca; color: black;">@if( !empty($inventoryStockTransaction->wo->work_order_no))
+          <a href="{{ route('workOrder.download', $inventoryStockTransaction->wo->id ) }}" target="_blank">
+            WO{{$inventoryStockTransaction->wo->work_order_no}}
+          </a>@endif
+          @if( empty($inventoryStockTransaction->wo->work_order_no))                                                                                                                                                                                                                                                                                                                                                                                                                            
+          - @endif
+        </td>
+        <td style="background-color:#f2caca; color: black;">{{$inventoryStockTransaction->quantity}}</td>
+        <td style="background-color:#f2caca; color: black;">{{$inventoryStockTransaction->transaction_by}}</td>
+        <td style="background-color:#f2caca; color: black;">{{$inventoryStockTransaction->created_at->format('d-m-Y')}}</td>
+        @endif
       </tr>
       @endforeach
   </table>

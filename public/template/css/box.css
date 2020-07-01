@@ -1,0 +1,60 @@
+section.box-section {
+    padding: 15px 0px;
+    border: 1px solid #eeeded;
+    background: #f5f5f5;
+}
+section.box-section > .container-fluid {
+    padding-top: 80px;
+    padding-bottom: 80px;
+    background: #ffffff;
+    -webkit-box-shadow: 0px 0px 10px 0px rgba(214, 214, 214, 1);
+    -moz-box-shadow: 0px 0px 10px 0px rgba(214, 214, 214, 1);
+    box-shadow: 0px 0px 10px 0px rgba(214, 214, 214, 1);
+    background-image: url(../images/full_background_1.png);
+    background-repeat: no-repeat;
+    background-position: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+section.breadcrumbs {
+    padding: 15px 0px;
+    border: 1px solid #eeeded;
+    background: #f5f5f5;
+    margin: 0px;
+}
+section.breadcrumbs > .breadcrumbs-wrapper {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    background: #ffffff;
+    -webkit-box-shadow: 0px 0px 10px 0px rgba(214, 214, 214, 1);
+    -moz-box-shadow: 0px 0px 10px 0px rgba(214, 214, 214, 1);
+    box-shadow: 0px 0px 10px 0px rgba(214, 214, 214, 1);
+}
+.box-wrapper {
+    padding: 15px;
+    border: 1px solid #eeeded;
+    background: #f5f5f5;
+}
+.posts .row .box-wrapper {
+    margin-bottom: 60px;
+}
+.box {
+    padding: 0px;
+    background: #ffffff;
+    -webkit-box-shadow: 0px 0px 10px 0px rgba(214, 214, 214, 1);
+    -moz-box-shadow: 0px 0px 10px 0px rgba(214, 214, 214, 1);
+    box-shadow: 0px 0px 10px 0px rgba(214, 214, 214, 1);
+}
+section.box-section.sponsors {
+    margin-bottom: 0;
+}
+section.box-section.sponsors > .container-fluid {
+    padding-top: 40px;
+    padding-bottom: 40px;
+    background: #ffffff;
+    -webkit-box-shadow: 0px 0px 10px 0px rgba(214, 214, 214, 1);
+    -moz-box-shadow: 0px 0px 10px 0px rgba(214, 214, 214, 1);
+    box-shadow: 0px 0px 10px 0px rgba(214, 214, 214, 1);
+}

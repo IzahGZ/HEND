@@ -16,13 +16,17 @@ use Illuminate\Support\Facades\Route;
 //===============================================================================================================================================
 
 //DASHBOARD======================================================================================================================================
-Route::get('/', function() {
-    return redirect('/index');
-});
+Route::get('/Login', 'LoginController@index')->name('login.index');
+Route::get('/Registration', 'LoginController@register')->name('register.index');
+Route::post('registerStore', 'LoginController@storeRegistration')->name('register.store');
 
-Route::get('/index', function () {
-    return view('index.dashboard');
-});
+
+//DASHBOARD======================================================================================================================================
+// Route::get('/', function() {
+//     return redirect('/index');
+// });
+
+Route::get('/index', 'DashboardController@index');
 
 //ORDER=======================================================================================================================================
 Route::get('order', ['as'=> 'order.index', 'uses' => 'OrderController@index']);
@@ -57,11 +61,12 @@ Route::post('suppliersStore', ['as'=> 'suppliers.store', 'uses' => 'SupplierCont
 //RAW MATERIAL
 Route::get('rawMaterial', ['as'=> 'rawMaterial.index', 'uses' => 'RawMaterialController@index']);
 Route::get('rawMaterial/{id}/view}', array('as' => 'rawMaterial.view', 'uses' => 'RawMaterialController@view'));
-Route::get('rawMaterial/{id}/edit', ['as'=> 'rawMaterial.edit', 'uses' => 'RawMaterialController@edit']);
-Route::put('rawMaterial/{id}', ['as'=> 'rawMaterial.update', 'uses' => 'RawMaterialController@update']);
-Route::patch('rawMaterial/{id}', ['as'=> 'rawMaterial.update', 'uses' => 'RawMaterialController@update']);
+Route::get('rawMaterial/{rawMaterial}/edit', ['as'=> 'rawMaterial.edit', 'uses' => 'RawMaterialController@edit']);
+Route::put('rawMaterial/{rawMaterial}', ['as'=> 'rawMaterial.update', 'uses' => 'RawMaterialController@update']);
+Route::patch('rawMaterial/{rawMaterial}', ['as'=> 'rawMaterial.update', 'uses' => 'RawMaterialController@update']);
 Route::get('rawMaterial/create', 'RawMaterialController@create')->name('RawMaterial.create');
 Route::post('rawMaterialsStore', ['as'=> 'rawMaterials.store', 'uses' => 'RawMaterialController@store']);
+Route::get('rawMaterial/download', 'RawMaterialController@downloadPDF')->name('RawMaterial.download');
 
 //PRODUCT
 Route::get('product', ['as'=> 'product.index', 'uses' => 'ProductController@index']);
@@ -73,6 +78,7 @@ Route::get('product/{id}/delete', array('as' => 'product.delete', 'uses' => 'Pro
 Route::get('product/{id}/confirm-delete', array('as' => 'product.confirm-delete', 'uses' => 'ProductController@getModalDelete'));
 Route::get('product/create', 'ProductController@create')->name('Product.create');
 Route::post('productsStore', ['as'=> 'products.store', 'uses' => 'ProductController@store']);
+Route::get('product/download', 'ProductController@downloadPDF')->name('Product.download');
 
 
 //BILL OF MATERIALS=================================================================================================================================
@@ -122,6 +128,12 @@ Route::get('inventoryStockTransaction', ['as'=> 'inventoryStockTransaction.index
 
 //MRP=====================================================================================================================================    
 Route::get('mrp', ['as'=> 'mrp.index', 'uses' => 'MrpController@index']);
+Route::post('generateMrp', ['as'=> 'generateMrp.store', 'uses' => 'MrpController@generateMrp']);
+Route::put('LotSeizing/{id}', ['as'=> 'LotSeizing.index', 'uses' => 'MrpController@LotSeizing']);
+Route::patch('LotSeizing/{id}', ['as'=> 'LotSeizing.index', 'uses' => 'MrpController@LotSeizing']);
+Route::get('purchaseRequest/{id}/pr', array('as' => 'purchaseRequest.pr', 'uses' => 'MrpController@getPR'));
+Route::get('purchaseRequest/{id}/confirm-pr', array('as' => 'purchaseRequest.confirm-pr', 'uses' => 'MrpController@getModalPR'));
+Route::get('Mrp/downloadMrpPDF/{id}', 'MrpController@downloadMrpPDF')->name('Mrp.downloadMrpPDF');
 
 
 //PRODUCTION=============================================================================================================================  
@@ -186,15 +198,4 @@ Route::get('moq/{id}/delete', array('as' => 'moq.delete', 'uses' => 'MoqControll
 Route::get('moq/{id}/confirm-delete', array('as' => 'moq.confirm-delete', 'uses' => 'MoqController@getModalDelete'));
 Route::get('moq/create', 'MoqController@create')->name('moq.create');
 Route::post('moqStore', ['as'=> 'moq.store', 'uses' => 'MoqController@store']);
-
-// Route::get('tf', function() {
-//     $all = mrp::all();
-//     $all->each(function($a) {
-//         $date = $a->date;
-//         $newDate = Carbon::parse($date);
-        
-//         $a->update(['date' => $newDate]);
-//     });
-//     return 'done';
-// });
 

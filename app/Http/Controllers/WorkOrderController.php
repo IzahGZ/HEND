@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Lang;
 class WorkOrderController extends Controller
 {
     public function index(){
-        $workOrders = WorkOrder::all();
+        $workOrders = WorkOrder::orderBy('created_at', 'desc')->get();
         return view('workOrder.index', compact('workOrders'));
     }
 

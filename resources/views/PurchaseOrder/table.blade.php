@@ -10,6 +10,9 @@
     </tr>
     </thead>
     <tbody>
+      <?php
+        $GRNitem = App\GoodreceiveNoteItem::all();
+      ?>
       @foreach($purchaseOrders as $purchaseOrder)
       <tr>
         <td>{{$loop->iteration}}</td>
@@ -22,20 +25,26 @@
               <th>#</th>
               <th>Item Name</th>
               <th>Item Code</th>
-              <th>Quantity</th>
-              <th>Delivery Date</th>
-              <th>GRN Number</th>
+              <th>Ordered Quantity</th>
+              <th>Total Received</th>
+              <th>Estimated Delivery Date</th>
               <th>Status</th>
             </thead>
             <tbody>
               @foreach($purchaseOrder->purchase_order_items as $item)
+              <?php
+                $total_received = 0;
+                foreach($GRNitem->where('po_item_id', $item->id) as $total){
+                  $total_received += $total->receive_quantity;
+                }
+              ?>
               <tr>
                 <td>{{$loop->iteration}}</td>
                 <td>{{$item->raw_material->name}}</td>
                 <td>{{$item->raw_material->code}}</td>
                 <td>{{$item->quantity}}</td>
+                <td>{{$total_received}}</td>
                 <td>{{$item->delivery_date}}</td>
-                <td>{{$item->grn_item}}</td>
                 <td><span class="label label-default" style="background-color:{{$item->system_status->colour}}; color:white;">{{$item->system_status->name}}</span></td>
               </tr>
               @endforeach
@@ -48,9 +57,6 @@
           <span class="label label-default" style="background-color:{{$purchaseOrder->system_status->colour}}; color:white;">{{$purchaseOrder->system_status->name}}</span></td>
         </td>
         <td> 
-          {{-- <a href="{{ route('order.download', $orders->id ) }}" target="_blank">
-            <i class="fa fa-info" data-name="info" data-size="18" data-loop="true" title="view customer"></i>
-          </a> --}}
           <a href="{{ route('purchaseOrder.download', $purchaseOrder->id ) }}" target="_blank">
             <i class="fa fa-info" data-name="info" data-size="18" data-loop="true" title="view Purchase Request"></i>
           </a>
@@ -91,10 +97,10 @@
   })
 
   $('#delete_confirm').on('show.bs.modal', function (event) {
-                      var button = $(event.relatedTarget)
-                       var $recipient = button.data('id');
-                      var modal = $(this);
-                      modal.find('.modal-footer a').prop("href",$recipient);
-                  })
+      var button = $(event.relatedTarget)
+        var $recipient = button.data('id');
+      var modal = $(this);
+      modal.find('.modal-footer a').prop("href",$recipient);
+  })
 </script>
 @endpush

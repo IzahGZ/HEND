@@ -3,14 +3,15 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\Pivot;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class RawMaterialSupplier extends Model
+class RawMaterialSupplier extends Pivot
 {
     use SoftDeletes;
     public $table = 'raw_material_supplier';
-    protected $dates = ['deleted_at'];
-
+    // protected $dates = ['deleted_at'];
+    protected $guarded = [];
     public $fillable = [
         'raw_material_id',
         'supplier_id',

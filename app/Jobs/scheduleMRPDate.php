@@ -65,7 +65,7 @@ class scheduleMRPDate implements ShouldQueue
         }
         else{
             foreach($projects as $project){
-                $latest = today()->addDays(29);
+                $latest = today()->addDays(30);
                 $each_date = mrp::where('date', $latest)->where('product_id', $project->product_id)->get();
                 if(count($each_date) == 0){
                     foreach($project->materials as $item){

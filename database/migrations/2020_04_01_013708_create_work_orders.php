@@ -19,7 +19,7 @@ class CreateWorkOrders extends Migration
             $table->integer('mrp_id');
             $table->integer('item_id');
             $table->integer('quantity');
-            $table->char('due_date');
+            $table->date('due_date');
             $table->integer('status');
             $table->timestamps();
             $table->softDeletes();

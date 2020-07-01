@@ -16,7 +16,7 @@ class CreatePurchaseOrders extends Migration
         Schema::create('purchase_orders', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('po_number');
-            $table->char('po_date');
+            $table->date('po_date');
             $table->longText('delivery_address',100);
             $table->integer('supplier_id');
             $table->char('purchase_by');

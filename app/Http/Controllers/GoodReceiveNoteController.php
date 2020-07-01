@@ -7,6 +7,7 @@ use App\Supplier;
 use App\GoodReceiveNote;
 use App\GoodReceiveNoteItem;
 use App\InventoryStockTransaction;
+use App\MrpRawMaterial;
 use App\PurchaseOrder;
 use App\PurchaseOrderItem;
 use App\RawMaterial;
@@ -16,7 +17,7 @@ use Illuminate\Http\Request;
 class GoodReceiveNoteController extends Controller
 {
     public function index(){
-        $goodReceiveNotes = GoodReceiveNote::all();
+        $goodReceiveNotes = GoodReceiveNote::orderBy('supplier_do_date', 'desc')->get();
         return view('goodReceiveNote.index', compact('goodReceiveNotes'));
     }
 
@@ -45,6 +46,12 @@ class GoodReceiveNoteController extends Controller
 
     public function store(Request $request)
     {
+        $PurchaseOrder = PurchaseOrder::find($request->input('po_id'));
+        $MrpRawMaterialAll = MrpRawMaterial::where('pr_id', '!=', 0)->get();
+        
+        $AllGrnItem = GoodReceiveNoteItem::all();
+        $All_po_item_raw_material = PurchaseOrderItem::all();
+        $AllRawMaterial = RawMaterial::all();
         $grn = new GoodReceiveNote();
         $grn->grn_number = $request->input('grn_number');
         $grn->po_id = $request->input('po_id');
@@ -63,8 +70,8 @@ class GoodReceiveNoteController extends Controller
                 'receive_quantity' => $request->receive_quantity[$i]
             ]);
 
-            $po_item_raw_material = PurchaseOrderItem::find($request->po_item_id[$i]);
-            $raw_material = RawMaterial::find($po_item_raw_material->item_id);
+            $po_item_raw_material = $All_po_item_raw_material->find($request->po_item_id[$i]);
+            $raw_material = $AllRawMaterial->find($po_item_raw_material->item_id);
             $raw_material->current_stock = $request->receive_quantity[$i]+$raw_material->current_stock;
             $raw_material->save();
 
@@ -77,50 +84,68 @@ class GoodReceiveNoteController extends Controller
                 'transaction_by' => $grn->receive_by,
                 'quantity' => $request->receive_quantity[$i]
             ]);
-            
-            if($po_item_raw_material->quantity == $request->receive_quantity[$i]){
+
+            $grnItemByPoItem = $AllGrnItem->where('po_item_id', $request->po_item_id[$i]);
+            $total_received = 0;
+            if(!empty($grnItemByPoItem)){
+                foreach($grnItemByPoItem as $item){
+                    $total_received += $item->receive_quantity;
+                }
+            }
+            $cummulative_po_received = $total_received + $request->receive_quantity[$i];
+            if($po_item_raw_material->quantity == $cummulative_po_received){
                 $po_item_raw_material->status = 3;
                 $po_item_raw_material->save();
             }
 
-            if($po_item_raw_material->quantity > $request->receive_quantity[$i]){
+            if($po_item_raw_material->quantity > $cummulative_po_received){
                 $po_item_raw_material->status = 4;
                 $po_item_raw_material->save();
             }
-
+            $$cummulative_po_received = 0;
         }
-
-        $po = PurchaseOrder::find($request->input('po_id'));
-        $total_poi = count($po->purchase_order_items);
-        $value = 0;
-        $value_double = $total_poi * 2;
-        foreach($po->purchase_order_items as $item){
-            if($item->status == 4){
-                $value++;
+        $open = 0;
+        $close = 0;
+        foreach($PurchaseOrder->purchase_order_items as $item){
+            if($item->status == 2){
+                $open = $open + 1;
             }
 
             if($item->status == 3){
-                $value = $value + 0;
+                $close = $close + 1;
             }
+            
+        }
+        if($open == count($PurchaseOrder->purchase_order_items)){
+            $PurchaseOrder->status = 2;
+        }
 
-            if($item->status == 2){
-                $value = $value + 2;
+        if($close == count($PurchaseOrder->purchase_order_items)){
+            $PurchaseOrder->status = 3;
+            foreach($PurchaseOrder->purchase_order_items as $poitem){
+                foreach($MrpRawMaterialAll as $mrp){
+                    if($mrp->pr_id == $poitem->pr_id){
+                        $mrp->order_receipt_status = 3;
+                        $mrp->save();
+    
+                    }
+                }
             }
         }
 
-        if($value == 0){
-            $po->status = 3;
-            $po->save();
+        else{
+            $PurchaseOrder->status = 4;
+            foreach($PurchaseOrder->purchase_order_items as $poitem){
+                foreach($MrpRawMaterialAll as $mrp){
+                    if($mrp->pr_id == $poitem->pr_id){
+                        $mrp->order_receipt_status = 4;
+                        $mrp->save();
+    
+                    }
+                }
+            }
         }
-        if($value == $value_double){
-            $po->status = 2;
-            $po->save();
-        }
-        if($value > 0 && $value < $value_double){
-            $po->status = 4;
-            $po->save();
-        }
-
+        $PurchaseOrder->save();
         return redirect(route('goodReceiveNote.index'));
     }
 

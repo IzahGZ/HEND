@@ -18,7 +18,7 @@ class CreateGoodReceiveNotes extends Migration
             $table->integer('grn_number');
             $table->integer('po_id');
             $table->char('supplier_do_number');
-            $table->char('supplier_do_date');
+            $table->date('supplier_do_date');
             $table->char('receiving_area');
             $table->char('receive_by');
             $table->timestamps();

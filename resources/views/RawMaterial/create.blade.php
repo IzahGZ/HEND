@@ -63,11 +63,11 @@ var uom_code =  filteredUom[0].code;
 console.log(moq.val())
 supplierTable.append(`
   <tr>
-    <input type="hidden" name="supplier_id[]" value="${supplier.val()}" />
-    <input type="hidden" name="uom_id[]" value="${uom.val()}" />
-    <input type="hidden" name="price_per_unit[]" value="${price.val()}" />
-    <input type="hidden" name="lead_time[]" value="${lead_time.val()}" />
-    <input type="hidden" name="moq_id[]" value="${moq.val()}" />
+    <input type="hidden" name="suppliers[${childNumber-1}][supplier_id]" value="${supplier.val()}" />
+    <input type="hidden" name="suppliers[${childNumber-1}][uom_id]" value="${uom.val()}" />
+    <input type="hidden" name="suppliers[${childNumber-1}][price_per_unit]" value="${price.val()}" />
+    <input type="hidden" name="suppliers[${childNumber-1}][lead_time]" value="${lead_time.val()}" />
+    <input type="hidden" name="suppliers[${childNumber-1}][moq_id]" value="${moq.val()}" />
     <td>${childNumber}</td>
     <td>${selectedSupplierText}</td>
     <td>${uom_code}</td>

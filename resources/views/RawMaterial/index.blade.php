@@ -23,7 +23,13 @@
         <div class="box">
           <div class="box-header">
             {{-- <h3 class="box-title">Data Table With Full Features</h3> --}}
-            <a href="{{ route('RawMaterial.create') }}" type="button" class="btn btn-info pull-right"><b>+ Raw Material </b></a>
+            <a href="{{ route('RawMaterial.download') }}" 
+              type="button" class="btn btn-info pull-right" style="margin:3px;" target="_blank">
+              <b>Download List</b></a>
+            <a href="{{ route('RawMaterial.create') }}" 
+              type="button" class="btn btn-info pull-right" style="margin:3px;">
+              <b>+ Raw Material</b></a>
+            
           </div>
           <!-- /.box-header -->
           <div class="box-body">

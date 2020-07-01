@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class PurchaseOrderItem extends Model
 {
+    protected $attributes = ['status' => 2];
     public $fillable = [
         'po_id',
         'pr_id',

@@ -22,8 +22,10 @@
       <div class="col-xs-12">
         <div class="box">
           <div class="box-header">
-            {{-- <h3 class="box-title">Data Table With Full Features</h3> --}}
-            <a href="{{ route('Product.create') }}" type="button" class="btn btn-info pull-right"><b>+ Product </b></a>
+            <a href="{{ route('Product.download') }}" 
+              type="button" class="btn btn-info pull-right" style="margin:3px;" target="_blank">
+              <b>Download List</b></a>
+            <a href="{{ route('Product.create') }}" style="margin:3px;" type="button" class="btn btn-info pull-right"><b>+ Product </b></a>
           </div>
           <!-- /.box-header -->
           <div class="box-body">

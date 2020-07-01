@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Uom;
 use App\Product;
+use App\CompanyProfile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Lang;
 
@@ -87,5 +88,12 @@ class ProductController extends Controller
         $product->save();
 
         return redirect(route('product.index'))->with('success', 'Product updated');
+    }
+
+    public function downloadPDF(){
+        $products = Product::orderBy('name', 'asc')->get();
+        $company = CompanyProfile::all();
+        // dd($company);
+        return view('Product.download',compact('products', 'company'));
     }
 }

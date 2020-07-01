@@ -13,8 +13,8 @@
                 {!! Form::text('shelf_life', null, ['class' => 'form-control']) !!}
               </div>
               <div class="form-group">
-                {!! Form::label('holding_cost', 'Holding Cost:') !!}
-                {!! Form::text('holding_cost', null, ['class' => 'form-control']) !!}
+                {!! Form::label('inventory_cost', 'Inventory Cost (RM):') !!}
+                {!! Form::text('inventory_cost', null, ['class' => 'form-control']) !!}
               </div>
             </div>
         </div>
@@ -39,8 +39,8 @@
                     </select>
                 </div>
                 <div class="form-group">
-                  {!! Form::label('safety_stock', 'Safety Stock:') !!}
-                  {!! Form::text('safety_stock', null, ['class' => 'form-control']) !!}
+                  {!! Form::label('set_up_cost', 'Set Up Cost (RM):') !!}
+                  {!! Form::text('set_up_cost', null, ['class' => 'form-control']) !!}
                 </div>
             </div>
         </div>

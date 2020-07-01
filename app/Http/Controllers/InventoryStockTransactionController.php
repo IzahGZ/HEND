@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class InventoryStockTransactionController extends Controller
 {
     public function index(){
-        $inventoryStockTransactions = InventoryStockTransaction::all();
+        $inventoryStockTransactions = InventoryStockTransaction::OrderBy('created_at', 'desc')->get();
 
         return view('inventoryStockTransaction.index', compact('inventoryStockTransactions'));
     }

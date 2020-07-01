@@ -32,25 +32,26 @@
           <div class="box-body">
 
             <div class="row">
-              <div class="col-md-4">
+              <div class="col-md-6">
                   <div class="form-horizontal">
                       <div class="box-body">
+                      {!! Form::open(['route' => 'generateMrp.store']) !!}
                           <div class="form-group">
-                              {!! Form::label('month', 'Month',['class' => 'col-sm-4 control-label text-left']) !!}
+                              {!! Form::label('month', 'Month',['class' => 'col-sm-3 control-label text-left']) !!}
                               <div class="col-sm-6">
                               {!! Form::text('month', $current_month, ['class' => 'form-control']) !!}
                               </div>
                           </div>
                           <div class="form-group">
-                            {!! Form::label('current_week', 'Current Week',['class' => 'col-sm-4 control-label text-left']) !!}
+                            {!! Form::label('current_week', 'Current Week',['class' => 'col-sm-3 control-label text-left']) !!}
                             <div class="col-sm-6">
                             {!! Form::text('current_week', 'Week '.$current_week_number, ['class' => 'form-control']) !!}
                             </div>
                           </div>
                         <div class="form-group">
-                          {!! Form::label('project_id', 'Project',['class' => 'col-sm-4 text-right']) !!}
+                          {!! Form::label('project_id', 'Project',['class' => 'col-sm-3 text-right']) !!}
                           <div class="col-sm-6">
-                              <select id="project_id" class="form-control" name="project_id">
+                              <select id="project_id" class="form-control" name="project_id" required>
                                   <option value="">Please select project</option>
                                   @foreach($projects as $project)
                                       <option value="{{ $project->id }}">{{$project->products->name}}</option>
@@ -59,188 +60,24 @@
                           </div>
                         </div>
                         <div class="form-group">
-                          {!! Form::label('manufacturing_time', 'Manufacturing Time',['class' => 'col-sm-4 control-label text-left']) !!}
+                          {!! Form::label('manufacturing_time', 'Manufacturing Time',['class' => 'col-sm-3 control-label text-left']) !!}
                           <div class="col-sm-6">
                           {!! Form::text('manufacturing_time', "-", ['class' => 'form-control manufacturing_time']) !!}
                           </div>
+                          <div class="col-sm-2">
+                            {!! Form::submit('Calculate MRP', ['class' => 'btn btn-info pull-right']) !!}
+                          </div>
                         </div>
+                        {!! Form::close() !!}
                       </div>
                   </div>
               </div>
             </div>
-            <div class="box box-danger">
-                <div class="box-header with-border">
-                  <h3 class="box-title">Master Production Schedule (MPS)</h3>
-                </div>
-                {{-- table --}}
-                <table id="example1" class="table table-bordered table-striped">
-                  <tr>
-                    <td></td>
-                    <td>Beginning Inventory</td>
-                    @foreach($dates as $days)
-                    <td>{{ date("d M", strtotime($days->date))}}</td>
-                    @endforeach
-                  </tr>
-                  <tr>
-                    <td>Gross Requirement</td>
-                    <td></td>
-                    @foreach($dates as $days)
-                    <td>{{$days->quantity}}</td>
-                    @endforeach
-                  </tr>
-                  <tr>
-                    <td>Projected On Hand</td> 
-                    <?php 
-                      $on_hand = $product->current_stock;
-                    ?>
-                    <td>{{$product->current_stock}}</td>
-                    @foreach($dates as $days)
-                    <td>{{$days->on_hand}}</td>
-                    @endforeach
-                  </tr>
-                  <tr>
-                    <td>Net Requirement</td>
-                    <td></td>
-                    <?php $net_req = $product->current_stock ?>
-                    @foreach($dates as $days)
-                    <td>{{$days->net_requirement}}</td>
-                    @endforeach
-                  </tr>
-                  
-                  <tr>
-                    <td>Production Schedule</td>
-                    <td></td>
-                    @foreach($dates as $days)
-                    @if($days->order_release>0 && $days->wo_status == 8)
-                    <td style="background-color:{{$days->system_status->colour}};">
-                      {{$days->order_release}}</td>
-                    @endif
-                    @if($days->order_release>0 && $days->wo_status != 8)
-                    <td style="background-color:{{$days->system_status->colour}};">
-                      <a style="color: black;" href="{{ route('workOrder.confirm-wo', $days->id ) }}" 
-                        data-toggle="modal" data-target="#wo_confirm" data-id="{{ route('workOrder.wo', $days->id ) }}">
-                      {{$days->order_release}} </a></td>
-                    @endif
-                    @if($days->order_release<=0)
-                    <td>{{$days->order_release}}</td>
-                    @endif
-                    @endforeach
-                  </tr>
-              
-                  <tr>
-                    <td>To Be Delivered</td>
-                    <td></td>
-                    @foreach($dates as $days)
-                    <td @if($days->order_receipt>0)style="background-color:#ecff89;" @endif>
-                      {{$days->order_receipt}}</td>
-                    @endforeach
-                  </tr>
-                </table>
-            </div>
-
-            <div class="box box-danger">
-              <div class="box-header with-border">
-                <h3 class="box-title">Raw Material Order Planning</h3>
-              </div>
-
-              @foreach($project->materials as $item)
-              <div class="box-header with-border">
-                <h3 class="box-title">{{$item->name}}</h3>
-              </div>
-              <table id="example1" class="table table-bordered table-striped">
-                <tr>
-                  <td></td>
-                  <td>Beginning Inventory</td>
-                  @foreach($date_raw_materials as $raw_material)
-                    @if($item->id == $raw_material->raw_material_id)
-                      <td>{{ date("d M", strtotime($raw_material->date))}}</td>
-                    @endif
-                  @endforeach
-                </tr>
-                <tr>
-                  <td>Gross Requirement</td>
-                  <td></td>
-                  @foreach($date_raw_materials as $raw_material)
-                    @if($item->id == $raw_material->raw_material_id)
-                      <td>{{$raw_material->quantity}}</td>
-                      @endif
-                  @endforeach
-                </tr>
-                <tr>
-                  <td>Schedule Receipt</td>
-                  <td></td>
-                  @foreach($date_raw_materials as $raw_material)
-                    @if($item->id == $raw_material->raw_material_id)
-                      <td>{{$raw_material->schedule_receipt}}</td>
-                      @endif
-                  @endforeach
-                </tr>
-                <tr>
-                  <td>Projected On Hand</td>
-                  <td></td>
-                  @foreach($date_raw_materials as $raw_material)
-                    @if($item->id == $raw_material->raw_material_id)
-                      <td>{{$raw_material->on_hand}}</td>
-                      @endif
-                  @endforeach
-                </tr>
-                <tr>
-                  <td>Net Requirement</td>
-                  <td></td>
-                  @foreach($date_raw_materials as $raw_material)
-                    @if($item->id == $raw_material->raw_material_id)
-                      <td>{{$raw_material->net_requirement}}</td>
-                      @endif
-                  @endforeach
-                </tr>
-                <tr>
-                  <td>Planned Order Receipt</td>
-                  <td></td>
-                  @foreach($date_raw_materials as $raw_material)
-                    @if($item->id == $raw_material->raw_material_id)
-                      <td>{{$raw_material->order_receipt}}</td>
-                      @endif
-                  @endforeach
-                </tr>
-                <tr>
-                  <td>Planned Order Released</td>
-                  <td></td>
-                  @foreach($date_raw_materials as $raw_material)
-                    @if($item->id == $raw_material->raw_material_id)
-                      <td>{{$raw_material->order_release}}</td>
-                      @endif
-                  @endforeach
-                </tr>
-              </table>
-            @endforeach
-          </div>
-          
           </div>
         </div>
       </div>
     </div>
   </section>
-</div>
-
-<!-- The modal -->
-<div class="modal fade" id="wo_confirm" tabindex="-1" role="dialog" aria-labelledby="user_delete_confirm_title" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-        <h4 class="modal-title" id="deleteLabel">Work Order</h4>
-      </div>
-        <div class="modal-body">
-          Generate Work Order?
-        </div>
-          <div class="modal-footer">
-            <a type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</a>
-            <a  type="button" class="btn btn-danger Remove_square">Yes</a>
-          </div>
-     </div>
-  </div>
 </div>
 
 @endpush

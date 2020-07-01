@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\CompanyProfile;
+use App\MrpRawMaterial;
 use App\Supplier;
 use App\PurchaseOrder;
 use App\PurchaseOrderItem;
@@ -15,7 +16,7 @@ class PurchaseOrderController extends Controller
 {
     public function index(){
 
-        $purchaseOrders = PurchaseOrder::all();
+        $purchaseOrders = PurchaseOrder::Orderby('po_date', 'desc')->get();
         return view('purchaseOrder.index', compact('purchaseOrders'));
     }
 
@@ -50,6 +51,7 @@ class PurchaseOrderController extends Controller
 
     public function store(Request $request)
     {
+        $RawMaterialMrpAll = MrpRawMaterial::where('pr_id', '!=', 0)->get();
         $purchaseOrder = new PurchaseOrder;
         $purchaseOrder->po_number = $request->input('po_number');
         $purchaseOrder->po_date = $request->input('po_date');
@@ -71,8 +73,18 @@ class PurchaseOrderController extends Controller
         }
         for ($i=0; $i < count($request->pr_id); $i++) {
             $purchaseRequest = RequestOfPurchase::find($request->pr_id[$i]);
-            $purchaseRequest->status = 7;
-            $purchaseRequest->save();
+            $RawMaterialMrp = $RawMaterialMrpAll->where('pr_id', $purchaseRequest->id);
+            if($RawMaterialMrp->isEmpty()){
+                $purchaseRequest->status = 7;
+                $purchaseRequest->save();
+            }
+            else{
+                $RawMaterialMrp->first()->order_release_status = 7;
+                $RawMaterialMrp->first()->save();
+                $purchaseRequest->status = 7;
+                $purchaseRequest->save();
+            }
+            
         }
         return redirect(route('purchaseOrder.index'));
     }

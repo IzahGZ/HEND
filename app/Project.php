@@ -31,6 +31,7 @@ class Project extends Model
     public function materials() {
         return $this->belongsToMany(RawMaterial::class, 'project_material', 'project_id', 'raw_material_id')
             ->withPivot([
+                'lot_sizing_id',
                 'quantity'
             ])
             ->using(ProjectMaterial::class)

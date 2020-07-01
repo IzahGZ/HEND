@@ -15,7 +15,7 @@ class CreateMrp extends Migration
     {
         Schema::create('mrp', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->char('date');
+            $table->date('date');
             $table->integer('product_id');
             $table->integer('quantity');
             $table->integer('on_hand');

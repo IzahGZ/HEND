@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class PurchaseOrder extends Model
 {
-    // public $table = 'request_of_purchase';
+    
     protected $attributes = ['status' => 2];
     public $fillable = [
         'po_number',

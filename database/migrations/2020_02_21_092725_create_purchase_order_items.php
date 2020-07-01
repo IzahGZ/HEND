@@ -19,7 +19,7 @@ class CreatePurchaseOrderItems extends Migration
             $table->integer('pr_id');
             $table->integer('item_id');
             $table->decimal('quantity', 8, 2);
-            $table->char('delivery_date');
+            $table->date('delivery_date');
             $table->integer('raw_material_supplier_id');
             $table->integer('status');
             $table->timestamps();

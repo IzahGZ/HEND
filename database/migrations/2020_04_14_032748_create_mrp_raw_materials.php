@@ -23,6 +23,7 @@ class CreateMrpRawMaterials extends Migration
             $table->decimal('schedule_receipt', 8, 4);
             $table->decimal('net_requirement', 8, 4);
             $table->decimal('order_release', 8, 4);
+            $table->integer('pr_id');
             $table->decimal('order_receipt', 8, 4);
             $table->integer('order_release_status');
             $table->integer('order_receipt_status');

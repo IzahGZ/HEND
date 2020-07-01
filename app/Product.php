@@ -23,15 +23,20 @@ class Product extends Model
         'category_id'
     ];
 
-    public function systemstatus(){
-
-        return $this->belongsTo('App\SystemStatus','status','id');
-
+    public function project()
+    {
+        return $this->hasOne(Project::class);
     }
 
-    public function uoms(){
+    public function systemstatus()
+    {
 
-        return $this->belongsTo('App\Uom','uom','id');
+        return $this->belongsTo('App\SystemStatus', 'status', 'id');
+    }
 
+    public function uoms()
+    {
+
+        return $this->belongsTo('App\Uom', 'uom', 'id');
     }
 }

@@ -14,7 +14,7 @@
         <li class="active">Dashboard</li>
       </ol>
     </section>
-
+    {{-- Call From DB --}}
     <!-- Main content -->
     <section class="content">
       <!-- Small boxes (Stat box) -->
@@ -23,14 +23,32 @@
           <!-- small box -->
           <div class="small-box bg-aqua">
             <div class="inner">
-              <h3>150</h3>
-
-              <p>New Orders</p>
+              <h4>Orders</h4>
+              <h3> &nbsp;&nbsp; {{count($AllOrders)}}</h3>
             </div>
             <div class="icon">
-              <i class="ion ion-bag"></i>
+              <i class="fa fa-fw fa-cart-plus"></i>
             </div>
-            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+            <div class="small-box-footer">
+              <div class="col-lg-4 col-xs-6 bg-aqua">
+                <div class="text-center small-box-footer"> 
+                  This Week <br>
+                  <div><b>{{count($thisWeekOrders)}}</b></div>
+                </div>
+              </div>
+              <div class="col-lg-4 col-xs-6 bg-aqua">
+                <div class="text-center small-box-footer"> 
+                  Last Week <br>
+                  <div><b>{{count($lastWeekOrders)}}</b></div>
+                </div>
+              </div>
+              <div class="col-lg-4 col-xs-6 bg-aqua">
+                <div class="text-center small-box-footer"> 
+                  Last Month <br>
+                <div><b>{{count($lastMonthOrders)}}</b></div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <!-- ./col -->
@@ -38,14 +56,32 @@
           <!-- small box -->
           <div class="small-box bg-green">
             <div class="inner">
-              <h3>53<sup style="font-size: 20px">%</sup></h3>
-
-              <p>Bounce Rate</p>
+              <h4>Purchase Orders</h4>
+              <h3> &nbsp;&nbsp; {{count($AllPo)}}</h3>
             </div>
             <div class="icon">
-              <i class="ion ion-stats-bars"></i>
+              <i class="fa fa-fw fa-shopping-cart"></i>
             </div>
-            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+            <div class="small-box-footer">
+              <div class="col-lg-4 col-xs-6 bg-green">
+                <div class="text-center small-box-footer"> 
+                  This Week <br>
+                  <div><b>{{count($thisWeekPO)}}</b></div>
+                </div>
+              </div>
+              <div class="col-lg-4 col-xs-6 bg-green">
+                <div class="text-center small-box-footer"> 
+                  Last Week <br>
+                  <div><b>{{count($lastWeekPO)}}</b></div>
+                </div>
+              </div>
+              <div class="col-lg-4 col-xs-6 bg-green">
+                <div class="text-center small-box-footer"> 
+                  Last Month <br>
+                  <div><b>{{count($lastMonthPO)}}</b></div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <!-- ./col -->
@@ -53,14 +89,32 @@
           <!-- small box -->
           <div class="small-box bg-yellow">
             <div class="inner">
-              <h3>44</h3>
-
-              <p>User Registrations</p>
+              <h4>Good Receive Note</h4>
+              <h3> &nbsp;&nbsp; {{count($AllGrn)}}</h3>
             </div>
             <div class="icon">
-              <i class="ion ion-person-add"></i>
+              <i class="fa fa-fw fa-building"></i>
             </div>
-            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+            <div class="small-box-footer">
+              <div class="col-lg-4 col-xs-6 bg-yellow">
+                <div class="text-center small-box-footer"> 
+                  This Week <br>
+                  <div><b>{{count($thisWeekGrn)}}</b></div>
+                </div>
+              </div>
+              <div class="col-lg-4 col-xs-6 bg-yellow">
+                <div class="text-center small-box-footer"> 
+                  Last Week <br>
+                  <div><b>{{count($lastWeekGrn)}}</b></div>
+                </div>
+              </div>
+              <div class="col-lg-4 col-xs-6 bg-yellow">
+                <div class="text-center small-box-footer"> 
+                  Last Month <br>
+                  <div><b>{{count($lastMonthGrn)}}</b></div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <!-- ./col -->
@@ -68,452 +122,185 @@
           <!-- small box -->
           <div class="small-box bg-red">
             <div class="inner">
-              <h3>65</h3>
-
-              <p>Unique Visitors</p>
+              <h4>Work Orders</h4>
+              <h3> &nbsp;&nbsp; {{count($AllWo)}}</h3>
             </div>
             <div class="icon">
-              <i class="ion ion-pie-graph"></i>
+              <i class="fa fa-fw fa-tasks"></i>
             </div>
-            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+            <div class="small-box-footer">
+              <div class="col-lg-4 col-xs-6 bg-red">
+                <div class="text-center small-box-footer"> 
+                  This Week <br>
+                  <div><b>{{count($thisWeekWo)}}</b></div>
+                </div>
+              </div>
+              <div class="col-lg-4 col-xs-6 bg-red">
+                <div class="text-center small-box-footer"> 
+                  Last Week <br>
+                  <div><b>{{count($lastWeekWo)}}</b></div>
+                </div>
+              </div>
+              <div class="col-lg-4 col-xs-6 bg-red">
+                <div class="text-center small-box-footer"> 
+                  Last Month <br>
+                  <div><b>{{count($lastMonthWo)}}</b></div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <!-- ./col -->
-      </div>
+      </div><br>
       <!-- /.row -->
       <!-- Main row -->
       <div class="row">
-        <!-- Left col -->
-        <section class="col-lg-7 connectedSortable">
-          <!-- Custom tabs (Charts with tabs)-->
-          <div class="nav-tabs-custom">
-            <!-- Tabs within a box -->
-            <ul class="nav nav-tabs pull-right">
-              <li class="active"><a href="#revenue-chart" data-toggle="tab">Area</a></li>
-              <li><a href="#sales-chart" data-toggle="tab">Donut</a></li>
-              <li class="pull-left header"><i class="fa fa-inbox"></i> Sales</li>
-            </ul>
-            <div class="tab-content no-padding">
-              <!-- Morris chart - Sales -->
-              <div class="chart tab-pane active" id="revenue-chart" style="position: relative; height: 300px;"></div>
-              <div class="chart tab-pane" id="sales-chart" style="position: relative; height: 300px;"></div>
-            </div>
-          </div>
-          <!-- /.nav-tabs-custom -->
-
-          <!-- Chat box -->
-          <div class="box box-success">
-            <div class="box-header">
-              <i class="fa fa-comments-o"></i>
-
-              <h3 class="box-title">Chat</h3>
-
-              <div class="box-tools pull-right" data-toggle="tooltip" title="Status">
-                <div class="btn-group" data-toggle="btn-toggle">
-                  <button type="button" class="btn btn-default btn-sm active"><i class="fa fa-square text-green"></i>
-                  </button>
-                  <button type="button" class="btn btn-default btn-sm"><i class="fa fa-square text-red"></i></button>
-                </div>
-              </div>
-            </div>
-            <div class="box-body chat" id="chat-box">
-              <!-- chat item -->
-              <div class="item">
-                <img src="dist/img/user4-128x128.jpg" alt="user image" class="online">
-
-                <p class="message">
-                  <a href="#" class="name">
-                    <small class="text-muted pull-right"><i class="fa fa-clock-o"></i> 2:15</small>
-                    Mike Doe
-                  </a>
-                  I would like to meet you to discuss the latest news about
-                  the arrival of the new theme. They say it is going to be one the
-                  best themes on the market
-                </p>
-                <div class="attachment">
-                  <h4>Attachments:</h4>
-
-                  <p class="filename">
-                    Theme-thumbnail-image.jpg
-                  </p>
-
-                  <div class="pull-right">
-                    <button type="button" class="btn btn-primary btn-sm btn-flat">Open</button>
-                  </div>
-                </div>
-                <!-- /.attachment -->
-              </div>
-              <!-- /.item -->
-              <!-- chat item -->
-              <div class="item">
-                <img src="dist/img/user3-128x128.jpg" alt="user image" class="offline">
-
-                <p class="message">
-                  <a href="#" class="name">
-                    <small class="text-muted pull-right"><i class="fa fa-clock-o"></i> 5:15</small>
-                    Alexander Pierce
-                  </a>
-                  I would like to meet you to discuss the latest news about
-                  the arrival of the new theme. They say it is going to be one the
-                  best themes on the market
-                </p>
-              </div>
-              <!-- /.item -->
-              <!-- chat item -->
-              <div class="item">
-                <img src="dist/img/user2-160x160.jpg" alt="user image" class="offline">
-
-                <p class="message">
-                  <a href="#" class="name">
-                    <small class="text-muted pull-right"><i class="fa fa-clock-o"></i> 5:30</small>
-                    Susan Doe
-                  </a>
-                  I would like to meet you to discuss the latest news about
-                  the arrival of the new theme. They say it is going to be one the
-                  best themes on the market
-                </p>
-              </div>
-              <!-- /.item -->
-            </div>
-            <!-- /.chat -->
-            <div class="box-footer">
-              <div class="input-group">
-                <input class="form-control" placeholder="Type message...">
-
-                <div class="input-group-btn">
-                  <button type="button" class="btn btn-success"><i class="fa fa-plus"></i></button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- /.box (chat box) -->
-
-          <!-- TO DO List -->
-          <div class="box box-primary">
-            <div class="box-header">
-              <i class="ion ion-clipboard"></i>
-
-              <h3 class="box-title">To Do List</h3>
-
-              <div class="box-tools pull-right">
-                <ul class="pagination pagination-sm inline">
-                  <li><a href="#">&laquo;</a></li>
-                  <li><a href="#">1</a></li>
-                  <li><a href="#">2</a></li>
-                  <li><a href="#">3</a></li>
-                  <li><a href="#">&raquo;</a></li>
-                </ul>
-              </div>
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-              <!-- See dist/js/pages/dashboard.js to activate the todoList plugin -->
-              <ul class="todo-list">
-                <li>
-                  <!-- drag handle -->
-                  <span class="handle">
-                        <i class="fa fa-ellipsis-v"></i>
-                        <i class="fa fa-ellipsis-v"></i>
-                      </span>
-                  <!-- checkbox -->
-                  <input type="checkbox" value="">
-                  <!-- todo text -->
-                  <span class="text">Design a nice theme</span>
-                  <!-- Emphasis label -->
-                  <small class="label label-danger"><i class="fa fa-clock-o"></i> 2 mins</small>
-                  <!-- General tools such as edit or delete-->
-                  <div class="tools">
-                    <i class="fa fa-edit"></i>
-                    <i class="fa fa-trash-o"></i>
-                  </div>
-                </li>
-                <li>
-                      <span class="handle">
-                        <i class="fa fa-ellipsis-v"></i>
-                        <i class="fa fa-ellipsis-v"></i>
-                      </span>
-                  <input type="checkbox" value="">
-                  <span class="text">Make the theme responsive</span>
-                  <small class="label label-info"><i class="fa fa-clock-o"></i> 4 hours</small>
-                  <div class="tools">
-                    <i class="fa fa-edit"></i>
-                    <i class="fa fa-trash-o"></i>
-                  </div>
-                </li>
-                <li>
-                      <span class="handle">
-                        <i class="fa fa-ellipsis-v"></i>
-                        <i class="fa fa-ellipsis-v"></i>
-                      </span>
-                  <input type="checkbox" value="">
-                  <span class="text">Let theme shine like a star</span>
-                  <small class="label label-warning"><i class="fa fa-clock-o"></i> 1 day</small>
-                  <div class="tools">
-                    <i class="fa fa-edit"></i>
-                    <i class="fa fa-trash-o"></i>
-                  </div>
-                </li>
-                <li>
-                      <span class="handle">
-                        <i class="fa fa-ellipsis-v"></i>
-                        <i class="fa fa-ellipsis-v"></i>
-                      </span>
-                  <input type="checkbox" value="">
-                  <span class="text">Let theme shine like a star</span>
-                  <small class="label label-success"><i class="fa fa-clock-o"></i> 3 days</small>
-                  <div class="tools">
-                    <i class="fa fa-edit"></i>
-                    <i class="fa fa-trash-o"></i>
-                  </div>
-                </li>
-                <li>
-                      <span class="handle">
-                        <i class="fa fa-ellipsis-v"></i>
-                        <i class="fa fa-ellipsis-v"></i>
-                      </span>
-                  <input type="checkbox" value="">
-                  <span class="text">Check your messages and notifications</span>
-                  <small class="label label-primary"><i class="fa fa-clock-o"></i> 1 week</small>
-                  <div class="tools">
-                    <i class="fa fa-edit"></i>
-                    <i class="fa fa-trash-o"></i>
-                  </div>
-                </li>
-                <li>
-                      <span class="handle">
-                        <i class="fa fa-ellipsis-v"></i>
-                        <i class="fa fa-ellipsis-v"></i>
-                      </span>
-                  <input type="checkbox" value="">
-                  <span class="text">Let theme shine like a star</span>
-                  <small class="label label-default"><i class="fa fa-clock-o"></i> 1 month</small>
-                  <div class="tools">
-                    <i class="fa fa-edit"></i>
-                    <i class="fa fa-trash-o"></i>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <!-- /.box-body -->
-            <div class="box-footer clearfix no-border">
-              <button type="button" class="btn btn-default pull-right"><i class="fa fa-plus"></i> Add item</button>
-            </div>
-          </div>
-          <!-- /.box -->
-
-          <!-- quick email widget -->
+        <div class="col-md-12">
           <div class="box box-info">
-            <div class="box-header">
-              <i class="fa fa-envelope"></i>
-
-              <h3 class="box-title">Quick Email</h3>
-              <!-- tools box -->
-              <div class="pull-right box-tools">
-                <button type="button" class="btn btn-info btn-sm" data-widget="remove" data-toggle="tooltip"
-                        title="Remove">
-                  <i class="fa fa-times"></i></button>
-              </div>
-              <!-- /. tools -->
-            </div>
-            <div class="box-body">
-              <form action="#" method="post">
-                <div class="form-group">
-                  <input type="email" class="form-control" name="emailto" placeholder="Email to:">
-                </div>
-                <div class="form-group">
-                  <input type="text" class="form-control" name="subject" placeholder="Subject">
-                </div>
-                <div>
-                  <textarea class="textarea" placeholder="Message"
-                            style="width: 100%; height: 125px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
-                </div>
-              </form>
-            </div>
-            <div class="box-footer clearfix">
-              <button type="button" class="pull-right btn btn-default" id="sendEmail">Send
-                <i class="fa fa-arrow-circle-right"></i></button>
-            </div>
-          </div>
-
-        </section>
-        <!-- /.Left col -->
-        <!-- right col (We are only adding the ID to make the widgets sortable)-->
-        <section class="col-lg-5 connectedSortable">
-
-          <!-- Map box -->
-          <div class="box box-solid bg-light-blue-gradient">
-            <div class="box-header">
-              <!-- tools box -->
-              <div class="pull-right box-tools">
-                <button type="button" class="btn btn-primary btn-sm daterange pull-right" data-toggle="tooltip"
-                        title="Date range">
-                  <i class="fa fa-calendar"></i></button>
-                <button type="button" class="btn btn-primary btn-sm pull-right" data-widget="collapse"
-                        data-toggle="tooltip" title="Collapse" style="margin-right: 5px;">
-                  <i class="fa fa-minus"></i></button>
-              </div>
-              <!-- /. tools -->
-
-              <i class="fa fa-map-marker"></i>
-
-              <h3 class="box-title">
-                Visitors
-              </h3>
-            </div>
-            <div class="box-body">
-              <div id="world-map" style="height: 250px; width: 100%;"></div>
-            </div>
-            <!-- /.box-body-->
-            <div class="box-footer no-border">
-              <div class="row">
-                <div class="col-xs-4 text-center" style="border-right: 1px solid #f4f4f4">
-                  <div id="sparkline-1"></div>
-                  <div class="knob-label">Visitors</div>
-                </div>
-                <!-- ./col -->
-                <div class="col-xs-4 text-center" style="border-right: 1px solid #f4f4f4">
-                  <div id="sparkline-2"></div>
-                  <div class="knob-label">Online</div>
-                </div>
-                <!-- ./col -->
-                <div class="col-xs-4 text-center">
-                  <div id="sparkline-3"></div>
-                  <div class="knob-label">Exists</div>
-                </div>
-                <!-- ./col -->
-              </div>
-              <!-- /.row -->
-            </div>
-          </div>
-          <!-- /.box -->
-
-          <!-- solid sales graph -->
-          <div class="box box-solid bg-teal-gradient">
-            <div class="box-header">
-              <i class="fa fa-th"></i>
-
-              <h3 class="box-title">Sales Graph</h3>
+            <div class="box-header with-border">
+              <h3 class="box-title">Monthly Profit (RM)</h3>
 
               <div class="box-tools pull-right">
-                <button type="button" class="btn bg-teal btn-sm" data-widget="collapse"><i class="fa fa-minus"></i>
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                 </button>
-                <button type="button" class="btn bg-teal btn-sm" data-widget="remove"><i class="fa fa-times"></i>
-                </button>
+                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
               </div>
             </div>
-            <div class="box-body border-radius-none">
-              <div class="chart" id="line-chart" style="height: 250px;"></div>
+            <div class="box-body">
+              <div class="chart">
+                <canvas id="lineChart4" style="height:250px"></canvas>
+              </div>
             </div>
             <!-- /.box-body -->
-            <div class="box-footer no-border">
-              <div class="row">
-                <div class="col-xs-4 text-center" style="border-right: 1px solid #f4f4f4">
-                  <input type="text" class="knob" data-readonly="true" value="20" data-width="60" data-height="60"
-                         data-fgColor="#39CCCC">
+          </div>
+          <!-- /.box -->
+        </div>
+        <!-- /.col -->
+      </div>
 
-                  <div class="knob-label">Mail-Orders</div>
-                </div>
-                <!-- ./col -->
-                <div class="col-xs-4 text-center" style="border-right: 1px solid #f4f4f4">
-                  <input type="text" class="knob" data-readonly="true" value="50" data-width="60" data-height="60"
-                         data-fgColor="#39CCCC">
+      <div class="row">
+        <div class="col-md-6">
+          <!-- LINE CHART ORDERS -->
+          <div class="box box-info">
+            <div class="box-header with-border">
+              <h3 class="box-title">Total Orders(RM) Vs Month</h3>
 
-                  <div class="knob-label">Online</div>
-                </div>
-                <!-- ./col -->
-                <div class="col-xs-4 text-center">
-                  <input type="text" class="knob" data-readonly="true" value="30" data-width="60" data-height="60"
-                         data-fgColor="#39CCCC">
-
-                  <div class="knob-label">In-Store</div>
-                </div>
-                <!-- ./col -->
+              <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
               </div>
-              <!-- /.row -->
             </div>
-            <!-- /.box-footer -->
+            <div class="box-body">
+              <div class="chart">
+                <canvas id="lineChart1" style="height:250px"></canvas>
+              </div>
+            </div>
+            <!-- /.box-body -->
           </div>
           <!-- /.box -->
 
-          <!-- Calendar -->
-          <div class="box box-solid bg-green-gradient">
-            <div class="box-header">
-              <i class="fa fa-calendar"></i>
+          <!-- LINE CHART PURCHASE ORDERS -->
+          <div class="box box-info">
+            <div class="box-header with-border">
+              <h3 class="box-title">Total Purchase Orders(RM) Vs Month</h3>
 
-              <h3 class="box-title">Calendar</h3>
-              <!-- tools box -->
-              <div class="pull-right box-tools">
-                <!-- button with a dropdown -->
-                <div class="btn-group">
-                  <button type="button" class="btn btn-success btn-sm dropdown-toggle" data-toggle="dropdown">
-                    <i class="fa fa-bars"></i></button>
-                  <ul class="dropdown-menu pull-right" role="menu">
-                    <li><a href="#">Add new event</a></li>
-                    <li><a href="#">Clear events</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#">View calendar</a></li>
-                  </ul>
-                </div>
-                <button type="button" class="btn btn-success btn-sm" data-widget="collapse"><i class="fa fa-minus"></i>
+              <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                 </button>
-                <button type="button" class="btn btn-success btn-sm" data-widget="remove"><i class="fa fa-times"></i>
-                </button>
+                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
               </div>
-              <!-- /. tools -->
             </div>
-            <!-- /.box-header -->
-            <div class="box-body no-padding">
-              <!--The calendar -->
-              <div id="calendar" style="width: 100%"></div>
+            <div class="box-body">
+              <div class="chart">
+                <canvas id="lineChart2" style="height:250px"></canvas>
+              </div>
             </div>
             <!-- /.box-body -->
-            <div class="box-footer text-black">
-              <div class="row">
-                <div class="col-sm-6">
-                  <!-- Progress bars -->
-                  <div class="clearfix">
-                    <span class="pull-left">Task #1</span>
-                    <small class="pull-right">90%</small>
-                  </div>
-                  <div class="progress xs">
-                    <div class="progress-bar progress-bar-green" style="width: 90%;"></div>
-                  </div>
-
-                  <div class="clearfix">
-                    <span class="pull-left">Task #2</span>
-                    <small class="pull-right">70%</small>
-                  </div>
-                  <div class="progress xs">
-                    <div class="progress-bar progress-bar-green" style="width: 70%;"></div>
-                  </div>
-                </div>
-                <!-- /.col -->
-                <div class="col-sm-6">
-                  <div class="clearfix">
-                    <span class="pull-left">Task #3</span>
-                    <small class="pull-right">60%</small>
-                  </div>
-                  <div class="progress xs">
-                    <div class="progress-bar progress-bar-green" style="width: 60%;"></div>
-                  </div>
-
-                  <div class="clearfix">
-                    <span class="pull-left">Task #4</span>
-                    <small class="pull-right">40%</small>
-                  </div>
-                  <div class="progress xs">
-                    <div class="progress-bar progress-bar-green" style="width: 40%;"></div>
-                  </div>
-                </div>
-                <!-- /.col -->
-              </div>
-              <!-- /.row -->
-            </div>
           </div>
           <!-- /.box -->
 
-        </section>
-        <!-- right col -->
+          <!-- LINE CHART PRODUCTION -->
+          <div class="box box-info">
+            <div class="box-header with-border">
+              <h3 class="box-title">Total Production(Unit) Vs Month</h3>
+
+              <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+              </div>
+            </div>
+            <div class="box-body">
+              <div class="chart">
+                <canvas id="lineChart3" style="height:250px"></canvas>
+              </div>
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+        </div>
+        <div class="col-md-6">
+          <!-- BAR CHART ORDERS-->
+          <div class="box box-success">
+            <div class="box-header with-border">
+              <h3 class="box-title">Total Orders (unit) Vs Month</h3>
+
+              <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+              </div>
+            </div>
+            <div class="box-body">
+              <div class="chart">
+                <canvas id="barChart1" style="height:230px"></canvas>
+              </div>
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+
+          <!-- BAR CHART PURCHASE ORDERS-->
+          <div class="box box-success">
+            <div class="box-header with-border">
+              <h3 class="box-title">Purchase Orders (unit) Vs Month</h3>
+
+              <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+              </div>
+            </div>
+            <div class="box-body">
+              <div class="chart">
+                <canvas id="barChart2" style="height:230px"></canvas>
+              </div>
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+
+          <!-- BAR CHART PRODUCTION-->
+          <div class="box box-success">
+            <div class="box-header with-border">
+              <h3 class="box-title">Purchase Orders (unit) Vs Month</h3>
+
+              <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+              </div>
+            </div>
+            <div class="box-body">
+              <div class="chart">
+                <canvas id="barChart3" style="height:230px"></canvas>
+              </div>
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+        </div>
       </div>
       <!-- /.row (main row) -->
 
@@ -521,4 +308,325 @@
     <!-- /.content -->
   </div>
   {{-- Content End --}}
+@endpush
+
+@push('script')
+
+<!-- ChartJS -->
+<script src={{asset('bower_components/chart.js/Chart.js')}}></script>
+<!-- Morris.js charts -->
+<script src={{asset('bower_components/raphael/raphael.min.js')}}></script>
+<script src={{asset('bower_components/morris.js/morris.min.js')}}></script>
+
+<script>
+
+
+  $(function () {
+
+    const getRandomColor = () => {
+      var letters = '0123456789ABCDEF';
+      var color = '#';
+      for (var i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+      }
+      return color;
+    }
+
+    //- BAR CHART PRODUCTION WO-
+    const WoArray = @JSON($WoArray);
+    var barChartCanvas3 = $('#barChart3').get(0).getContext('2d')
+    var barChart3        = new Chart(barChartCanvas3)
+    var barChartData3    =
+                          {
+                            labels  : ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August'],
+                            datasets: [
+                              {
+                                label               : 'Purchase Orders',
+                                fillColor           : '#cd4414',
+                                strokeColor         : '#cd4414',
+                                pointColor          : '#cd4414',
+                                pointStrokeColor    : '#cd4414',
+                                pointHighlightFill  : '#fff',
+                                pointHighlightStroke: 'rgba(220,220,220,1)',
+                                data                : WoArray
+                              }
+                            ]
+                          }
+
+    //- BAR CHART PURCHASE ORDERS-
+    const PoArray = @JSON($PoArray);
+    var barChartCanvas2 = $('#barChart2').get(0).getContext('2d')
+    var barChart2        = new Chart(barChartCanvas2)
+    var barChartData2    =
+                          {
+                            labels  : ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August'],
+                            datasets: [
+                              {
+                                label               : 'Purchase Orders',
+                                fillColor           : '#89fffe',
+                                strokeColor         : '#89fffe',
+                                pointColor          : '#89fffe',
+                                pointStrokeColor    : '#89fffe',
+                                pointHighlightFill  : '#fff',
+                                pointHighlightStroke: 'rgba(220,220,220,1)',
+                                data                : PoArray
+                              }
+                            ]
+                          }
+    //- BAR CHART ORDERS-
+    var barChartCanvas = $('#barChart1').get(0).getContext('2d')
+    var barChart       = new Chart(barChartCanvas)
+    const productsByMonth = @JSON($productsByMonth);
+    const BarChartData = Object.entries(productsByMonth).reduce((acc, [month, item]) => {
+    const carry = Object.entries(item).map(([name, quantity]) => { 
+      const index = acc.findIndex(({label}) => label === name);
+      const total = acc[index]?.data || Array(12).fill().map(() => 0); 
+      console.log({index, total})
+
+      if (index !== -1) {
+        total[month-1] = total[month-1] ? total[month-1] + quantity : quantity;
+        console.log({index});
+        acc[index] = {...acc[index], data: total};
+      } else {
+        total[month-1] = quantity;
+        const color = getRandomColor();
+        acc = [
+          ...acc,
+          {
+            label               : name,
+            fillColor           : color,
+            strokeColor         : color,
+            pointColor          : color,
+            pointStrokeColor    : color,
+            pointHighlightFill  : '#fff',
+            pointHighlightStroke: 'rgba(220,220,220,1)',
+            data                : total
+          },
+        ]
+      }
+    })
+      return acc;
+    }, [])
+    var barChartData = {  labels  : ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August'],
+                          datasets: BarChartData
+                        }
+    barChartData.datasets[1].fillColor   = '#00a65a'
+    barChartData.datasets[1].strokeColor = '#00a65a'
+    barChartData.datasets[1].pointColor  = '#00a65a'
+    var barChartOptions                  = {
+      //Boolean - Whether the scale should start at zero, or an order of magnitude down from the lowest value
+      scaleBeginAtZero        : true,
+      //Boolean - Whether grid lines are shown across the chart
+      scaleShowGridLines      : true,
+      //String - Colour of the grid lines
+      scaleGridLineColor      : 'rgba(0,0,0,.05)',
+      //Number - Width of the grid lines
+      scaleGridLineWidth      : 1,
+      //Boolean - Whether to show horizontal lines (except X axis)
+      scaleShowHorizontalLines: true,
+      //Boolean - Whether to show vertical lines (except Y axis)
+      scaleShowVerticalLines  : true,
+      //Boolean - If there is a stroke on each bar
+      barShowStroke           : true,
+      //Number - Pixel width of the bar stroke
+      barStrokeWidth          : 2,
+      //Number - Spacing between each of the X value sets
+      barValueSpacing         : 5,
+      //Number - Spacing between data sets within X values
+      barDatasetSpacing       : 1,
+      //String - A legend template
+      legendTemplate          : '<ul class="<%=name.toLowerCase()%>-legend"><% for (var i=0; i<datasets.length; i++){%><li><span style="background-color:<%=datasets[i].fillColor%>"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>',
+      //Boolean - whether to make the chart responsive
+      responsive              : true,
+      maintainAspectRatio     : true
+    }
+
+    barChartOptions.datasetFill = false
+    barChart.Bar(barChartData, barChartOptions)
+    barChart2.Bar(barChartData2, barChartOptions)
+    barChart3.Bar(barChartData3, barChartOptions)
+
+    //- LINE CHART PRODUCTION -
+    const ProductionArray = @JSON($ProductionArray);
+    console.log(ProductionArray)
+    var areaChartCanvas3 = $('#lineChart3').get(0).getContext('2d')
+    var areaChart3       = new Chart(areaChartCanvas3)
+    var areaChartData3 = {
+      labels  : ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August'],
+      datasets: [
+        {
+          label               : 'Purchase Orders',
+          fillColor           : '#1ebabe',
+          strokeColor         : '#1ebabe',
+          pointColor          : '#1ebabe',
+          pointStrokeColor    : '#1ebabe',
+          pointHighlightFill  : '#fff',
+          pointHighlightStroke: 'rgba(220,220,220,1)',
+          data                : ProductionArray
+        }
+      ]
+    }
+
+    //- LINE CHART PURCHASE ORDERS -
+    const PoRmArray = @JSON($PoRmArray);
+    console.log(PoRmArray)
+    var areaChartCanvas2 = $('#lineChart2').get(0).getContext('2d')
+    var areaChart2       = new Chart(areaChartCanvas2)
+    var areaChartData2 = {
+      labels  : ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August'],
+      datasets: [
+        {
+          label               : 'Purchase Orders',
+          fillColor           : '#ff705e',
+          strokeColor         : '#ff705e',
+          pointColor          : '#ff705e',
+          pointStrokeColor    : '#ff705e',
+          pointHighlightFill  : '#fff',
+          pointHighlightStroke: 'rgba(220,220,220,1)',
+          data                : PoRmArray
+        }
+      ]
+    }
+
+    //- LINE CHART PROFIT -
+    const ProfitArray = @JSON($ProfitArray);
+    console.log(ProfitArray)
+    var areaChartCanvas4 = $('#lineChart4').get(0).getContext('2d')
+    var areaChart4       = new Chart(areaChartCanvas4)
+    var areaChartData4 = {
+      labels  : ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August'],
+      datasets: [
+        {
+          label               : 'Purchase Orders',
+          fillColor           : '#ff705e',
+          strokeColor         : '#ff705e',
+          pointColor          : '#ff705e',
+          pointStrokeColor    : '#ff705e',
+          pointHighlightFill  : '#fff',
+          pointHighlightStroke: 'rgba(220,220,220,1)',
+          data                : ProfitArray
+        }
+      ]
+    }
+
+    //- LINE CHART ORDERS -
+    var areaChartCanvas = $('#lineChart1').get(0).getContext('2d')
+    var areaChart       = new Chart(areaChartCanvas)
+    
+    const productsByMonthRM = @JSON($productsByMonthRM);
+    const chartData = Object.entries(productsByMonthRM).reduce((acc, [month, item]) => {
+    const carry = Object.entries(item).map(([name, quantity]) => { 
+      const index = acc.findIndex(({label}) => label === name);
+      const total = acc[index]?.data || Array(12).fill().map(() => 0); 
+      console.log({index, total})
+
+      if (index !== -1) {
+        total[month-1] = total[month-1] ? total[month-1] + quantity : quantity;
+        console.log({index});
+        acc[index] = {...acc[index], data: total};
+      } else {
+        total[month-1] = quantity;
+        const color = getRandomColor();
+        acc = [
+          ...acc,
+          {
+            label               : name,
+            fillColor           : color,
+            strokeColor         : color,
+            pointColor          : color,
+            pointStrokeColor    : color,
+            pointHighlightFill  : '#fff',
+            pointHighlightStroke: 'rgba(220,220,220,1)',
+            data                : total
+          },
+        ]
+      }
+    })
+      return acc;
+    }, [])
+    console.log({chartData})
+
+    var areaChartData = {
+      labels  : ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August'],
+      datasets: chartData
+    }
+
+    var areaChartOptions = {
+      //Boolean - If we should show the scale at all
+      showScale               : true,
+      //Boolean - Whether grid lines are shown across the chart
+      scaleShowGridLines      : false,
+      //String - Colour of the grid lines
+      scaleGridLineColor      : 'rgba(0,0,0,.05)',
+      //Number - Width of the grid lines
+      scaleGridLineWidth      : 1,
+      //Boolean - Whether to show horizontal lines (except X axis)
+      scaleShowHorizontalLines: true,
+      //Boolean - Whether to show vertical lines (except Y axis)
+      scaleShowVerticalLines  : true,
+      //Boolean - Whether the line is curved between points
+      bezierCurve             : true,
+      //Number - Tension of the bezier curve between points
+      bezierCurveTension      : 0.3,
+      //Boolean - Whether to show a dot for each point
+      pointDot                : false,
+      //Number - Radius of each point dot in pixels
+      pointDotRadius          : 4,
+      //Number - Pixel width of point dot stroke
+      pointDotStrokeWidth     : 1,
+      //Number - amount extra to add to the radius to cater for hit detection outside the drawn point
+      pointHitDetectionRadius : 20,
+      //Boolean - Whether to show a stroke for datasets
+      datasetStroke           : true,
+      //Number - Pixel width of dataset stroke
+      datasetStrokeWidth      : 2,
+      //Boolean - Whether to fill the dataset with a color
+      datasetFill             : true,
+      //String - A legend template
+      legendTemplate          : '<ul class="<%=name.toLowerCase()%>-legend"><% for (var i=0; i<datasets.length; i++){%><li><span style="background-color:<%=datasets[i].lineColor%>"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>',
+      //Boolean - whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container
+      maintainAspectRatio     : true,
+      //Boolean - whether to make the chart responsive to window resizing
+      responsive              : true
+    }
+
+    //Create the line chart
+    areaChart.Line(areaChartData, areaChartOptions)
+    areaChart2.Line(areaChartData2, areaChartOptions)
+    areaChart3.Line(areaChartData3, areaChartOptions)
+    areaChart4.Line(areaChartData4, areaChartOptions)
+
+    //-------------
+    //- LINE CHART -
+    //--------------
+    // LINE CHART ORDERS
+    var lineChartCanvas          = $('#lineChart1').get(0).getContext('2d')
+    var lineChart                = new Chart(lineChartCanvas)
+    var lineChartOptions         = areaChartOptions
+    lineChartOptions.datasetFill = false
+    lineChart.Line(areaChartData, lineChartOptions)
+
+    // LINE CHART PURCHASE ORDERS
+    var lineChartCanvas2          = $('#lineChart2').get(0).getContext('2d')
+    var lineChart2                = new Chart(lineChartCanvas2)
+    var lineChartOptions         = areaChartOptions
+    lineChartOptions.datasetFill = false
+    lineChart2.Line(areaChartData2, lineChartOptions)
+
+    // LINE CHART PRODUCTION
+    var lineChartCanvas3          = $('#lineChart3').get(0).getContext('2d')
+    var lineChart3                = new Chart(lineChartCanvas3)
+    var lineChartOptions         = areaChartOptions
+    lineChartOptions.datasetFill = false
+    lineChart3.Line(areaChartData3, lineChartOptions)
+   
+    // LINE CHART PROFIT
+    var lineChartCanvas4          = $('#lineChart4').get(0).getContext('2d')
+    var lineChart4                = new Chart(lineChartCanvas4)
+    var lineChartOptions         = areaChartOptions
+    lineChartOptions.datasetFill = true
+    lineChart4.Line(areaChartData4, lineChartOptions)
+    
+  })
+</script>
 @endpush

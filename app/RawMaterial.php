@@ -16,10 +16,22 @@ class RawMaterial extends Model
         'shelf_life',
         'uom',
         'code',
-        'safety_stock',
-        'holding_cost',
+        'inventory_cost',
+        'set_up_cost',
         'category_id'
     ];
+
+    public function raw_material_suppliers() {
+        return $this->belongsToMany(Supplier::class, 'raw_material_supplier', 'raw_material_id', 'supplier_id')
+            ->withPivot([
+                'uom_id',
+                'moq_id',
+                'price_per_unit',
+                'lead_time'
+            ])
+            ->using(RawMaterialSupplier::class)
+            ->withTimestamps();
+    }
 
     public function systemstatus(){
 
