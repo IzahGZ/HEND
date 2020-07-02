@@ -151,16 +151,25 @@
                             <a class="nav-link btn btn-primary" data-toggle="pill" href="#organizer-details">Personal Details</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link btn btn-primary" data-toggle="pill" href="#event-details">Institution Details</a>
+                            <a class="nav-link btn btn-primary" data-toggle="pill" href="#instituition-details">Institution Details</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link btn btn-primary" data-toggle="pill" href="#confirm-details">Set Up Password</a>
+                            <a class="nav-link btn btn-primary" data-toggle="pill" href="#password">Set Up Password</a>
                         </li>
                     </ul>
                     <div class="connected-line"></div>
                     <!-- Tab panes -->
                     <div class="tab-content">
                         <div id="organizer-details" class="container tab-pane active">
+                            {{-- @if(count($errors) > 0)
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach($errors->all() as $error)
+                                            <li>{{$error}}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif --}}
                             <div class="seminor-login-form">
                                 {!! Form::open(['route' => 'register.store']) !!}
                                 <div class="form-group">
@@ -186,9 +195,12 @@
                                     <span class="checkmark-box"></span>
                                     </label>
                                 </div>
+                                {{-- <div class="btn-check-log">
+                                    <a class="btn-check-login" href="#instituition-details" data-toggle="pill">NEXT</a>
+                                </div> --}}
                             </div>
                         </div>
-                        <div id="event-details" class="container tab-pane fade">
+                        <div id="instituition-details" class="container tab-pane fade">
                             <div class="seminor-login-form">
                                 <div class="form-group">
                                     <input class="form-control" required autocomplete="off" name="school">
@@ -199,20 +211,26 @@
                                     <label class="form-control-placeholder" for="contact-email">School Address</label>
                                 </div>
                                 <div class="form-group">
+                                    <input class="form-control" required autocomplete="off" name="student_no">
+                                    <label class="form-control-placeholder" for="student_no">Number Of Student</label>
+                                </div>
+                                <div class="form-group">
                                     <input class="form-control" required autocomplete="off" name="office_number">
                                     <label class="form-control-placeholder" for="contact-number">Office Number</label>
                                 </div>
                             </div>
                         </div>
-                        <div id="confirm-details" class="container tab-pane fade">
+                        <div id="password" class="container tab-pane fade">
                         <div class="seminor-login-form">
                             <div class="form-group">
-                                <input type="password" class="form-control" required autocomplete="off" name="password">
                                 <label class="form-control-placeholder" for="contact-person">Password</label>
+                                <input type="password" class="form-control  text-left" required autocomplete="off" name="password"
+                                style="background-color: #fff; text-align: left;">
                             </div>
                             <div class="form-group">
-                                <input type="password" class="form-control" required autocomplete="off" name="confirm_password">
                                 <label class="form-control-placeholder" for="contact-email">Password Confirmation</label>
+                                <input type="password" class="form-control text-left" required autocomplete="off" name="confirm_password"
+                                style="background-color: #fff; text-align: left;">
                             </div>
                         </div>
                         <div class="btn-check-log">

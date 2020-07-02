@@ -155,7 +155,7 @@
       <!-- /.row -->
       <!-- Main row -->
       <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-8">
           <div class="box box-info">
             <div class="box-header with-border">
               <h3 class="box-title">Monthly Profit (RM)</h3>
@@ -175,13 +175,65 @@
           </div>
           <!-- /.box -->
         </div>
+        <div class="col-md-4">
+          <div class="info-box bg-yellow">
+            <span class="info-box-icon"><i class="fa fa-fw fa-dollar"></i></span>
+
+            <div class="info-box-content">
+              <span class="info-box-text">Amount Raised</span>
+              <span class="info-box-number">5,200</span>
+
+              <div class="progress">
+                <div class="progress-bar" style="width: 100%"></div>
+              </div>
+              <span class="progress-description">
+                    Updated {{date("d M Y")}}
+                  </span>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+          <div class="info-box bg-green">
+            <span class="info-box-icon"><i class="fa fa-fw fa-university"></i></span>
+
+            <div class="info-box-content">
+              <span class="info-box-text">Number Of School</span>
+              <span class="info-box-number">{{count($AllSchools)}}</span>
+
+              <div class="progress">
+                <div class="progress-bar" style="width: 100%"></div>
+              </div>
+              <span class="progress-description">
+                    Updated {{date("d M Y")}}
+                  </span>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+          <div class="info-box bg-red">
+            <span class="info-box-icon"><i class="fa fa-fw fa-users"></i></span>
+
+            <div class="info-box-content">
+              <span class="info-box-text">Number of Receiver</span>
+              <span class="info-box-number">{{$student_no}}</span>
+
+              <div class="progress">
+                <div class="progress-bar" style="width: 70%"></div>
+              </div>
+              <span class="progress-description">
+                    Updated {{date("d M Y")}}
+                  </span>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+        </div>
         <!-- /.col -->
       </div>
 
       <div class="row">
         <div class="col-md-6">
           <!-- LINE CHART ORDERS -->
-          <div class="box box-info">
+          <div class="box box-info" style="height: 330px;">
             <div class="box-header with-border">
               <h3 class="box-title">Total Orders(RM) Vs Month</h3>
 
@@ -201,7 +253,7 @@
           <!-- /.box -->
 
           <!-- LINE CHART PURCHASE ORDERS -->
-          <div class="box box-info">
+          <div class="box box-info" style="height: 330px;">
             <div class="box-header with-border">
               <h3 class="box-title">Total Purchase Orders(RM) Vs Month</h3>
 
@@ -221,7 +273,7 @@
           <!-- /.box -->
 
           <!-- LINE CHART PRODUCTION -->
-          <div class="box box-info">
+          <div class="box box-info" style="height: 330px;">
             <div class="box-header with-border">
               <h3 class="box-title">Total Production(Unit) Vs Month</h3>
 
@@ -242,7 +294,7 @@
         </div>
         <div class="col-md-6">
           <!-- BAR CHART ORDERS-->
-          <div class="box box-success">
+          <div class="box box-success" style="height: 330px;">
             <div class="box-header with-border">
               <h3 class="box-title">Total Orders (unit) Vs Month</h3>
 
@@ -262,7 +314,7 @@
           <!-- /.box -->
 
           <!-- BAR CHART PURCHASE ORDERS-->
-          <div class="box box-success">
+          <div class="box box-success" style="height: 330px;">
             <div class="box-header with-border">
               <h3 class="box-title">Purchase Orders (unit) Vs Month</h3>
 
@@ -282,9 +334,9 @@
           <!-- /.box -->
 
           <!-- BAR CHART PRODUCTION-->
-          <div class="box box-success">
+          <div class="box box-success" style="height: 330px;">
             <div class="box-header with-border">
-              <h3 class="box-title">Purchase Orders (unit) Vs Month</h3>
+              <h3 class="box-title">Work Orders (unit) Vs Month</h3>
 
               <div class="box-tools pull-right">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>

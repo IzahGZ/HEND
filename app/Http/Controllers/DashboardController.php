@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Customer;
 use App\Order;
 use App\WorkOrder;
 use App\PurchaseOrder;
@@ -9,11 +10,36 @@ use App\GoodReceiveNote;
 use App\OrderItem;
 use App\Product;
 use App\Project;
+use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
+    public function profile($id){
+        $user = Customer::where('login_id', $id)->first();
+        return view('index.profile', compact('user'));
+    }
+
+    public function editProfile($id){
+        $user = Customer::where('login_id', $id)->first();
+
+        return view('index.editProfile', compact('user'));
+    }
+
+    public function update(Request $request, $id){
+        $user = Customer::find($id);
+        $user->position = $request->input('position');
+        $user->login_info->email = $request->input('email');
+        $user->phone = $request->input('phone_number');
+        $user->office_no = $request->input('office_number');
+        $user->school = $request->input('school');
+        $user->address = $request->input('address');
+        $user->save();
+
+        return redirect(route('profile.index',compact('user')))->with('success', 'Details updated');
+    }
+
     public function index()
     {
         $AllOrders = Order::get();
@@ -21,6 +47,13 @@ class DashboardController extends Controller
         $AllGrn = GoodReceiveNote::all();
         $AllWo = WorkOrder::all();
         $AllProject = Project::all();
+        $AllSchools = Customer::all();
+
+        //Get number of Student
+        $student_no = 0;
+        foreach($AllSchools as $schools){
+            $student_no += $schools->student_no;
+        }
 
         //Get start-end of current week
         $startWeek = today()->startOfWeek()->format('Y-m-d');
@@ -223,7 +256,9 @@ class DashboardController extends Controller
                 'PoArray',
                 'ProductionArray',
                 'WoArray',
-                'ProfitArray'
+                'ProfitArray',
+                'AllSchools',
+                'student_no'
             )
         );
     }

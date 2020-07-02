@@ -29,8 +29,8 @@
 
             <div class="box-footer text-center">
                 {{Form::hidden('_method','PUT')}}
-                    {!! Form::submit('Save', ['class' => 'btn btn-danger']) !!}
-                    <a href="{{ route('moq.index') }}" class="btn btn-default">Back</a>
+                {!! Form::submit('Save', ['class' => 'btn btn-danger']) !!}
+                <a href="{{ route('moq.index') }}" class="btn btn-default">Back</a>
             </div>
         </div>
             <!-- /.box-body -->

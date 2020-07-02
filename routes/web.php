@@ -15,18 +15,24 @@ use Illuminate\Support\Facades\Route;
 //MAIN NAVIGATION
 //===============================================================================================================================================
 
-//DASHBOARD======================================================================================================================================
+//LOGIN & REGISTRATION ======================================================================================================================================
 Route::get('/Login', 'LoginController@index')->name('login.index');
+Route::post('/Login', 'LoginController@LogInstore')->name('login.store');
+Route::get('/Logout', 'LoginController@destroy')->name('logout');
 Route::get('/Registration', 'LoginController@register')->name('register.index');
 Route::post('registerStore', 'LoginController@storeRegistration')->name('register.store');
-
 
 //DASHBOARD======================================================================================================================================
 // Route::get('/', function() {
 //     return redirect('/index');
 // });
 
-Route::get('/index', 'DashboardController@index');
+Route::get('/index', 'DashboardController@index')->name('homepage');
+//User Profile
+Route::get('profile/{id}', 'DashboardController@profile')->name('profile.index');
+Route::get('editProfile/{id}', 'DashboardController@editProfile')->name('profile.edit');
+Route::put('editProfile/{id}', ['as'=> 'profile.update', 'uses' => 'DashboardController@update']);
+Route::patch('editProfile/{id}', ['as'=> 'profile.update', 'uses' => 'DashboardController@update']);
 
 //ORDER=======================================================================================================================================
 Route::get('order', ['as'=> 'order.index', 'uses' => 'OrderController@index']);
@@ -199,3 +205,7 @@ Route::get('moq/{id}/confirm-delete', array('as' => 'moq.confirm-delete', 'uses'
 Route::get('moq/create', 'MoqController@create')->name('moq.create');
 Route::post('moqStore', ['as'=> 'moq.store', 'uses' => 'MoqController@store']);
 
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

@@ -147,13 +147,25 @@
                 <img src="{{asset('images/logo.png')}}" id="icon" alt="User Icon" />
                 <h1>Login</h1>
                 </div>
-
+                {{-- @if($message =Sessi ) --}}
+                {{-- @if(count($errors) > 0)
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach($errors->all() as $error)
+                            <li>{{$error}}</li>
+                        @endforeach
+                    </ul>
+                </div>
+                @endif --}}
                 <!-- Login Form -->
-                <form action="MRP-Form.html">
-                <input type="text" id="login" class="fadeIn second" name="login" placeholder="username">
-                <input type="text" id="password" class="fadeIn third" name="login" placeholder="password">
-                <input type="submit" class="fadeIn fourth" value="Log In">
-                </form>
+                {!! Form::open(['route' => 'login.store']) !!}
+                    {{ $errors->first('email') }}
+                    {{ $errors->first('password') }}
+                    <input type="text" id="login" class="fadeIn second" name="email" placeholder="email" required>
+                    <input type="password" id="password" class="fadeIn third" name="password" placeholder="password" required>
+                    {{-- <input type="submit" class="fadeIn fourth" value="Log In"> --}}
+                    {!! Form::submit('Log In', ['class' => 'fadeIn fourth']) !!}
+                {!! Form::close() !!}
                 <a class="underlineHover" href="{!! URL::to('/Registration') !!}">Register</a>
                 <!-- Remind Passowrd -->
                 <div id="formFooter">
