@@ -20,9 +20,16 @@ class OrderController extends Controller
 {
     public function index()
     {
-        $order = Order::all();
-
-        return view('Order.index', compact('order'));
+        $AllOrders = Order::all();
+        if(auth()->user()->user_type == 1){
+            $order = $AllOrders->where('customer_id', auth()->user()->id);
+            return view('Order.index', compact('order'));
+        }
+        
+        else{ 
+            $order = $AllOrders;
+            return view('Order.index', compact('order'));
+        }
     }
 
     public function create()
@@ -67,7 +74,7 @@ class OrderController extends Controller
         $delivery_date = today()->addDays($accumulate_lead_time);
         $Order = new Order;
         $Order->order_number = $request->input('order_number');
-        $Order->customer_id = $request->input('cust_id');
+        $Order->customer_id = auth()->user()->id;
         $Order->order_date = $current_date;
         $Order->delivery_date = $delivery_date;
         $Order->save();

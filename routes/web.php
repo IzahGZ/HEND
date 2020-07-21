@@ -28,12 +28,21 @@ Route::post('registerStore', 'LoginController@storeRegistration')->name('registe
 // });
 
 Route::get('/index', 'DashboardController@index')->name('homepage');
-//User Profile
-Route::get('profile/{id}', 'DashboardController@profile')->name('profile.index');
-Route::get('editProfile/{id}', 'DashboardController@editProfile')->name('profile.edit');
-Route::put('editProfile/{id}', ['as'=> 'profile.update', 'uses' => 'DashboardController@update']);
-Route::patch('editProfile/{id}', ['as'=> 'profile.update', 'uses' => 'DashboardController@update']);
 
+//User Profile -Customer-
+Route::get('profile', 'DashboardController@profile')->name('profile.index');
+Route::get('editProfile', 'DashboardController@editProfile')->name('profile.edit');
+Route::put('editProfile', ['as'=> 'profile.update', 'uses' => 'DashboardController@update']);
+Route::patch('editProfile', ['as'=> 'profile.update', 'uses' => 'DashboardController@update']);
+Route::get('changePassword', 'DashboardController@updatePassword')->name('changePassword.update');
+Route::post('changePasswordStore', ['as'=> 'changePassword.store', 'uses' => 'DashboardController@storePassword']);
+
+//User Profile -Staff-
+Route::get('user', 'UserController@index')->name('user.index');
+Route::get('userRegistration', 'UserController@create')->name('user.create');
+Route::post('userStore', ['as'=> 'user.store', 'uses' => 'UserController@store']);
+Route::get('user/{id}/reset', array('as' => 'user.reset', 'uses' => 'UserController@getReset'));
+Route::get('user/{id}/confirm-reset', array('as' => 'user.confirm-reset', 'uses' => 'UserController@getModalReset'));
 //ORDER=======================================================================================================================================
 Route::get('order', ['as'=> 'order.index', 'uses' => 'OrderController@index']);
 Route::get('order/create', 'OrderController@create')->name('order.create');
@@ -103,6 +112,8 @@ Route::post('projectsStore', ['as'=> 'projects.store', 'uses' => 'ProjectControl
 Route::get('bom', ['as'=> 'bom.index', 'uses' => 'BomController@index']);
 Route::get('bom/{bom}/view}', array('as' => 'bom.view', 'uses' => 'BomController@view'));
 
+//FORECASTING     
+Route::get('forecast', ['as'=> 'forecast.index', 'uses' => 'ForecastController@index']);
 
 //PURCHASES=================================================================================================================================
 //REQUEST OF PURCHASES      
@@ -205,7 +216,5 @@ Route::get('moq/{id}/confirm-delete', array('as' => 'moq.confirm-delete', 'uses'
 Route::get('moq/create', 'MoqController@create')->name('moq.create');
 Route::post('moqStore', ['as'=> 'moq.store', 'uses' => 'MoqController@store']);
 
-
-Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

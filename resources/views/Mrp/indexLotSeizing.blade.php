@@ -118,10 +118,16 @@
                       {{$days->order_release}}</td>
                     @endif
                     @if($days->order_release > 0 && $days->wo_status == 0)
-                    <td style="background-color:{{$days->system_status->colour}};">
-                      <a style="color: black;" href="{{ route('workOrder.confirm-wo', $days->id ) }}"
-                        data-toggle="modal" data-target="#wo_confirm" data-id="{{ route('workOrder.wo', $days->id ) }}">
-                        {{$days->order_release}}</a></td>
+                      @if(auth()->user()->user_type == 5 || auth()->user()->user_type == 6 || auth()->user()->user_type == 2)
+                      <td style="background-color:{{$days->system_status->colour}};">
+                        <a style="color: black;" href="{{ route('workOrder.confirm-wo', $days->id ) }}"
+                          data-toggle="modal" data-target="#wo_confirm" data-id="{{ route('workOrder.wo', $days->id ) }}">
+                          {{$days->order_release}}</a></td>
+                      @else 
+                        <td style="background-color:{{$days->system_status->colour}}; color: black;">
+                          {{$days->order_release}}</td>
+                      @endif
+
                     @endif
                     @if($days->order_release <= 0)
                     <td>{{$days->order_release}}</td>
@@ -230,25 +236,43 @@
                   <td style="background-color:#8fb4fa; color: black;"></td>
                   @foreach($date_raw_materials as $raw_material)
                     @if($item->id == $raw_material->raw_material_id)
-                      @if($raw_material->order_release_status == 13 && $raw_material->order_release > 0)
-                        <td style="background-color:{{$raw_material->orderRelease_status->colour}}; color: black;">
-                        <a style="color: black;" href="{{ route('requestOfPurchaseStore.download', $raw_material->pr_id ) }}" target="_blank">
-                        {{$raw_material->order_release}}</a></td>
-                      @elseif($raw_material->order_release_status == 7 && $raw_material->order_release > 0) 
-                        <?php
-                          $poItem = $poItems->where('pr_id', $raw_material->pr_id)->first();
-                        ?>
-                        <td style="background-color:{{$raw_material->orderRelease_status->colour}};">
-                        <a style="color: black;" href="{{ route('purchaseOrder.download', $poItem->po_id ) }}" target="_blank">
-                        {{$raw_material->order_release}}</a></td>
-                      @elseif($raw_material->order_release_status == 0 && $raw_material->order_release > 0)
-                        <td style="background-color:{{$raw_material->orderRelease_status->colour}};">
-                        <a style="color: black;" href="{{ route('purchaseRequest.confirm-pr', $raw_material->id ) }}"
-                        data-toggle="modal" data-target="#pr_confirm" data-id="{{ route('purchaseRequest.pr', $raw_material->id ) }}">
-                      
-                        {{$raw_material->order_release}}</a></td>
-                      @else
-                        <td style="background-color:#8fb4fa; color: black;">{{$raw_material->order_release}}</td>
+                      @if(auth()->user()->user_type == 3 || auth()->user()->user_type == 4 || auth()->user()->user_type == 2)
+                        @if($raw_material->order_release_status == 13 && $raw_material->order_release > 0)
+                          <td style="background-color:{{$raw_material->orderRelease_status->colour}}; color: black;">
+                          <a style="color: black;" href="{{ route('requestOfPurchaseStore.download', $raw_material->pr_id ) }}" target="_blank">
+                          {{$raw_material->order_release}}</a></td>
+                        @elseif($raw_material->order_release_status == 7 && $raw_material->order_release > 0) 
+                          <?php
+                            $poItem = $poItems->where('pr_id', $raw_material->pr_id)->first();
+                          ?>
+                          <td style="background-color:{{$raw_material->orderRelease_status->colour}};">
+                          <a style="color: black;" href="{{ route('purchaseOrder.download', $poItem->po_id ) }}" target="_blank">
+                          {{$raw_material->order_release}}</a></td>
+                        @elseif($raw_material->order_release_status == 0 && $raw_material->order_release > 0)
+                          <td style="background-color:{{$raw_material->orderRelease_status->colour}};">
+                          <a style="color: black;" href="{{ route('purchaseRequest.confirm-pr', $raw_material->id ) }}"
+                          data-toggle="modal" data-target="#pr_confirm" data-id="{{ route('purchaseRequest.pr', $raw_material->id ) }}">
+                        
+                          {{$raw_material->order_release}}</a></td>
+                        @else
+                          <td style="background-color:#8fb4fa; color: black;">{{$raw_material->order_release}}</td>
+                        @endif
+                      @else 
+                        @if($raw_material->order_release_status == 13 && $raw_material->order_release > 0)
+                          <td style="background-color:{{$raw_material->orderRelease_status->colour}}; color: black;">
+                          {{$raw_material->order_release}}</td>
+                        @elseif($raw_material->order_release_status == 7 && $raw_material->order_release > 0) 
+                          <?php
+                            $poItem = $poItems->where('pr_id', $raw_material->pr_id)->first();
+                          ?>
+                          <td style="background-color:{{$raw_material->orderRelease_status->colour}}; color: black;">
+                          {{$raw_material->order_release}}</td>
+                        @elseif($raw_material->order_release_status == 0 && $raw_material->order_release > 0)
+                          <td style="background-color:{{$raw_material->orderRelease_status->colour}}; color: black;">
+                          {{$raw_material->order_release}}</td>
+                        @else
+                          <td style="background-color:#8fb4fa; color: black;">{{$raw_material->order_release}}</td>
+                        @endif
                       @endif
                     @endif
                   @endforeach

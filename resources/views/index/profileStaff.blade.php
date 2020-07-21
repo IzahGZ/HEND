@@ -21,37 +21,13 @@
               <img class="profile-user-img img-responsive img-circle" src="{{asset('dist/img/user4-128x128.jpg')}}" alt="User profile picture">
 
               <h3 class="profile-username text-center">{{$user->name}}</h3>
-              <p class=" text-center">{{$user->user_details->position}}</p>
+              <p class=" text-center">{{$user->categories->name}}</p>
 
               <ul class="list-group list-group-unbordered">
                 <li class="list-group-item">
                   <table>
                     <td width="100"><b>Email</b></td>
                     <td><div class="pull-left">: {{$user->email}}</div></td>
-                  </table>
-                </li>
-                <li class="list-group-item">
-                  <table>
-                    <td width="100"><b>Contact No.</b></td>
-                    <td><div class="pull-left">: {{$user->user_details->phone}}</div></td>
-                  </table>
-                </li>
-                <li class="list-group-item">
-                  <table>
-                    <td width="100"><b>Office No.</b></td>
-                    <td><div class="pull-left">: {{$user->user_details->office_no}}</div></td>
-                  </table>
-                </li>
-                <li class="list-group-item">
-                  <table>
-                    <td width="100"><b>School's Name</b></td>
-                    <td><div class="pull-left">: {{$user->user_details->school}}</div></td>
-                  </table>
-                </li>
-                <li class="list-group-item">
-                  <table>
-                    <td width="100"><b>Address</b></td>
-                    <td><div class="pull-left">: {{$user->user_details->address}}</div></td>
                   </table>
                 </li>
               </ul>

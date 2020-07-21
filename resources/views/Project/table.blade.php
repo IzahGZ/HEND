@@ -16,8 +16,10 @@
           <td><a href="{{ route('project.edit', $project->id ) }}">
               <i class="fa fa-edit" data-name="info" data-size="18" data-loop="true" title="view project"></i>
           </a> &nbsp;
+            @if(auth()->user()->user_type == 6)
             <a href="{{ route('project.confirm-delete', $project->id ) }}" data-toggle="modal" data-target="#delete_confirm" data-id="{{ route('project.delete', $project->id ) }}">
             <i class="fa fa-trash" title="delete project data-name="remove-alt" data-size="18" data-loop="true""></i></a> &nbsp;
+            @endif
             <a href="{{ route('project.view', $project->id ) }}">
                 <i class="fa fa-info" data-name="info" data-size="18" data-loop="true" title="view project"></i>
             </a>

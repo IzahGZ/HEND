@@ -8,7 +8,9 @@
       <th>Unit</th>
       <th>Price (RM)</th>
       <th>Status</th>
+      @if(auth()->user()->user_type == 3 || auth()->user()->user_type == 4)
       <th>Action</th>
+      @endif
     </tr>
     </thead>
     <tbody>
@@ -31,26 +33,21 @@
             @else 
               <span class="label label-danger">Critical</span></td>
             @endif
+          @if(auth()->user()->user_type == 3 || auth()->user()->user_type == 4 || auth()->user()->user_type == 2)
           <td><a href="{{ route('product.edit', $product->id ) }}">
               <i class="fa fa-edit" data-name="info" data-size="18" data-loop="true" title="view product"></i>
-          </a> &nbsp;
-            <a href="{{ route('product.confirm-delete', $product->id ) }}" data-toggle="modal" data-target="#delete_confirm" data-id="{{ route('product.delete', $product->id ) }}">
-            <i class="fa fa-trash" title="delete product data-name="remove-alt" data-size="18" data-loop="true""></i></a> &nbsp;
-            <a href="{{ route('product.view', $product->id ) }}">
+              </a> &nbsp;
+              @if(auth()->user()->user_type == 4)
+              <a href="{{ route('product.confirm-delete', $product->id ) }}" data-toggle="modal" data-target="#delete_confirm" data-id="{{ route('product.delete', $product->id ) }}">
+              <i class="fa fa-trash" title="delete product data-name="remove-alt" data-size="18" data-loop="true""></i></a> &nbsp;
+              @endif
+              <a href="{{ route('product.view', $product->id ) }}">
                 <i class="fa fa-info" data-name="info" data-size="18" data-loop="true" title="view product"></i>
             </a>
+          </td>
+          @endif
         </tr>
         @endforeach
-    <tfoot>
-      <th>#</th>
-      <th>Name</th>
-      <th>Current Stock</th>
-      <th>Safety Stock</th>
-      <th>Unit</th>
-      <th>Price (RM)</th>
-      <th>Status</th>
-      <th>Action</th>
-    </tfoot>
   </table>
 
   <!-- The modal -->

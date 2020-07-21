@@ -23,8 +23,10 @@
           <a href="{{ route('customer.edit', $cust->id ) }}">
             <i class="fa fa-edit" data-name="info" data-size="18" data-loop="true" title="view customer"></i>
           </a> &nbsp;
-          <a href="{{ route('customer.confirm-delete', $cust->id ) }}" data-toggle="modal" data-target="#delete_confirm" data-id="{{ route('customer.delete', $cust->id ) }}">
-          <i class="fa fa-trash" title="delete customer data-name="remove-alt" data-size="18" data-loop="true""></i></a> &nbsp;
+          @if(auth()->user()->user_type == 4)
+            <a href="{{ route('customer.confirm-delete', $cust->id ) }}" data-toggle="modal" data-target="#delete_confirm" data-id="{{ route('customer.delete', $cust->id ) }}">
+            <i class="fa fa-trash" title="delete customer data-name="remove-alt" data-size="18" data-loop="true""></i></a> &nbsp;
+          @endif
           <a href="{{ route('customer.view', $cust->id ) }}">
               <i class="fa fa-info" data-name="info" data-size="18" data-loop="true" title="view customer"></i>
           </a>

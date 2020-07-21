@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Customer extends Model
 {
     use SoftDeletes;
-    protected $attributes = ['status' => 1, 'user_type' => 1, 'profile_pic' => 'default.png', 'student_no' => 0];
+    protected $attributes = ['status' => 1, 'profile_pic' => 'default.png', 'student_no' => 0];
     protected $dates = ['deleted_at'];
 
     public $fillable = [

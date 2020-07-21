@@ -15,52 +15,55 @@
     
         <!-- Main content -->
         <section class="content">
-          @include('flash-message')
           <div class="box box-danger">
             <div class="box-body box-profile">
+              {!! Form::model($user, ['route' => ['profile.update', $user->id ], 'method' => 'patch']) !!}
               <img class="profile-user-img img-responsive img-circle" src="{{asset('dist/img/user4-128x128.jpg')}}" alt="User profile picture">
 
               <h3 class="profile-username text-center">{{$user->name}}</h3>
-              <p class=" text-center">{{$user->user_details->position}}</p>
+
+              <div class="text-center"><input class="text-muted text-center" value="{{$user->position}}" name="position"></div><br>
 
               <ul class="list-group list-group-unbordered">
                 <li class="list-group-item">
                   <table>
                     <td width="100"><b>Email</b></td>
-                    <td><div class="pull-left">: {{$user->email}}</div></td>
+                    <td  width="1000"><input  style="width:400px;"class="pull-left" value="{{$user->login_info->email}}" name="email"></td>
                   </table>
                 </li>
                 <li class="list-group-item">
                   <table>
                     <td width="100"><b>Contact No.</b></td>
-                    <td><div class="pull-left">: {{$user->user_details->phone}}</div></td>
+                    <td  width="1000"><input  style="width:400px;"class="pull-left" value="{{$user->phone}}" name="phone_number"></td>
                   </table>
                 </li>
                 <li class="list-group-item">
                   <table>
                     <td width="100"><b>Office No.</b></td>
-                    <td><div class="pull-left">: {{$user->user_details->office_no}}</div></td>
+                    <td  width="1000"><input  style="width:400px;"class="pull-left" value="{{$user->office_no}}" name="office_number"></td>
                   </table>
                 </li>
                 <li class="list-group-item">
                   <table>
                     <td width="100"><b>School's Name</b></td>
-                    <td><div class="pull-left">: {{$user->user_details->school}}</div></td>
+                    <td  width="1000"><input  style="width:400px;"class="pull-left" value="{{$user->school}}" name="school"></td>
                   </table>
                 </li>
                 <li class="list-group-item">
                   <table>
                     <td width="100"><b>Address</b></td>
-                    <td><div class="pull-left">: {{$user->user_details->address}}</div></td>
+                    <td width="1000"> <textarea style="width:400px;" name="address" rows="5">{{$user->address}}</textarea></td>
                   </table>
                 </li>
               </ul>
 
               {{-- <a href="#" class="btn btn-primary btn-block"><b>Follow</b></a> --}}
               <div class="box-footer text-center">
-                <a href="{{ route('profile.edit', $user->id) }}" class="btn btn-danger">Edit Information</a>
-                <a href="{{ route('changePassword.update') }}" class="btn btn-default">Change Password</a>
+                {{Form::hidden('_method','PUT')}}
+                {!! Form::submit('Save', ['class' => 'btn btn-danger']) !!}
+                <a href="{{ route('profile.index', $user->id) }}" class="btn btn-default">Back</a>
               </div>
+              {!! Form::close() !!}
             </div>
             <!-- /.box-body -->
           </div>

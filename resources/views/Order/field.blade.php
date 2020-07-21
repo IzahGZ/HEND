@@ -19,75 +19,7 @@
             </div>
         </div>
     </div>
-    
-    <div class="row">
-        <div class="col-md-12">
-            <div class="form-horizontal">
-                <div class="box-body">
-                    <div class="form-group">
-                        {!! Form::label('name', 'Customer Name',['class' => 'col-sm-1 control-label']) !!}
-                        <div class="col-sm-11">
-                        <select id="cust_id" class="form-control" name="cust_id">
-                            <option value="">Please select customer</option>
-                            @foreach($customer as $customers)
-                              <option value="{{ $customers->id }}">{{$customers->name}}</option>
-                            @endforeach
-                        </select>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    {{-- <div class="row">
-        <div class="col-md-6">
-            <div class="form-horizontal">
-                <div class="box-body">
-                    <div class="form-group">
-                        {!! Form::label('order_date', 'Order Date',['class' => 'col-sm-2 control-label']) !!}
-                        <div class="col-sm-10">
-                            {!! Form::text('order_date', $date_today, ['class' => 'form-control','readonly']) !!}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div> --}}
-        
-        {{-- <div class="col-md-6">
-            <div class="box-body">
-                <div class="form-horizontal">
-                    <!-- textarea -->
-                    <div class="form-group">
-                        {!! Form::label('delivery_date', 'Delivery Date',['class' => 'col-sm-2 control-label']) !!}
-                        <div class="col-sm-10">
-                                <div class="input-group date">
-                                  <div class="input-group-addon">
-                                    <i class="fa fa-calendar"></i>
-                                  </div>
-                                  {!! Form::text('delivery_date', null, ['class' => 'form-control pull-right', 'id' => 'datepicker']) !!}
-                                </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-      </div> --}}
-
-      {{-- <div class="row">
-      <div class="col-md-6">
-        <div class="form-horizontal">
-            <div class="box-body">
-                <div class="form-group">
-                    {!! Form::label('address', 'Delivery Address',['class' => 'col-sm-2 control-label']) !!}
-                    <div class="col-sm-10">
-                        {!! Form::textarea('address', null, ['class' => 'form-control','readonly']) !!}
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> --}}
-
+    <input type="text" name="cust_id" value="{{auth()->user()->id}}" hidden>
     <div class="box-header with-border"></div>
     <div class="row">
         <div class="col-md-6">

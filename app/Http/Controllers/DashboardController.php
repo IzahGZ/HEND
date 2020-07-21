@@ -16,28 +16,64 @@ use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
-    public function profile($id){
-        $user = Customer::where('login_id', $id)->first();
-        return view('index.profile', compact('user'));
+    public function profile(){
+        $user = User::find(auth()->user()->id);
+
+        if(auth()->user()->id == 1){
+            return view('index.profile', compact('user'));
+        }
+        else{
+            return view('index.profileStaff', compact('user'));
+        }
+        
     }
 
-    public function editProfile($id){
-        $user = Customer::where('login_id', $id)->first();
+    public function editProfile(){
+        $user = User::find(auth()->user()->id);
 
-        return view('index.editProfile', compact('user'));
+        if(auth()->user()->id == 1){
+            return view('index.editProfile', compact('user'));
+        }
+        else{
+            return view('index.editProfileStaff', compact('user'));
+        }
+        
     }
 
-    public function update(Request $request, $id){
-        $user = Customer::find($id);
-        $user->position = $request->input('position');
-        $user->login_info->email = $request->input('email');
-        $user->phone = $request->input('phone_number');
-        $user->office_no = $request->input('office_number');
-        $user->school = $request->input('school');
-        $user->address = $request->input('address');
-        $user->save();
+    public function update(Request $request){
+        $user = User::find(auth()->user()->id);
+        if(auth()->user()->id == 1){
+            $user->user_details->position = $request->input('position');
+            $user->email = $request->input('email');
+            $user->user_details->phone = $request->input('phone_number');
+            $user->user_details->office_no = $request->input('office_number');
+            $user->user_details->school = $request->input('school');
+            $user->user_details->address = $request->input('address');
+            $user->save();
+            $user->user_details->save();
+        }
+        else{
+            $user->email = $request->input('email');
+            $user->save();
+        }
+        
 
         return redirect(route('profile.index',compact('user')))->with('success', 'Details updated');
+    }
+
+    public function updatePassword()
+      { 
+          $user = User::find(auth()->user()->id);
+          return view('index.changePassword');
+      }
+
+    public function storePassword(Request $request)
+    {
+        $user = User::find(auth()->user()->id);
+        $user->password = $request->input('password');
+        $user->save();
+        return redirect(route('profile.index',compact('user')))->with('success', 'Password changed');
+
     }
 
     public function index()

@@ -25,7 +25,9 @@
             <a href="{{ route('Product.download') }}" 
               type="button" class="btn btn-info pull-right" style="margin:3px;" target="_blank">
               <b>Download List</b></a>
-            <a href="{{ route('Product.create') }}" style="margin:3px;" type="button" class="btn btn-info pull-right"><b>+ Product </b></a>
+              @if(auth()->user()->user_type == 3 || auth()->user()->user_type == 4 || auth()->user()->user_type == 2)
+              <a href="{{ route('Product.create') }}" style="margin:3px;" type="button" class="btn btn-info pull-right"><b>+ Product </b></a>
+              @endif
           </div>
           <!-- /.box-header -->
           <div class="box-body">

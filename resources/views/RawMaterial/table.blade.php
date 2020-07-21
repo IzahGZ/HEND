@@ -7,7 +7,9 @@
       <th>Safety Stock</th>
       <th>Unit</th>
       <th>Status</th>
+      @if(auth()->user()->user_type == 3 || auth()->user()->user_type == 4)
       <th>Action</th>
+      @endif
     </tr>
     </thead>
     <tbody>
@@ -29,6 +31,7 @@
             @else 
               <span class="label label-danger">Critical</span></td>
             @endif
+          @if(auth()->user()->user_type == 3 || auth()->user()->user_type == 4 || auth()->user()->user_type == 2)
           <td><a href="{{ route('rawMaterial.edit', $rawMaterial->id ) }}">
               <i class="fa fa-edit" data-name="info" data-size="18" data-loop="true" title="view rawMaterial"></i>
           </a> &nbsp;
@@ -37,6 +40,8 @@
             <a href="{{ route('rawMaterial.view', $rawMaterial->id ) }}">
                 <i class="fa fa-info" data-name="info" data-size="18" data-loop="true" title="view rawMaterial"></i>
             </a>
+          </td>
+          @endif
         </tr>
         @endforeach
   </table>

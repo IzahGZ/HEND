@@ -21,9 +21,11 @@
           <td><span class="label label-default" style="background-color:{{$supplier->systemstatus->colour}}; color:white;">{{$supplier->systemstatus->name}}</span></td>
           <td><a href="{{ route('supplier.edit', $supplier->id ) }}">
               <i class="fa fa-edit" data-name="info" data-size="18" data-loop="true" title="view supplier"></i>
-          </a> &nbsp;
+              </a> &nbsp;
+            @if(auth()->user()->user_type == 4)
             <a href="{{ route('supplier.confirm-delete', $supplier->id ) }}" data-toggle="modal" data-target="#delete_confirm" data-id="{{ route('supplier.delete', $supplier->id ) }}">
             <i class="fa fa-trash" title="delete supplier data-name="remove-alt" data-size="18" data-loop="true""></i></a> &nbsp;
+            @endif
             <a href="{{ route('supplier.view', $supplier->id ) }}">
                 <i class="fa fa-info" data-name="info" data-size="18" data-loop="true" title="view supplier"></i>
             </a>

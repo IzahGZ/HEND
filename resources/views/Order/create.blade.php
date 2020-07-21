@@ -34,8 +34,8 @@
             @include('Order.field')
 
             <div class="box-footer text-center">
-                    {!! Form::submit('Submit', ['class' => 'btn btn-danger']) !!}
-                    <a href="{{ route('order.index') }}" class="btn btn-default">Cancel</a>
+              {!! Form::submit('Submit', ['class' => 'btn btn-danger']) !!}
+              <a href="{{ route('order.index') }}" class="btn btn-default">Cancel</a>
             </div>
         {!! Form::close() !!}
         </div>

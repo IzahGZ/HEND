@@ -138,6 +138,7 @@
     <!-- vertical tab -->
 <section>
     <div class="container">     
+        @include('flash-message')
         <div class="wrapper fadeInDown">
             <div id="formContent">
             <!-- Tabs Titles -->
@@ -147,16 +148,6 @@
                 <img src="{{asset('images/logo.png')}}" id="icon" alt="User Icon" />
                 <h1>Login</h1>
                 </div>
-                {{-- @if($message =Sessi ) --}}
-                {{-- @if(count($errors) > 0)
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach($errors->all() as $error)
-                            <li>{{$error}}</li>
-                        @endforeach
-                    </ul>
-                </div>
-                @endif --}}
                 <!-- Login Form -->
                 {!! Form::open(['route' => 'login.store']) !!}
                     {{ $errors->first('email') }}

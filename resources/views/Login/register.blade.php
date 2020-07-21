@@ -59,7 +59,6 @@
 </head>
 
 <body>
-
     <!-- preloader -->
     <div class='preloader'>
         <div class="preloader-content-wrapper">
@@ -134,6 +133,7 @@
     <!-- vertical tab -->
 <section>
     <div class="container-fluid">
+        @include('flash-message')
         <div class="row">
             <div class="wrapper fadeInDown">
                 <div id="formContent">
@@ -143,33 +143,19 @@
                     </a>
                 </div>
             </div>
+           
            <div class="col-sm-12">
                 <div class="pos-rel">
                     <!-- Nav pills -->
                     <ul class="nav nav-pills justify-content-center nav-justified" role="tablist">
                         <li class="nav-item">
-                            <a class="nav-link btn btn-primary" data-toggle="pill" href="#organizer-details">Personal Details</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link btn btn-primary" data-toggle="pill" href="#instituition-details">Institution Details</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link btn btn-primary" data-toggle="pill" href="#password">Set Up Password</a>
+                            <a class="nav-link btn btn-primary" data-toggle="pill" style="background-color:#cc0000">Personal Details</a>
                         </li>
                     </ul>
                     <div class="connected-line"></div>
                     <!-- Tab panes -->
                     <div class="tab-content">
-                        <div id="organizer-details" class="container tab-pane active">
-                            {{-- @if(count($errors) > 0)
-                                <div class="alert alert-danger">
-                                    <ul>
-                                        @foreach($errors->all() as $error)
-                                            <li>{{$error}}</li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                            @endif --}}
+                        <div id="organizer-details" class="container">
                             <div class="seminor-login-form">
                                 {!! Form::open(['route' => 'register.store']) !!}
                                 <div class="form-group">
@@ -188,19 +174,16 @@
                                     <input class="form-control" required autocomplete="off" name="contact_number">
                                     <label class="form-control-placeholder" for="contact-number">Contact Number</label>
                                 </div>
-                                <div class="form-group">
-                                    <label class="container-checkbox">
-                                        I'am the contact person and responsible for the info provided.
-                                    <input type="checkbox" checked="checked" required>
-                                    <span class="checkmark-box"></span>
-                                    </label>
-                                </div>
-                                {{-- <div class="btn-check-log">
-                                    <a class="btn-check-login" href="#instituition-details" data-toggle="pill">NEXT</a>
-                                </div> --}}
                             </div>
                         </div>
-                        <div id="instituition-details" class="container tab-pane fade">
+                        <!-- Nav pills -->
+                    <ul class="nav nav-pills justify-content-center nav-justified" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link btn btn-primary" data-toggle="pill" style="background-color:#cc0000">Institutional Details</a>
+                        </li>
+                    </ul>
+                    <div class="connected-line"></div>
+                        <div  class="container">
                             <div class="seminor-login-form">
                                 <div class="form-group">
                                     <input class="form-control" required autocomplete="off" name="school">
@@ -211,7 +194,7 @@
                                     <label class="form-control-placeholder" for="contact-email">School Address</label>
                                 </div>
                                 <div class="form-group">
-                                    <input class="form-control" required autocomplete="off" name="student_no">
+                                    <input class="form-control" required autocomplete="off" name="student_no" type="number">
                                     <label class="form-control-placeholder" for="student_no">Number Of Student</label>
                                 </div>
                                 <div class="form-group">
@@ -220,18 +203,30 @@
                                 </div>
                             </div>
                         </div>
-                        <div id="password" class="container tab-pane fade">
+                        <ul class="nav nav-pills justify-content-center nav-justified" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link btn btn-primary" data-toggle="pill" style="background-color:#cc0000">Set Up Password</a>
+                            </li>
+                        </ul>
+                    <div class="container">
                         <div class="seminor-login-form">
                             <div class="form-group">
                                 <label class="form-control-placeholder" for="contact-person">Password</label>
-                                <input type="password" class="form-control  text-left" required autocomplete="off" name="password"
-                                style="background-color: #fff; text-align: left;">
+                                <input type="password" minlength="8" class="form-control text-left" required autocomplete="off" name="password"
+                                id="password" style="background-color: #fff; text-align: left;">
                             </div>
                             <div class="form-group">
                                 <label class="form-control-placeholder" for="contact-email">Password Confirmation</label>
-                                <input type="password" class="form-control text-left" required autocomplete="off" name="confirm_password"
-                                style="background-color: #fff; text-align: left;">
+                                <input type="password" class="form-control text-left" required autocomplete="off" id="confirm_password"
+                                oninput="check(this)" name="confirm_password" style="background-color: #fff; text-align: left;">
                             </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="container-checkbox">
+                                I'am the contact person and responsible for the info provided.
+                            <input type="checkbox" required>
+                            <span class="checkmark-box"></span>
+                            </label>
                         </div>
                         <div class="btn-check-log">
                             {{-- <button type="submit" class="btn-check-login">Submit</button> --}}
@@ -411,6 +406,18 @@
     <script src={{asset('js/zabuto_calendar.min.js')}}></script>
     <script src={{asset('js/ekko-lightbox.js')}}></script>
     <script src={{asset('js/custom.js')}}></script>
+    <script language='javascript' type='text/javascript'>
+        function check(input) {
+            console.log(input.value)
+            console.log(document.getElementById('password').value)
+            if (input.value != document.getElementById('password').value) {
+                input.setCustomValidity('Password is not match');
+            } else {
+                // input is valid -- reset the error message
+                input.setCustomValidity('');
+            }
+        }
+    </script>
 </body>
 
 </html>

@@ -40,9 +40,11 @@ class MrpController extends Controller
         $lot_sizing = LotSizing::all();
         $current_month = $request->month;
         $current_week_number = $request->current_week;
-        $projects = $request->project_id;
+        // $projects = $request->project_id;
+        $project = Project::with('materials','products')->find($request->project_id); 
+        $projectName = $project->products->name;
         $manufacture_time = $request->manufacturing_time;
-
+        
         //call the first 14 days
         $first_day = today();
         $day_14 = today()->addDays(13);
@@ -57,19 +59,46 @@ class MrpController extends Controller
                 $item->save();
             }
         }
-        return view('Mrp.indexGenerateMrp', compact(
-            'current_month',
-            'current_week_number',
-            'projects',
-            'processes',
-            'first_day',
-            'date',
-            'product',
-            'dates',
-            'date_raw_materials',
-            'manufacture_time',
-            'lot_sizing'
-        ));
+        if(auth()->user()->user_type == 5 || auth()->user()->user_type == 6){
+            $processes = ProjectProcess::where('project_id', $request->project_id)->get();
+            $manufacturing_time = 0;
+            foreach ($processes as $item) {
+                $manufacturing_time += $item->duration;
+            }
+
+            $hour = floor($manufacturing_time / 60);
+            $hour = intval($hour);
+            $minute = $manufacturing_time % 60;
+            $duration = $hour . " hours " . $minute . " minutes";
+            return view('Mrp.indexLotSeizing', compact(
+                'current_month',
+                'current_week_number',
+                'first_day',
+                'date',
+                'product',
+                'dates',
+                'project',
+                'projectName',//
+                'date_raw_materials',
+                'duration' //
+            ));
+        }
+        else{
+            return view('Mrp.indexGenerateMrp', compact(
+                'current_month',
+                'current_week_number',
+                'projects',
+                'processes',
+                'first_day',
+                'date',
+                'product',
+                'dates',
+                'date_raw_materials',
+                'manufacture_time',
+                'lot_sizing'
+            ));
+        }
+        
     }
 
     public function LotSeizing(Request $request, $id)
@@ -112,7 +141,7 @@ class MrpController extends Controller
                 $item->save();
             }
         }
-
+        
         // $Projects = Project::with('materials')->where('product_id', $id);
         $allMrps = MrpRawMaterial::orderBy('date', 'ASC')->get(); // formula purposes
         $allRawMaterials = RawMaterial::all();
@@ -126,7 +155,7 @@ class MrpController extends Controller
                     ->whereBetween(
                         'date',
                         [
-                            today()->subDays(1),
+                            today()->subDays(14),
                             today()->addDays(15)
                         ]
                     )->values();

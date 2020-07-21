@@ -26,9 +26,11 @@
             <a href="{{ route('RawMaterial.download') }}" 
               type="button" class="btn btn-info pull-right" style="margin:3px;" target="_blank">
               <b>Download List</b></a>
+            @if(auth()->user()->user_type == 3 || auth()->user()->user_type == 4 || auth()->user()->user_type == 2)
             <a href="{{ route('RawMaterial.create') }}" 
               type="button" class="btn btn-info pull-right" style="margin:3px;">
               <b>+ Raw Material</b></a>
+            @endif
             
           </div>
           <!-- /.box-header -->

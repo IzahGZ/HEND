@@ -22,37 +22,13 @@
 
               <h3 class="profile-username text-center">{{$user->name}}</h3>
 
-              <div class="text-center"><input class=" text-center" value="{{$user->user_details->position}}" name="position"></div><br>
+              <div class="text-center">{{$user->categories->name}}</div><br>
 
               <ul class="list-group list-group-unbordered">
                 <li class="list-group-item">
                   <table>
                     <td width="100"><b>Email</b></td>
                     <td  width="1000"><input  style="width:400px;"class="pull-left" value="{{$user->email}}" name="email"></td>
-                  </table>
-                </li>
-                <li class="list-group-item">
-                  <table>
-                    <td width="100"><b>Contact No.</b></td>
-                    <td  width="1000"><input  style="width:400px;"class="pull-left" value="{{$user->user_details->phone}}" name="phone_number"></td>
-                  </table>
-                </li>
-                <li class="list-group-item">
-                  <table>
-                    <td width="100"><b>Office No.</b></td>
-                    <td  width="1000"><input  style="width:400px;"class="pull-left" value="{{$user->user_details->office_no}}" name="office_number"></td>
-                  </table>
-                </li>
-                <li class="list-group-item">
-                  <table>
-                    <td width="100"><b>School's Name</b></td>
-                    <td  width="1000"><input  style="width:400px;"class="pull-left" value="{{$user->user_details->school}}" name="school"></td>
-                  </table>
-                </li>
-                <li class="list-group-item">
-                  <table>
-                    <td width="100"><b>Address</b></td>
-                    <td width="1000"> <textarea style="width:400px;" name="address" rows="5">{{$user->user_details->address}}</textarea></td>
                   </table>
                 </li>
               </ul>

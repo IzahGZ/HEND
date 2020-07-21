@@ -35,12 +35,12 @@ class scheduleMRPDate implements ShouldQueue
         $checkMRP = mrp::all();
         $projects = Project::all();
         $checkMrpRawMaterial = MrpRawMaterial::all();
-        $first_day = today();
+        $first_day = today()->subDays(14);
         if(count($checkMRP) == 0 && count($checkMrpRawMaterial) == 0){
             foreach($projects as $project){
                 // dd($project->materials);
                 foreach($project->materials as $item){
-                    for($i=1; $i<=31; $i++){
+                    for($i=1; $i<=45; $i++){
                         $mrp_raw_material = new MrpRawMaterial;
                         $mrp_raw_material->date = $first_day;
                         $mrp_raw_material->product_id = $project->product_id;
@@ -49,10 +49,10 @@ class scheduleMRPDate implements ShouldQueue
                         //Add one day onto the timestamp / counter
                         $first_day = $first_day->addDays(1);
                     }
-                    $first_day = today();
+                    $first_day = today()->subDays(14);
                 }
-                $first_day = today();
-                for($i=1; $i<=31; $i++){
+                $first_day = today()->subDays(14);
+                for($i=1; $i<=45; $i++){
                     $mrp = new mrp;
                     $mrp->date = $first_day;
                     $mrp->product_id = $project->product_id;
@@ -60,7 +60,7 @@ class scheduleMRPDate implements ShouldQueue
                     //Add one day onto the timestamp / counter
                     $first_day = $first_day->addDays(1);
                 }
-                $first_day = today();
+                $first_day = today()->subDays(14);
             } 
         }
         else{

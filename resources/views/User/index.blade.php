@@ -29,12 +29,19 @@
       <div class="col-xs-12">
         <div class="box">
           <div class="box-header">
+            @include('flash-message')
+            <div class="alert alert-info alert-dismissible">
+              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+              <h4><i class="icon fa fa-info"></i> Take Note!</h4>
+              The default password for each user is the combination of "hend_" + user email.<br>
+              Ex: hend_admin@gmail.com
+            </div>
             {{-- <h3 class="box-title">Data Table With Full Features</h3> --}}
-            <a href="{{ route('order.create') }}" type="button" class="btn btn-info pull-right"><b>+ Order </b></a>
+            <a href="{{ route('user.create') }}" type="button" class="btn btn-info pull-right"><b>+ User </b></a>
           </div>
           <!-- /.box-header -->
           <div class="box-body">
-            @include('Order.table')
+            @include('User.table')
           </div>
           <!-- /.box-body -->
         </div>
