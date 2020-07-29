@@ -53,15 +53,20 @@
         <td style="background-color:#f2caca; color: black;">{{$inventoryStockTransaction->transaction_type->name}}
         </td>
         <td style="background-color:#f2caca; color: black;">{{$inventoryStockTransaction->inventory_category->name}}</td>
-        <td style="background-color:#f2caca; color: black;">@if( !empty($inventoryStockTransaction->grn->grn_number)) 
-          {{$inventoryStockTransaction->po_item->raw_material->name}} @endif
-          @if( !empty($inventoryStockTransaction->wo->work_order_no)) 
+        <td style="background-color:#f2caca; color: black;">
+          @if( !empty($inventoryStockTransaction->grn->grn_number)) 
+          {{$inventoryStockTransaction->po_item->raw_material->name}} 
+          {{-- @endif --}}
+          @elseif( !empty($inventoryStockTransaction->wo->work_order_no)) 
             @if($inventoryStockTransaction->category_id == 1)
               {{$inventoryStockTransaction->raw_material_wo->name}} 
             @endif
             @if($inventoryStockTransaction->category_id == 2)
               {{$inventoryStockTransaction->product->name}} 
             @endif
+          {{-- @endif --}}
+          @else 
+            {{$inventoryStockTransaction->product->name}} 
           @endif
         </td>
         <td style="background-color:#f2caca; color: black;">@if( !empty($inventoryStockTransaction->grn->grn_number)) 

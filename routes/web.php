@@ -48,6 +48,8 @@ Route::get('order', ['as'=> 'order.index', 'uses' => 'OrderController@index']);
 Route::get('order/create', 'OrderController@create')->name('order.create');
 Route::post('ordersStore', ['as'=> 'orders.store', 'uses' => 'OrderController@store']);
 Route::get('order/download/{id}', 'OrderController@downloadPDF')->name('order.download');
+Route::get('order/{id}/do', array('as' => 'order.do', 'uses' => 'OrderController@getDO'));
+Route::get('order/{id}/confirm-do', array('as' => 'order.confirm-do', 'uses' => 'OrderController@getModalDO'));
 
 //CUSTOMER=======================================================================================================================================
 Route::get('customer', ['as'=> 'customer.index', 'uses' => 'CustomerController@index']);

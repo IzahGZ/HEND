@@ -18,18 +18,18 @@
           <td>{{$loop->iteration}}</td>
           <td>{{$rawMaterial->name}}</td>
           <td>
-            @if($rawMaterial->current_stock > $rawMaterial->safety_stock)
-            <span style="color:#00a65a">{{$rawMaterial->current_stock}}</span></td>
-          @else 
+            @if($rawMaterial->current_stock < $rawMaterial->safety_stock || $rawMaterial->current_stock < 0)
             <span style="color:#dd4b39">{{$rawMaterial->current_stock}}</span></td>
+          @else 
+          <span style="color:#00a65a">{{$rawMaterial->current_stock}}</span></td>
           @endif
           <td>{{$rawMaterial->safety_stock}}</td>
           <td>{{$rawMaterial->uoms->name}}</td>
           <td>
-            @if($rawMaterial->current_stock > $rawMaterial->safety_stock)
-              <span class="label label-success">In Stock</span></td>
-            @else 
+            @if($rawMaterial->current_stock < $rawMaterial->safety_stock || $rawMaterial->current_stock < 0)
               <span class="label label-danger">Critical</span></td>
+            @else 
+            <span class="label label-success">In Stock</span></td>
             @endif
           @if(auth()->user()->user_type == 3 || auth()->user()->user_type == 4 || auth()->user()->user_type == 2)
           <td><a href="{{ route('rawMaterial.edit', $rawMaterial->id ) }}">

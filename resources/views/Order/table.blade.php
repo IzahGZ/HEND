@@ -22,28 +22,33 @@
         <td> 
           <a href="{{ route('order.download', $orders->id ) }}" target="_blank">
             <i class="fa fa-info" data-name="info" data-size="18" data-loop="true" title="view customer"></i>
-          </a>
+          </a> &nbsp;&nbsp;
+          @if($orders->system_status->id == 6) 
+          <a href="{{ route('order.confirm-do', $orders->id ) }}" class="label label-default" 
+            style="background-color:#ffe600; color:white;" data-toggle="modal" data-target="#delivery_confirm" 
+            data-id="{{ route('order.do', $orders->id ) }}">Deliver Item</a><br>
+          @endif
         </td>
       </tr>
       @endforeach
   </table>
 
 <!-- The modal -->
-<div class="modal fade" id="delete_confirm" tabindex="-1" role="dialog" aria-labelledby="user_delete_confirm_title" aria-hidden="true">
+<div class="modal fade" id="delivery_confirm" tabindex="-1" role="dialog" aria-labelledby="user_delete_confirm_title" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-          <h4 class="modal-title" id="deleteLabel">Delete Item</h4>
+          <h4 class="modal-title" id="deleteLabel">Deliver Items to Customer</h4>
         </div>
           <div class="modal-body">
-            Are you sure to delete this Item?
+            Generate Delivery Order (DO)?
           </div>
             <div class="modal-footer">
               <a type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</a>
-              <a  type="button" class="btn btn-danger Remove_square">Delete</a>
+              <a  type="button" class="btn btn-danger Remove_square">Yes</a>
             </div>
        </div>
     </div>
@@ -59,11 +64,11 @@
     $('#example1').DataTable()
   })
 
-  $('#delete_confirm').on('show.bs.modal', function (event) {
-                      var button = $(event.relatedTarget)
-                       var $recipient = button.data('id');
-                      var modal = $(this);
-                      modal.find('.modal-footer a').prop("href",$recipient);
-                  })
+  $('#delivery_confirm').on('show.bs.modal', function (event) {
+      var button = $(event.relatedTarget)
+        var $recipient = button.data('id');
+      var modal = $(this);
+      modal.find('.modal-footer a').prop("href",$recipient);
+  })
 </script>
 @endpush

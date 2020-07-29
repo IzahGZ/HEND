@@ -8,13 +8,14 @@ use App\Order;
 use App\Product;
 use App\Project;
 use App\Customer;
-use App\MrpRawMaterial;
 use App\OrderItem;
-use App\ProductionCapacity;
-use App\ProjectMaterial;
-use App\RawMaterialSupplier;
 use Carbon\Carbon;
+use App\MrpRawMaterial;
+use App\ProjectMaterial;
+use App\ProductionCapacity;
+use App\RawMaterialSupplier;
 use Illuminate\Http\Request;
+use App\InventoryStockTransaction;
 
 class OrderController extends Controller
 {
@@ -216,5 +217,42 @@ class OrderController extends Controller
     {
         $orders = Order::find($id);
         return view('Order.download', compact('orders'));
+    }
+
+    public function getModalDO($id = null)
+      {
+          $error = '';
+          $model = '';
+          $confirm_route =  route('order.do',['id'=>$id]);
+          return view('order/modal_confirmation', compact('error','model', 'confirm_route'));
+
+      }
+
+      public function getDO($id = null)
+    {
+        $order = Order::find($id);
+        $order->status = 14;
+        $products = Product::all();
+        foreach($order->order_item as $item){
+            $inventoryStockTransaction = new InventoryStockTransaction();
+            $inventoryStockTransaction->transaction_id = 2;
+            $inventoryStockTransaction->grn_id = 0;
+            $inventoryStockTransaction->wo_id = 0;
+            $inventoryStockTransaction->transaction_by = "Izah Atirah";
+            $inventoryStockTransaction->quantity = $item->quantity;
+            $inventoryStockTransaction->category_id = 2;
+            $inventoryStockTransaction->item_id = $item->item_id;
+            $inventoryStockTransaction->save();
+            foreach($products as $product){
+                if($item->item_id == $product->id){
+                    $product->current_stock = $product->current_stock - $item->quantity;
+                    $product->save();
+                }
+            }
+        }
+        
+        $order->save();
+        
+        return redirect(route('order.index'));
     }
 }

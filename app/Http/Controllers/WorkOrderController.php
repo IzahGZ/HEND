@@ -54,7 +54,7 @@ class WorkOrderController extends Controller
         $mrp->save();
         $create = $WorkOrder->save();
 
-        return redirect(route('mrp.index'))->with('success', Lang::get('message.success.create'));
+        return redirect(route('workOrder.index'))->with('success', Lang::get('message.success.create'));
 
     }
 

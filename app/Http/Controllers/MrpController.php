@@ -53,12 +53,12 @@ class MrpController extends Controller
         $mrp = mrp::where('date', $first_day)->where('product_id', $request->project_id)->get();
         $product = Product::find($request->project_id);
         // dd($mrp);
-        if ($mrp->first()->on_hand == 0) {
+        // if ($mrp->first()->on_hand == 0) {
             foreach ($dates as $item) {
                 $item->on_hand = $product->current_stock;
                 $item->save();
             }
-        }
+        // }
         if(auth()->user()->user_type == 5 || auth()->user()->user_type == 6){
             $processes = ProjectProcess::where('project_id', $request->project_id)->get();
             $manufacturing_time = 0;
@@ -135,12 +135,12 @@ class MrpController extends Controller
         $mrp = mrp::where('date', $first_day)->where('product_id', $id)->get();
         $product = Product::find($id);
         $Projects = Project::where('product_id', $id)->get(); 
-        if ($mrp->first()->on_hand == 0) {
+        // if ($mrp->first()->on_hand == 0) {
             foreach ($dates as $item) {
                 $item->on_hand = $product->current_stock;
                 $item->save();
             }
-        }
+        // }
         
         // $Projects = Project::with('materials')->where('product_id', $id);
         $allMrps = MrpRawMaterial::orderBy('date', 'ASC')->get(); // formula purposes
@@ -241,15 +241,14 @@ class MrpController extends Controller
                                 }
                             }
                             if($raw_materials->pivot->lot_sizing_id == 3){
-                                // abs($initial);
+                                // dump($raw_materials->name.": ".$EPP);
                                 if($combine_lot < $EPP){
-                                    $curr_index = $index-1;
+                                    $curr_index = $index - 1;
+                                    $prev_index = $index + 1;
                                     foreach ($mrp_raw_material as $index1 => $nested_each_date) {
-                                        if($index1 > $curr_index ) {
+                                        if($index1 > $curr_index && $index1 < $prev_index) {
                                             $combine_lot = $combine_lot + $mrp_raw_material[$curr_index + 1]->quantity;
-                                            // dump("start: ".$curr_index);
                                             if($combine_lot > $EPP){
-                                                // dump("end: ".$curr_index);
                                                 $combine_lot = $combine_lot - $mrp_raw_material[$curr_index + 1]->quantity;
                                                 $mrp_raw_material[$curr_index - 1 ]->order_receipt = $combine_lot;
                                                 $mrp_raw_material[$curr_index - 1 ]->save();
@@ -257,16 +256,30 @@ class MrpController extends Controller
                                                     $mrp_raw_material[$curr_index - 1 - $shortest_lead_time]->order_release = $combine_lot;
                                                     $mrp_raw_material[$curr_index - 1 - $shortest_lead_time]->save();
                                                 }
-                                                break;
+                                                $total = $combine_lot - abs($initial);
+                                                $each_date->on_hand = $total;
+                                                $initial = $total;
+                                                $combine_lot = 0;
+                                            }
+                                            else{
+                                                // if(($index1+2))
+                                                $mrp_raw_material[$curr_index - 1 ]->order_receipt = $combine_lot;
+                                                $mrp_raw_material[$curr_index - 1 ]->save();
+                                                if ($curr_index - $shortest_lead_time >= 0) {
+                                                    $mrp_raw_material[$curr_index - 1 - $shortest_lead_time]->order_release = $combine_lot;
+                                                    $mrp_raw_material[$curr_index - 1 - $shortest_lead_time]->save();
+                                                }
+                                                $total = $combine_lot - abs($initial);
+                                                $each_date->on_hand = $total;
+                                                $initial = $total;
                                             }
                                         }
                                     }
-                                    $net  = abs($initial);
-                                    $total = $combine_lot - $net;
-                                    $each_date->on_hand = $total;
-                                    $initial = $total;
+                                    // $total = $combine_lot - abs($initial);
+                                    // $each_date->on_hand = $total;
+                                    // $initial = $total;
                                 }
-                                $combine_lot = 0;
+                                
                             }
                         }
                     }
@@ -280,9 +293,7 @@ class MrpController extends Controller
                         $each_date->net_requirement = abs($balance);
                         if($raw_materials->pivot->lot_sizing_id == 3){
                             if(abs($balance)< $EPP);
-                                $lot_size = abs($balance);
-                                $combine_lot = $lot_size;
-                                // dump($combine_lot);
+                                $combine_lot = abs($balance);
                         }
                     }
                     $each_date->save();
@@ -373,7 +384,7 @@ class MrpController extends Controller
         $mrpRawMaterial->pr_id = $rop->id;
         $mrpRawMaterial->save();
 
-        return redirect(route('mrp.index'));
+        return redirect(route('requestOfPurchase.index'));
 
     }
 
