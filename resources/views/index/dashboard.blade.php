@@ -181,7 +181,7 @@
 
             <div class="info-box-content">
               <span class="info-box-text">Amount Raised</span>
-              <span class="info-box-number">5,200</span>
+              <span class="info-box-number">{{$total_donorRM}}</span>
 
               <div class="progress">
                 <div class="progress-bar" style="width: 100%"></div>
@@ -291,6 +291,25 @@
             <!-- /.box-body -->
           </div>
           <!-- /.box -->
+
+          <!-- LINE CHART RAW MATERIAL USED -->
+          <div class="box box-info" style="height: 330px;">
+            <div class="box-header with-border">
+              <h3 class="box-title">Raw Material Used Vs Month</h3>
+
+              <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+              </div>
+            </div>
+            <div class="box-body">
+              <div class="chart">
+                <canvas id="lineChart5" style="height:250px"></canvas>
+              </div>
+            </div>
+            <!-- /.box-body -->
+          </div>
         </div>
         <div class="col-md-6">
           <!-- BAR CHART ORDERS-->
@@ -561,6 +580,49 @@
       ]
     }
 
+    //- LINE CHART RAW MATERIAL -
+    //- LINE CHART ORDERS -
+    var areaChartCanvas5 = $('#lineChart5').get(0).getContext('2d')
+    var areaChart5       = new Chart(areaChartCanvas5)
+    
+    const RawMaterialByMonthRM = @JSON($RawMaterialByMonthRM);
+    const chartData5 = Object.entries(RawMaterialByMonthRM).reduce((acc, [month, item]) => {
+    const carry = Object.entries(item).map(([name, quantity]) => { 
+      const index = acc.findIndex(({label}) => label === name);
+      const total = acc[index]?.data || Array(12).fill().map(() => 0); 
+      console.log({index, total})
+
+      if (index !== -1) {
+        total[month-1] = total[month-1] ? total[month-1] + quantity : quantity;
+        console.log({index});
+        acc[index] = {...acc[index], data: total};
+      } else {
+        total[month-1] = quantity;
+        const color = getRandomColor();
+        acc = [
+          ...acc,
+          {
+            label               : name,
+            fillColor           : color,
+            strokeColor         : color,
+            pointColor          : color,
+            pointStrokeColor    : color,
+            pointHighlightFill  : '#fff',
+            pointHighlightStroke: 'rgba(220,220,220,1)',
+            data                : total
+          },
+        ]
+      }
+    })
+      return acc;
+    }, [])
+    console.log({chartData5})
+
+    var areaChartData5 = {
+      labels  : ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August'],
+      datasets: chartData5
+    }
+
     //- LINE CHART ORDERS -
     var areaChartCanvas = $('#lineChart1').get(0).getContext('2d')
     var areaChart       = new Chart(areaChartCanvas)
@@ -647,6 +709,7 @@
     areaChart2.Line(areaChartData2, areaChartOptions)
     areaChart3.Line(areaChartData3, areaChartOptions)
     areaChart4.Line(areaChartData4, areaChartOptions)
+    areaChart5.Line(areaChartData5, areaChartOptions)
 
     //-------------
     //- LINE CHART -
@@ -678,6 +741,13 @@
     var lineChartOptions         = areaChartOptions
     lineChartOptions.datasetFill = true
     lineChart4.Line(areaChartData4, lineChartOptions)
+
+    // LINE CHART PROFIT
+    var lineChartCanvas5          = $('#lineChart5').get(0).getContext('2d')
+    var lineChart5                = new Chart(lineChartCanvas5)
+    var lineChartOptions         = areaChartOptions
+    lineChartOptions.datasetFill = false
+    lineChart5.Line(areaChartData5, lineChartOptions)
     
   })
 </script>

@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Customer;
+use App\Donor;
 use App\Order;
 use App\WorkOrder;
 use App\PurchaseOrder;
 use App\GoodReceiveNote;
+use App\InventoryStockTransaction;
 use App\OrderItem;
 use App\Product;
 use App\Project;
@@ -141,6 +143,7 @@ class DashboardController extends Controller
             
             return $acc;
         }, $graphInitial); // <== ini initial data which is an array of months
+
         //Get total orders in Unit
         $productsByMonth = $allProducts->reduce(function ($acc, $item) {
             $quantity = $item->quantity;
@@ -257,6 +260,30 @@ class DashboardController extends Controller
         $startOfMonth = $startOfMonth->addMonths();
         $endOfMonth = $endOfMonth->addDays(1)->endOfMonth();
         };
+        $AllTransactionRawMaterials = InventoryStockTransaction::where('category_id', 1)->where('wo_id', '!=' , 0)->get();
+        //Get the total orders in RM
+        $RawMaterialByMonthRM = $AllTransactionRawMaterials->reduce(function ($acc, $item) {
+            $quantity = $item->quantity;
+            // dump($item->raw_material_wo->name);
+            $rawMaterialName = $item->raw_material_wo->name;
+            $month = Carbon::parse($item->created_at)->month;
+            if (isset($acc[$month][$rawMaterialName])) {
+                $acc[$month][$rawMaterialName] += $quantity; // iteration
+            }
+
+            else{
+                $acc[$month][$rawMaterialName] = $quantity;
+            }
+            
+            return $acc;
+        }, $graphInitial); // <== ini initial data which is an array of months
+        // dd($RawMaterialByMonthRM);
+
+        $donors = Donor::all();
+        $total_donorRM = 0;
+        foreach($donors as $donor){
+            $total_donorRM = $total_donorRM + $donor->purchase_value;
+        }
         return view(
             'index.dashboard',
             compact(
@@ -294,7 +321,9 @@ class DashboardController extends Controller
                 'WoArray',
                 'ProfitArray',
                 'AllSchools',
-                'student_no'
+                'student_no',
+                'RawMaterialByMonthRM',
+                'total_donorRM'
             )
         );
     }

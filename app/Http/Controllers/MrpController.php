@@ -241,7 +241,21 @@ class MrpController extends Controller
                                 }
                             }
                             if($raw_materials->pivot->lot_sizing_id == 3){
-                                // dump($raw_materials->name.": ".$EPP);
+                                $curr_index = $index - 1;
+                                $prev_index = $index + 1;
+                                $max_index = 0;
+                                $temp = 0;
+                                foreach ($mrp_raw_material as $index1 => $nested_each_date) {
+                                    if($index1 > $curr_index && $index1 < $prev_index) {
+                                        $temp = $index1;
+                                        if($temp > $max_index){
+                                            $max_index = $temp;
+                                        }
+                                        $curr_index++;
+                                        $prev_index++;
+                                    }
+                                    
+                                }
                                 if($combine_lot < $EPP){
                                     $curr_index = $index - 1;
                                     $prev_index = $index + 1;
@@ -250,36 +264,34 @@ class MrpController extends Controller
                                             $combine_lot = $combine_lot + $mrp_raw_material[$curr_index + 1]->quantity;
                                             if($combine_lot > $EPP){
                                                 $combine_lot = $combine_lot - $mrp_raw_material[$curr_index + 1]->quantity;
-                                                $mrp_raw_material[$curr_index - 1 ]->order_receipt = $combine_lot;
-                                                $mrp_raw_material[$curr_index - 1 ]->save();
-                                                if ($curr_index - $shortest_lead_time >= 0) {
-                                                    $mrp_raw_material[$curr_index - 1 - $shortest_lead_time]->order_release = $combine_lot;
-                                                    $mrp_raw_material[$curr_index - 1 - $shortest_lead_time]->save();
+                                                $mrp_raw_material[$index - 1 ]->order_receipt = $combine_lot;
+                                                $mrp_raw_material[$index - 1 ]->save();
+                                                if ($index - $shortest_lead_time >= 0) {
+                                                    $mrp_raw_material[$index - 1 - $shortest_lead_time]->order_release = $combine_lot;
+                                                    $mrp_raw_material[$index - 1 - $shortest_lead_time]->save();
                                                 }
-                                                $total = $combine_lot - abs($initial);
-                                                $each_date->on_hand = $total;
-                                                $initial = $total;
-                                                $combine_lot = 0;
+                                                break;
                                             }
-                                            else{
-                                                // if(($index1+2))
-                                                $mrp_raw_material[$curr_index - 1 ]->order_receipt = $combine_lot;
-                                                $mrp_raw_material[$curr_index - 1 ]->save();
-                                                if ($curr_index - $shortest_lead_time >= 0) {
-                                                    $mrp_raw_material[$curr_index - 1 - $shortest_lead_time]->order_release = $combine_lot;
-                                                    $mrp_raw_material[$curr_index - 1 - $shortest_lead_time]->save();
+                                            if($combine_lot < $EPP){
+                                                if($index1 == ($max_index)){
+                                                    $mrp_raw_material[$index - 1 ]->order_receipt = $combine_lot;
+                                                    $mrp_raw_material[$index - 1 ]->save();
+                                                    if ($index - $shortest_lead_time >= 0) {
+                                                        $mrp_raw_material[$index - 1 - $shortest_lead_time]->order_release = $combine_lot;
+                                                        $mrp_raw_material[$index - 1 - $shortest_lead_time]->save();
+                                                    }
                                                 }
-                                                $total = $combine_lot - abs($initial);
-                                                $each_date->on_hand = $total;
-                                                $initial = $total;
+                                                $curr_index++;
+                                                $prev_index++;
                                             }
                                         }
                                     }
-                                    // $total = $combine_lot - abs($initial);
-                                    // $each_date->on_hand = $total;
-                                    // $initial = $total;
+                                    $total = $combine_lot - abs($initial);
+                                    // dump($total);
+                                    $each_date->on_hand = $total;
+                                    $initial = $total;
+                                    $combine_lot = 0;
                                 }
-                                
                             }
                         }
                     }
@@ -292,8 +304,9 @@ class MrpController extends Controller
                     if ($balance < 0) {
                         $each_date->net_requirement = abs($balance);
                         if($raw_materials->pivot->lot_sizing_id == 3){
-                            if(abs($balance)< $EPP);
+                            if(abs($balance)< $EPP){
                                 $combine_lot = abs($balance);
+                            }
                         }
                     }
                     $each_date->save();

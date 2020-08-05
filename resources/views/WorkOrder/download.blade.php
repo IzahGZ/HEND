@@ -280,7 +280,7 @@
                         <td class="no"  style="border:1px solid black">{{$loop->iteration}}</td>
                         <td class="text-left" style="border:1px solid black">{{$item->code}}</td>
                             <td class="text-left" style="border:1px solid black">{{$item->name}}</td>
-                            <td class="qty" style="border:1px solid black">{{$item->pivot->quantity}}</td>
+                            <td class="qty" style="border:1px solid black">{{$item->pivot->quantity*$workOrders->quantity}}</td>
                             <td class="total" style="border:1px solid black">{{$item->uoms->code}}</td>
                         </tr>
                         @endforeach
@@ -288,29 +288,6 @@
                 </table>
             </table>
             <table >
-                {{-- <tbody>
-                    <tr class="bg-white">
-                        <td class="bg-white text-left sign" colspan="4" style="border:none; font-size:15px"">{{$company[0]->company_name}} ({{$company[0]->registration_number}})</td>
-                        <td class="bg-white text-left" style="border:none"></td>
-                        <td class="bg-white text-right sign"style="border:none; font-size:15px" colspan="3">CONFIRMATION OF  ACCEPTANCE & E.&O.E.</td>
-                    </tr>
-                        <tr style="border:none">
-                        <td class="bg-white" colspan="4" style="border:none"></td>
-                        <td class="bg-white" colspan="1" style="border:none"></td>
-                        <td class="bg-white" colspan="3" style="border:none">&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td class="bg-white text-left sign" colspan="3" style="border:none; solid black ">
-                            <hr>
-                            AUTHORIZED SIGNATORY
-                        </td>
-                        <td class="bg-white" colspan="1" style="border:none"></td>
-                        <td class="bg-white text-right sign" colspan="3" style="border:none">
-                            <hr>
-                            COMPANY CHOP & SIGNATURE / DATE
-                        </td>
-                    </tr>
-                </tbody> --}}
             </table>
             </main>
         </div>
